@@ -1,0 +1,15 @@
+:host {
+  --icon-size: 40px;
+}
+
+.wrapper {
+  padding: calc(var(--icon-size) / 4);
+
+  border-radius: 50%;
+}
+
+.icon {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  background-size: var(--icon-size);
+}

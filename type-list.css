@@ -1,0 +1,17 @@
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list {
+  padding: 10px;
+  border-radius: 7px;
+  background-color: #69c423;
+  display: grid;
+  gap: 10px;
+}
+
+.icon {
+  --icon-size: 20px;
+}

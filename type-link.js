@@ -16,6 +16,16 @@ class TypeLink extends CustomElement {
     this.type = types[this.get('type')];
     this.style.backgroundColor = `var(--c-light-${this.type.id})`;
     this.id = 'link-' + this.type.id;
+    this.setAttribute('data_placement', this.calculatePlacement());
+
+    // this.label = this.shadow.add(
+    //   'div',
+    //   {
+    //     class: 'label'
+    //   }
+    // );
+    // this.label.textContent = this.type.name;
+    // this.label.style.backgroundColor = `var(--c-light-${this.type.id})`;
 
     this.details = this.shadow.add(
       'div',
@@ -23,8 +33,12 @@ class TypeLink extends CustomElement {
         class: 'details'
       }
     );
-    this.details.textContent = this.type.name;
-    this.details.style.backgroundColor = `var(--c-light-${this.type.id})`;
+    this.details.add(
+      'type-list',
+      {
+        type: this.type.id
+      }
+    );
 
     this.link = this.shadow.add(
       'a',
@@ -36,19 +50,32 @@ class TypeLink extends CustomElement {
     );
 
     this.icon = this.link.add(
-      'div',
+      'type-icon',
       {
-        class: 'icon'
+        type: this.type.id
       }
     )
-    this.icon.style.backgroundImage = `var(--icon-${this.type.id})`;
   }
 
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'checked') {
       this.link.href = '#' + (newValue === null ? this.type.id : '');
+      this.setAttribute('data_placement', this.calculatePlacement());
     }
+  }
+
+
+  calculatePlacement() {
+    const rect = this.getBoundingClientRect();
+    const horiz = rect.x > (window.innerWidth / 2) ? 'right' : 'left';
+    const vert = rect.y < rect.height
+      ? 'top'
+      : (window.innerHeight - rect.bottom) < rect.height
+        ? 'bottom'
+        : 'center';
+
+    return horiz + ' ' + vert;
   }
 }
 

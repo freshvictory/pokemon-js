@@ -1,6 +1,5 @@
 :host {
   --size: 60px;
-  --icon-size: 40px;
 }
 
 :host {
@@ -16,6 +15,7 @@
   border-radius: 50%;
 
   overflow: visible;
+  position: relative;
 }
 
 :host([hidden]) {
@@ -27,10 +27,21 @@
   z-index: 2;
 }
 
-:host([checked]) .details {
-  display: block;
-
+:host([checked]) .label {
   transform: translateY(50px);
+}
+
+:host([checked]) .details {
+  transform: scale(1);
+  margin: 0 10px;
+}
+
+:host([checked][data_placement*='left']) .details {
+  left: 100%;
+}
+
+:host([checked][data_placement*='right']) .details {
+  right: 100%;
 }
 
 :host([checked]) .shield {
@@ -38,13 +49,34 @@
   opacity: 0.5;
 }
 
+.label {
+  position: absolute;
+  padding: 3px 7px;
+  transform: scale(0);
+  transition: transform 300ms;
+  border-radius: 7px;
+}
+
+:host([data_placement*='left']) .details {
+  left: 0;
+}
+
+:host([data_placement*='right']) .details {
+  right: 0;
+}
+
+:host([data_placement*='top']) .details {
+  top: 0;
+}
+
+:host([data_placement*='bottom']) .details {
+  bottom: 0;
+}
+
 .details {
   position: absolute;
   transform: scale(0);
-  transition: transform 300ms;
-
-  padding: 3px 7px;
-  border-radius: 7px;
+  transition: right 300ms, left 300ms;
 }
 
 .info {
@@ -55,10 +87,4 @@
   padding: 10px;
 
   border-radius: 50%;
-}
-
-.icon {
-  width: var(--icon-size);
-  height: var(--icon-size);
-  background-size: var(--icon-size);
 }
