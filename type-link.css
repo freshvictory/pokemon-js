@@ -1,0 +1,64 @@
+:host {
+  --size: 60px;
+  --icon-size: 40px;
+}
+
+:host {
+  transition:
+    transform 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size);
+  height: var(--size);
+
+  border-radius: 50%;
+
+  overflow: visible;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+:host([checked]) {
+  transform: scale(1.5);
+  z-index: 2;
+}
+
+:host([checked]) .details {
+  display: block;
+
+  transform: translateY(50px);
+}
+
+:host([checked]) .shield {
+  display: block;
+  opacity: 0.5;
+}
+
+.details {
+  position: absolute;
+  transform: scale(0);
+  transition: transform 300ms;
+
+  padding: 3px 7px;
+  border-radius: 7px;
+}
+
+.info {
+  text-decoration: none;
+  color: inherit;
+  
+  box-sizing: border-box;
+  padding: 10px;
+
+  border-radius: 50%;
+}
+
+.icon {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  background-size: var(--icon-size);
+}
