@@ -17,20 +17,42 @@ class TypeList extends CustomElement {
       }
     );
 
+    let counter = 0;
     for (const type of this.type.relationships.counters) {
-      const relationship = this.list.add(
+      this.wrapper = this.list.add(
+        'span',
+        {
+          class: 'wrapper',
+          style: `--num: ${counter};`
+        }
+      );
+      const relationship = this.wrapper.add(
         'li',
         {
           class: 'relationship'
         }
       );
-      relationship.add(
+      const icon = relationship.add(
+        'div',
+        {
+          class: 'icon'
+        }
+      );
+      icon.add(
         'type-icon',
         {
           type: type,
-          class: 'icon'
+          style: `--icon-size: 20px;`
         }
-      )
+      );
+      relationship.add(
+        'div',
+        {
+          class: 'triangle'
+        }
+      );
+      
+      counter++;
     }
   }
 }

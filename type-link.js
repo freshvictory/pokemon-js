@@ -33,10 +33,11 @@ class TypeLink extends CustomElement {
         class: 'details'
       }
     );
-    this.details.add(
+    this.list =this.details.add(
       'type-list',
       {
-        type: this.type.id
+        type: this.type.id,
+        class: 'list'
       }
     );
 
@@ -61,7 +62,12 @@ class TypeLink extends CustomElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'checked') {
       this.link.href = '#' + (newValue === null ? this.type.id : '');
-      this.setAttribute('data_placement', this.calculatePlacement());
+      if (newValue === null) {
+        this.list.removeAttribute('checked');
+      } else {
+        this.setAttribute('data_placement', this.calculatePlacement());
+        this.list.setAttribute('checked', newValue);
+      }
     }
   }
 

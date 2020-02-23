@@ -32,16 +32,16 @@
 }
 
 :host([checked]) .details {
-  transform: scale(1);
-  margin: 0 10px;
+  transform: scale(1) translate(-50%, -50%);
+  /* margin: 0 10px; */
 }
 
 :host([checked][data_placement*='left']) .details {
-  left: 100%;
+  /* left: 100%; */
 }
 
 :host([checked][data_placement*='right']) .details {
-  right: 100%;
+  /* right: 100%; */
 }
 
 :host([checked]) .shield {
@@ -58,25 +58,25 @@
 }
 
 :host([data_placement*='left']) .details {
-  left: 0;
+  /* transform: translate(-50%, -50%) rotate(130deg); */
 }
 
-:host([data_placement*='right']) .details {
-  right: 0;
+:host([data_placement*='right']) .list {
+  --angle-multiplier: -1;
 }
 
-:host([data_placement*='top']) .details {
-  top: 0;
+:host([data_placement*='top']) .list {
+  --starting-angle: 90deg;
 }
 
 :host([data_placement*='bottom']) .details {
-  bottom: 0;
 }
 
 .details {
   position: absolute;
-  transform: scale(0);
-  transition: right 300ms, left 300ms;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .info {
@@ -87,4 +87,6 @@
   padding: 10px;
 
   border-radius: 50%;
+
+  position: relative;
 }
