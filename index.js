@@ -6,36 +6,12 @@ window.addEventListener(
 window.addEventListener(
   'load',
   (_) => route(location.hash)
-)
-
-
-
-const allTypes =
-  [
-    'normal',
-    'fighting',
-    'flying',
-    'poison',
-    'ground',
-    'rock',
-    'bug',
-    'ghost',
-    'steel',
-    'fire',
-    'water',
-    'grass',
-    'electric',
-    'psychic',
-    'ice',
-    'dragon',
-    'fairy',
-    'dark',
-  ];
+);
 
 
 function route(hash) {
   const type = hash.substring(1);
-  const shield = document.querySelector('.shield');
+  const shield = document.querySelector('#shield');
   shield.classList.remove('active');
 
   for (const link of document.querySelectorAll('type-link')) {

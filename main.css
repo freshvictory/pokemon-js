@@ -34,7 +34,7 @@ ul {
   pointer-events: auto;
 }
 
-.shield {
+#shield {
   pointer-events: none;
   position: absolute;
   top: 0;
@@ -46,7 +46,7 @@ ul {
   transition: opacity 300ms;
 }
 
-.shield.active {
+#shield.active {
   opacity: 0.5;
   pointer-events: auto;
 }
