@@ -75,7 +75,7 @@ class TypeLink extends CustomElement {
   calculatePlacement() {
     const rect = this.getBoundingClientRect();
     const horiz = rect.x > (window.innerWidth / 2) ? 'right' : 'left';
-    const vert = rect.y < rect.height
+    const vert = rect.y < (rect.height + 40)
       ? 'top'
       : (window.innerHeight - rect.bottom) < rect.height
         ? 'bottom'

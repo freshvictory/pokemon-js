@@ -11,35 +11,40 @@
         <link rel="stylesheet" href="components/type-icon.css"/>
         <link rel="stylesheet" href="components/type-list.css"/>
         <link rel="stylesheet" href="components/type-link.css"/>
+        <link rel="stylesheet" href="components/type-header.css"/>
         <link rel="stylesheet" href="types.css"/>
         <script src="index.js" defer></script>
         <script src="components/type-icon.js" type="module"></script>
         <script src="components/type-list.js" type="module"></script>
         <script src="components/type-link.js" type="module"></script>
+        <script src="components/type-header.js" type="module"></script>
     </head>
     <body>
         <div id="app">
-            <ul id="type-list">
-                <li><type-link type="normal"></type-link></li>
-                <li><type-link type="fighting"></type-link></li>
-                <li><type-link type="flying"></type-link></li>
-                <li><type-link type="poison"></type-link></li>
-                <li><type-link type="ground"></type-link></li>
-                <li><type-link type="rock"></type-link></li>
-                <li><type-link type="bug"></type-link></li>
-                <li><type-link type="ghost"></type-link></li>
-                <li><type-link type="steel"></type-link></li>
-                <li><type-link type="fire"></type-link></li>
-                <li><type-link type="water"></type-link></li>
-                <li><type-link type="grass"></type-link></li>
-                <li><type-link type="electric"></type-link></li>
-                <li><type-link type="psychic"></type-link></li>
-                <li><type-link type="ice"></type-link></li>
-                <li><type-link type="dragon"></type-link></li>
-                <li><type-link type="fairy"></type-link></li>
-                <li><type-link type="dark"></type-link></li>
-            </ul>
-            <a href="#" id="shield"></a>
+            <type-header></type-header>
+            <div id="list-container">
+                <ul id="type-list">
+                    <li><type-link type="normal"></type-link></li>
+                    <li><type-link type="fighting"></type-link></li>
+                    <li><type-link type="flying"></type-link></li>
+                    <li><type-link type="poison"></type-link></li>
+                    <li><type-link type="ground"></type-link></li>
+                    <li><type-link type="rock"></type-link></li>
+                    <li><type-link type="bug"></type-link></li>
+                    <li><type-link type="ghost"></type-link></li>
+                    <li><type-link type="steel"></type-link></li>
+                    <li><type-link type="fire"></type-link></li>
+                    <li><type-link type="water"></type-link></li>
+                    <li><type-link type="grass"></type-link></li>
+                    <li><type-link type="electric"></type-link></li>
+                    <li><type-link type="psychic"></type-link></li>
+                    <li><type-link type="ice"></type-link></li>
+                    <li><type-link type="dragon"></type-link></li>
+                    <li><type-link type="fairy"></type-link></li>
+                    <li><type-link type="dark"></type-link></li>
+                    <a href="#" id="shield"></a>
+                </ul>
+            </div>
         </a>
     </body>
 </html>
