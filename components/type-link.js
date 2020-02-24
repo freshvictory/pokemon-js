@@ -1,5 +1,5 @@
 import { CustomElement } from './custom-element.js';
-import { types } from './types.js';
+import { types } from '../types.js';
 
 class TypeLink extends CustomElement {
   static get observedAttributes() {

@@ -1,5 +1,5 @@
 :host {
-  --angle: 40deg;
+  --angle: 35deg;
   --starting-angle: 0deg;
   --angle-multiplier: 1;
 }
@@ -25,7 +25,7 @@ ul {
   bottom: 50%;
   left: 25%;
   transform-origin: bottom center;
-  transform: scale(0.5) rotate(var(--angle-calc));
+  transform: rotate(var(--angle-calc));
   transition: padding-bottom 300ms;
 }
 
@@ -34,9 +34,13 @@ ul {
   transform: rotate(var(--angle-calc));
 }
 
+.relationship {
+  pointer-events: auto;
+}
+
 .triangle {
 	position: absolute;
-	background-color: green;
+	background-color: #69c423;
   top: 45%;
   left: 50%;
 }

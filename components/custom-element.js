@@ -33,7 +33,7 @@ export class CustomElement extends HTMLElement {
 
 
   attachStyles(cssPath) {
-    this.shadow.add('link', { rel: 'stylesheet', href: cssPath});
+    this.shadow.add('link', { rel: 'stylesheet', href: '/components/' + cssPath});
   }
 
   get(attr) {
