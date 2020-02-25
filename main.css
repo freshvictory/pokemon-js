@@ -3,12 +3,14 @@
 
   --c-background: #fff;
   --c-background-light: #eee;
+  --c-highlighted: #ccc;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --c-background: #333;
     --c-background-light: #555;
+    --c-highlighted: #888;
   }
 }
 

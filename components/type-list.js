@@ -9,16 +9,22 @@ class TypeList extends CustomElement {
 
   connectedCallback() {
     this.type = types[this.get('type')];
+    this.relationship = this.get('list');
 
+    this.addList(this.relationship, 'away');
+  }
+
+
+  addList(id, direction) {
     this.list = this.shadow.add(
       'ul',
       {
-        class: 'list'
+        class: 'list ' + id
       }
     );
 
     let counter = 0;
-    for (const type of this.type.relationships.counters) {
+    for (const type of this.type.relationships[id]) {
       this.wrapper = this.list.add(
         'span',
         {
@@ -48,13 +54,13 @@ class TypeList extends CustomElement {
       relationship.add(
         'triangle-icon',
         {
-          style: `--color: var(--c-counter)`,
-          class: 'away'
+          style: `--color: var(--c-${id})`,
+          class: direction
         }
       );
       
       counter++;
-    }
+    }    
   }
 }
 

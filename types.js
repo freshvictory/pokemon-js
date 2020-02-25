@@ -6,18 +6,18 @@ export const types =
     secondary: null,
     name: 'Normal',
     relationships: {
-      effectiveAgainst: [],
-      weakAgainst: [
+      effective: [],
+      weak: [
         'rock',
         'steel'
       ],
-      ineffectiveAgainst: [
+      ineffective: [
         'ghost'
       ],
-      resistantTo: [
+      resistant: [
         'ghost'
       ],
-      counters: [
+      counter: [
         'fighting'
       ]
     }
@@ -30,29 +30,29 @@ export const types =
     secondary: null,
     name: 'Fighting',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'normal',
         'rock',
         'steel',
         'ice',
         'dark'
       ],
-      weakAgainst: [
+      weak: [
         'flying',
         'poison',
         'psychic',
         'bug',
         'fairy'
       ],
-      ineffectiveAgainst: [
+      ineffective: [
         'ghost'
       ],
-      resistantTo: [
+      resistant: [
         'rock',
         'bug',
         'dark'
       ],
-      counters: [
+      counter: [
         'flying',
         'psychic',
         'fairy'
@@ -67,24 +67,24 @@ export const types =
     secondary: null,
     name: 'Flying',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'fighting',
         'bug',
         'grass'
       ],
-      weakAgainst: [
+      weak: [
         'rock',
         'steel',
         'electric'
       ],
-      ineffectiveAgainst: [],
-      resistantTo: [
+      ineffective: [],
+      resistant: [
         'fighting',
         'ground',
         'bug',
         'grass'
       ],
-      counters: [
+      counter: [
         'rock',
         'electric',
         'ice'
@@ -99,26 +99,26 @@ export const types =
     secondary: null,
     name: 'Poison',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'grass',
         'fairy'
       ],
-      weakAgainst: [
+      weak: [
         'poison',
         'ground',
         'rock',
         'ghost'
       ],
-      ineffectiveAgainst: [
+      ineffective: [
         'steel'
       ],
-      resistantTo: [
+      resistant: [
         'fighting',
         'poison',
         'grass',
         'fairy'
       ],
-      counters: [
+      counter: [
         'ground',
         'psychic'
       ]
@@ -132,26 +132,26 @@ export const types =
     secondary: null,
     name: 'Ground',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'poison',
         'rock',
         'steel',
         'fire',
         'electric'
       ],
-      weakAgainst: [
+      weak: [
         'bug',
         'grass'
       ],
-      ineffectiveAgainst: [
+      ineffective: [
         'flying'
       ],
-      resistantTo: [
+      resistant: [
         'poison',
         'rock',
         'electric'
       ],
-      counters: [
+      counter: [
         'water',
         'grass',
         'ice'
@@ -166,25 +166,25 @@ export const types =
     secondary: null,
     name: 'Rock',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'flying',
         'bug',
         'fire',
         'ice'
       ],
-      weakAgainst: [
+      weak: [
         'fighting',
         'ground',
         'steel'
       ],
-      ineffectiveAgainst: [],
-      resistantTo: [
+      ineffective: [],
+      resistant: [
         'normal',
         'flying',
         'poison',
         'fire'
       ],
-      counters: [
+      counter: [
         'fighting',
         'ground',
         'steel',
@@ -201,12 +201,12 @@ export const types =
     secondary: null,
     name: 'Bug',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'grass',
         'psychic',
         'dark'
       ],
-      weakAgainst: [
+      weak: [
         'fighting',
         'flying',
         'poison',
@@ -215,13 +215,13 @@ export const types =
         'fire',
         'fairy'
       ],
-      ineffectiveAgainst: [],
-      resistantTo: [
+      ineffective: [],
+      resistant: [
         'fighting',
         'ground',
         'grass'
       ],
-      counters: [
+      counter: [
         'flying',
         'rock',
         'fire'
@@ -236,23 +236,23 @@ export const types =
     secondary: null,
     name: 'Ghost',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'ghost',
         'psychic'
       ],
-      weakAgainst: [
+      weak: [
         'dark'
       ],
-      ineffectiveAgainst: [
+      ineffective: [
         'normal'
       ],
-      resistantTo: [
+      resistant: [
         'normal',
         'fighting',
         'poison',
         'bug'
       ],
-      counters: [
+      counter: [
         'ghost',
         'dark'
       ]
@@ -266,19 +266,19 @@ export const types =
     secondary: null,
     name: 'Steel',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'rock',
         'ice',
         'fairy'
       ],
-      weakAgainst: [
+      weak: [
         'steel',
         'fire',
         'water',
         'electric'
       ],
-      ineffectiveAgainst: [],
-      resistantTo: [
+      ineffective: [],
+      resistant: [
         'normal',
         'flying',
         'poison',
@@ -291,7 +291,7 @@ export const types =
         'dragon',
         'fairy'
       ],
-      counters: [
+      counter: [
         'fighting',
         'ground',
         'fire'
@@ -306,20 +306,20 @@ export const types =
     secondary: null,
     name: 'Fire',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'bug',
         'steel',
         'grass',
         'ice'
       ],
-      weakAgainst: [
+      weak: [
         'rock',
         'fire',
         'water',
         'dragon'
       ],
-      ineffectiveAgainst: [],
-      resistantTo: [
+      ineffective: [],
+      resistant: [
         'bug',
         'steel',
         'fire',
@@ -327,7 +327,7 @@ export const types =
         'ice',
         'fairy'
       ],
-      counters: [
+      counter: [
         'ground',
         'rock',
         'water'
@@ -342,24 +342,24 @@ export const types =
     secondary: null,
     name: 'Water',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'ground',
         'rock',
         'fire'
       ],
-      weakAgainst: [
+      weak: [
         'water',
         'grass',
         'dragon'
       ],
-      ineffectiveAgainst: [],
-      resistantTo: [
+      ineffective: [],
+      resistant: [
         'steel',
         'fire',
         'water',
         'ice'
       ],
-      counters: [
+      counter: [
         'grass',
         'electric'
       ]
@@ -373,12 +373,12 @@ export const types =
     secondary: null,
     name: 'Grass',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'ground',
         'rock',
         'water'
       ],
-      weakAgainst: [
+      weak: [
         'flying',
         'poison',
         'bug',
@@ -387,14 +387,14 @@ export const types =
         'grass',
         'dragon'
       ],
-      ineffectiveAgainst: [],
-      resistantTo: [
+      ineffective: [],
+      resistant: [
         'ground',
         'water',
         'grass',
         'electric'
       ],
-      counters: [
+      counter: [
         'flying',
         'poison',
         'bug',
@@ -411,24 +411,24 @@ export const types =
     secondary: null,
     name: 'Electric',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'flying',
         'water'
       ],
-      weakAgainst: [
+      weak: [
         'grass',
         'electric',
         'dragon'
       ],
-      ineffectiveAgainst: [
+      ineffective: [
         'ground'
       ],
-      resistantTo: [
+      resistant: [
         'flying',
         'steel',
         'electric'
       ],
-      counters: [
+      counter: [
         'ground'
       ]
     }
@@ -441,22 +441,22 @@ export const types =
     secondary: null,
     name: 'Psychic',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'fighting',
         'poison'
       ],
-      weakAgainst: [
+      weak: [
         'steel',
         'psychic'
       ],
-      ineffectiveAgainst: [
+      ineffective: [
         'dark'
       ],
-      resistantTo: [
+      resistant: [
         'fighting',
         'psychic'
       ],
-      counters: [
+      counter: [
         'bug',
         'ghost',
         'dark'
@@ -471,23 +471,23 @@ export const types =
     secondary: null,
     name: 'Ice',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'flying',
         'ground',
         'grass',
         'dragon'
       ],
-      weakAgainst: [
+      weak: [
         'steel',
         'fire',
         'water',
         'ice'
       ],
-      ineffectiveAgainst: [],
-      resistantTo: [
+      ineffective: [],
+      resistant: [
         'ice'
       ],
-      counters: [
+      counter: [
         'fighting',
         'rock',
         'steel',
@@ -503,22 +503,22 @@ export const types =
     secondary: null,
     name: 'Dragon',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'dragon'
       ],
-      weakAgainst: [
+      weak: [
         'steel'
       ],
-      ineffectiveAgainst: [
+      ineffective: [
         'fairy'
       ],
-      resistantTo: [
+      resistant: [
         'fire',
         'water',
         'grass',
         'electric'
       ],
-      counters: [
+      counter: [
         'ice',
         'dragon',
         'fairy'
@@ -533,24 +533,24 @@ export const types =
     secondary: null,
     name: 'Fairy',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'fighting',
         'dragon',
         'dark'
       ],
-      weakAgainst: [
+      weak: [
         'poison',
         'steel',
         'fire'
       ],
-      ineffectiveAgainst: [],
-      resistantTo: [
+      ineffective: [],
+      resistant: [
         'fighting',
         'bug',
         'dragon',
         'dark'
       ],
-      counters: [
+      counter: [
         'poison',
         'steel'
       ]
@@ -564,22 +564,22 @@ export const types =
     secondary: null,
     name: 'Dark',
     relationships: {
-      effectiveAgainst: [
+      effective: [
         'ghost',
         'psychic'
       ],
-      weakAgainst: [
+      weak: [
         'fighting',
         'dark',
         'fairy'
       ],
-      ineffectiveAgainst: [],
-      resistantTo: [
+      ineffective: [],
+      resistant: [
         'ghost',
         'psychic',
         'dark'
       ],
-      counters: [
+      counter: [
         'fighting',
         'bug',
         'fairy'

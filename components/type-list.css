@@ -1,5 +1,5 @@
 :host {
-  --angle: 35deg;
+  --angle: 33deg;
   --starting-angle: 0deg;
   --angle-multiplier: 1;
 }
@@ -52,6 +52,10 @@ triangle-icon {
   left: 50%;
   transform: translateX(-50%);
   position: absolute;
+}
+
+triangle-icon.toward {
+  top: 46%;
 }
 
 triangle-icon.away {

@@ -3,7 +3,7 @@ import { types } from '../types.js';
 
 class TypeLink extends CustomElement {
   static get observedAttributes() {
-    return ['checked'];
+    return [ 'checked', 'list' ];
   }
 
 
@@ -33,13 +33,24 @@ class TypeLink extends CustomElement {
         class: 'details'
       }
     );
-    this.list =this.details.add(
-      'type-list',
-      {
-        type: this.type.id,
-        class: 'list'
-      }
-    );
+    this.lists = {
+      counter: this.details.add(
+        'type-list',
+        {
+          type: this.type.id,
+          class: 'list',
+          list: 'counter'
+        }
+      ),
+      resistant: this.details.add(
+        'type-list',
+        {
+          type: this.type.id,
+          class: 'list',
+          list: 'resistant'
+        }
+      )
+    }
 
     this.link = this.shadow.add(
       'a',
@@ -63,11 +74,17 @@ class TypeLink extends CustomElement {
     if (name === 'checked') {
       this.link.href = '#' + (newValue === null ? this.type.id : '');
       if (newValue === null) {
-        this.list.removeAttribute('checked');
+        this.lists[this.get('list')].removeAttribute('checked');
       } else {
         this.setAttribute('data_placement', this.calculatePlacement());
-        this.list.setAttribute('checked', newValue);
+        this.lists[this.get('list')].setAttribute('checked', newValue);
       }
+    } else if (name === 'list') {
+      if (oldValue) {
+        this.lists[oldValue].removeAttribute('checked');
+      }
+
+      this.lists[newValue].setAttribute('checked', '');
     }
   }
 

@@ -1,5 +1,7 @@
 :host {
   --size: 60px;
+
+  --edge-inset: 35px;
 }
 
 :host {
@@ -37,12 +39,14 @@
   /* margin: 0 10px; */
 }
 
-:host([checked][data_placement*='left']) .details {
-  /* left: 100%; */
+:host([checked][data_placement*='left'][list='resistant'][type='steel']) {
+  transform: scale(1.25) translateX(var(--edge-inset));
+  transition: transform 300ms;
 }
 
-:host([checked][data_placement*='right']) .details {
-  /* right: 100%; */
+:host([checked][data_placement*='right'][list='resistant'][type='steel']) {
+  transform: scale(1.25) translateX(-1 * var(--edge-inset));
+  transition: transform 300ms;
 }
 
 :host([checked]) .shield {
@@ -90,8 +94,4 @@
   border-radius: 50%;
 
   position: relative;
-}
-
-:host([checked]) type-legend {
-  display: block;
 }

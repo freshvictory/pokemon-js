@@ -24,6 +24,7 @@ function route(hash) {
     if (checked) {
       document.body.classList.add('active');
       const list = link.shadowRoot.querySelector('type-list');
+      link.setAttribute('list', relationship);
       list.setAttribute('list', relationship);
     }
 
