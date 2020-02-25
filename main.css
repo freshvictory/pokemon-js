@@ -32,10 +32,6 @@ ul {
   padding: 0;
 }
 
-#app {
-  min-height: 100vh;
-}
-
 #list-container {
   position: relative;
 }
