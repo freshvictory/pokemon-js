@@ -9,18 +9,22 @@ window.addEventListener(
 );
 
 const shield = document.querySelector('#shield');
+const legend = document.querySelector('type-legend');
 
 function route(hash) {
-  const type = hash.substring(1);
+  const info = hash.substring(1).split(',');
+  const type = info[0];
+  const relationship = info[1] || 'counter';
 
-
-  shield.classList.remove('active');
+  document.body.classList.remove('active');
 
   for (const link of document.querySelectorAll('type-link')) {
     const checked = link.id === 'link-' + type;
 
     if (checked) {
-      shield.classList.add('active');
+      document.body.classList.add('active');
+      const list = link.shadowRoot.querySelector('type-list');
+      list.setAttribute('list', relationship);
     }
 
     link[checked 
@@ -28,4 +32,6 @@ function route(hash) {
       : 'removeAttribute'
     ]('checked', '');
   }
+
+  legend.setAttribute('selected', relationship);
 }

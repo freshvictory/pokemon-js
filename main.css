@@ -68,7 +68,19 @@ ul {
   transition: opacity 300ms;
 }
 
-#shield.active {
+body.active #shield {
   opacity: 0.25;
   pointer-events: auto;
+}
+
+body.active type-legend {
+  display: block;
+}
+
+type-legend {
+  display: none;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
 }

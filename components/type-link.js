@@ -55,7 +55,7 @@ class TypeLink extends CustomElement {
       {
         type: this.type.id
       }
-    )
+    );
   }
 
 

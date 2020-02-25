@@ -46,3 +46,14 @@ ul {
 :host([checked]) .icon {
   box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.25);
 }
+
+triangle-icon {
+  top: 47%;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+}
+
+triangle-icon.away {
+  transform: translateX(-50%) scale(-1);
+}

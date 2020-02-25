@@ -91,3 +91,7 @@
 
   position: relative;
 }
+
+:host([checked]) type-legend {
+  display: block;
+}

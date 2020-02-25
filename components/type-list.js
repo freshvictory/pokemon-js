@@ -47,7 +47,10 @@ class TypeList extends CustomElement {
       );
       relationship.add(
         'triangle-icon',
-        { }
+        {
+          style: `--color: var(--c-counter)`,
+          class: 'away'
+        }
       );
       
       counter++;
