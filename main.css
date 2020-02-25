@@ -86,3 +86,13 @@ type-legend {
   left: 50%;
   transform: translateX(-50%);
 }
+
+@media screen and (max-width: 600px) {
+  #type-list {
+    padding-top: 20px;
+  }
+
+  type-legend {
+    bottom: 20px;
+  }
+}
