@@ -38,40 +38,6 @@ ul {
   pointer-events: auto;
 }
 
-.triangle {
-	position: absolute;
-	background-color: #69c423;
-  top: 45%;
-  left: 50%;
-}
-
-.triangle::before,
-.triangle::after {
-	content: '';
-	position: absolute;
-	background-color: inherit;
-}
-
-.triangle,
-.triangle::before,
-.triangle::after {
-	width:  5px;
-	height: 5px;
-	border-top-right-radius: 50%;
-}
-
-.triangle {
-	transform: skewX(-30deg) scale(1,.866) translate(-50%, -50%);
-}
-
-.triangle::before {
-	transform: rotate(-135deg) skewX(-45deg) scale(1.414,.707) translate(0,-50%);
-}
-
-.triangle::after {
-	transform: rotate(135deg) skewY(-45deg) scale(.707,1.414) translate(50%);
-}
-
 .icon {
   transform: rotate(calc(-1 * var(--angle-calc)));
   border-radius: 50%;
