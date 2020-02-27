@@ -36,34 +36,13 @@
 
 :host([checked]) .details {
   transform: scale(1) translate(-50%, -50%);
-  /* margin: 0 10px; */
 }
 
-:host([checked][data_placement*='left'][list='resistant'][type='steel']) {
-  transform: scale(1.25) translateX(var(--edge-inset));
-  transition: transform 300ms;
-}
 
-:host([checked][data_placement*='right'][list='resistant'][type='steel']) {
-  transform: scale(1.25) translateX(-1 * var(--edge-inset));
-  transition: transform 300ms;
-}
-
-:host([checked]) .shield {
-  display: block;
-  opacity: 0.5;
-}
-
-.label {
-  position: absolute;
-  padding: 3px 7px;
-  transform: scale(0);
-  transition: transform 300ms;
-  border-radius: 7px;
-}
+/* Screen edge overrides */
 
 :host([data_placement*='left']) .details {
-  /* transform: translate(-50%, -50%) rotate(130deg); */
+  --angle-multiplier: 1;
 }
 
 :host([data_placement*='right']) .list {
@@ -75,6 +54,19 @@
 }
 
 :host([data_placement*='bottom']) .details {
+  --starting-angle: 0;
+}
+
+
+/* Steel has so many resistances it gets special treatment. */
+:host([checked][data_placement*='left'][list='resistant'][type='steel']) {
+  transform: scale(1.25) translateX(var(--edge-inset));
+  transition: transform 300ms;
+}
+
+:host([checked][data_placement*='right'][list='resistant'][type='steel']) {
+  transform: scale(1.25) translateX(calc(-1 * var(--edge-inset)));
+  transition: transform 300ms;
 }
 
 .details {

@@ -23,6 +23,8 @@ input[type=radio] {
   padding: 5px 10px;
   border-radius: 15px;
   cursor: pointer;
+  background-color: var(--c-background-light);
+  transition: none;
 }
 
 triangle-icon {
@@ -35,4 +37,5 @@ triangle-icon {
 :host([selected='counter']) #counter + .label,
 :host([selected='resistant']) #resistant + .label {
   background-color: var(--c-highlighted);
+  transition: background-color 200ms;
 }

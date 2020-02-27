@@ -18,15 +18,6 @@ class TypeLink extends CustomElement {
     this.id = 'link-' + this.type.id;
     this.setAttribute('data_placement', this.calculatePlacement());
 
-    // this.label = this.shadow.add(
-    //   'div',
-    //   {
-    //     class: 'label'
-    //   }
-    // );
-    // this.label.textContent = this.type.name;
-    // this.label.style.backgroundColor = `var(--c-light-${this.type.id})`;
-
     this.details = this.shadow.add(
       'div',
       {
@@ -91,8 +82,12 @@ class TypeLink extends CustomElement {
 
   calculatePlacement() {
     const rect = this.getBoundingClientRect();
-    const horiz = rect.x > (window.innerWidth / 2) ? 'right' : 'left';
-    const vert = rect.y < (rect.height + 40)
+    const horiz = rect.x < rect.width
+      ? 'left'
+      : (window.innerWidth - rect.left) < rect.right
+        ? 'right'
+        : 'center';
+    const vert = rect.y < rect.height
       ? 'top'
       : (window.innerHeight - rect.bottom) < rect.height
         ? 'bottom'

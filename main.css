@@ -1,24 +1,26 @@
 :root {
-  color-scheme: light dark;
-
-  --c-background: #fff;
+  --c-background: #f7f7f7;
   --c-background-light: #eee;
-  --c-highlighted: #ccc;
+  --c-highlighted: #cecece;
+  --c-text: #000;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --c-background: #333;
+    --c-background: #1c1c1c;
     --c-background-light: #555;
     --c-highlighted: #888;
+    --c-text: #fff;
   }
 }
 
 body {
   padding: 0;
   margin: 0;
+  background-color: var(--c-background);
+  color: var(--c-text);
 
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial;
 }
 
 a {
