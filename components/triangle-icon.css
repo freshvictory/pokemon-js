@@ -7,7 +7,7 @@
 }
 
 
-/* Taken from https://stackoverflow.com/a/14451916 */
+/* Adapted from https://stackoverflow.com/a/14451916 */
 
 .triangle {
   position: relative;
@@ -27,7 +27,7 @@
 .triangle:after {
 	width:  var(--width);
 	height: var(--height);
-	border-top-right-radius: 30%;
+  border-top-right-radius: var(--border-radius);
 }
 
 .triangle {
@@ -49,6 +49,6 @@
   transform:
     rotate(135deg)
     skewY(-45deg)
-    scale(.707, 1.414)
+    scale(0.707, 1.414)
     translate(50%);
 }

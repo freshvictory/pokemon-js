@@ -1,16 +1,18 @@
 :root {
-  --c-background: #f7f7f7;
+  --c-background: #fff;
   --c-background-light: #eee;
-  --c-highlighted: #cecece;
   --c-text: #000;
+
+  --o-shield: 0.15;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --c-background: #1c1c1c;
     --c-background-light: #555;
-    --c-highlighted: #888;
     --c-text: #fff;
+
+    --o-shield: 0.35;
   }
 }
 
@@ -69,7 +71,7 @@ ul {
 }
 
 body.active #shield {
-  opacity: 0.25;
+  opacity: var(--o-shield);
   pointer-events: auto;
 }
 

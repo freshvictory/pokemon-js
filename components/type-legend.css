@@ -37,5 +37,6 @@ triangle-icon {
 :host([selected='counter']) #counter + .label,
 :host([selected='resistant']) #resistant + .label {
   background-color: var(--c-highlighted);
+  color: #000;
   transition: background-color 200ms;
 }

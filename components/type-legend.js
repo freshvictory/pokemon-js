@@ -45,6 +45,7 @@ class TypeLegend extends CustomElement {
       'label',
       {
         class: 'label',
+        style: `--c-highlighted: var(--c-${id}-light)`,
         for: id,
       }
     );
