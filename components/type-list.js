@@ -23,44 +23,57 @@ class TypeList extends CustomElement {
       }
     );
 
-    let counter = 0;
-    for (const type of this.type.relationships[id]) {
-      this.wrapper = this.list.add(
-        'span',
-        {
-          class: 'wrapper',
-          style: `--num: ${counter};`
+    const emphasized = [];
+
+    this.type.relationships[id]
+      .sort((a, b) => {
+        if (this.shouldEmphasize(id, this.type.id, a)) {
+          return -1;
+        } else if (this.shouldEmphasize(id, this.type.id, b)) {
+          return 1;
+        } else {
+          return 0;
         }
-      );
-      const relationship = this.wrapper.add(
-        'li',
-        {
-          class: 'relationship'
+      })
+      .map((type, counter) => {
+        const emphasize = this.shouldEmphasize(id, this.type.id, type);
+        if (emphasized) {
+          emphasized.push(type);
         }
-      );
-      const icon = relationship.add(
-        'div',
-        {
-          class: 'icon'
-        }
-      );
-      icon.add(
-        'type-icon',
-        {
-          type: type,
-          style: `--icon-size: 20px;`
-        }
-      );
-      relationship.add(
-        'triangle-icon',
-        {
-          style: `--color: var(--c-${id})`,
-          class: direction
-        }
-      );
-      
-      counter++;
-    }    
+
+        this.buildType(id, type, counter, direction, emphasize);
+      });
+  }
+
+
+  buildType(id, type, counter, direction, emph) {
+    this.wrapper = this.list.add('span', {
+      class: 'wrapper' + (emph ? ' emph' : ''),
+      style: `--num: ${counter};`
+    });
+    const relationship = this.wrapper.add('li', {
+      class: 'relationship'
+    });
+    const icon = relationship.add('div', {
+      class: 'icon'
+    });
+    icon.add('type-icon', {
+      type: type,
+      style: `--icon-size: 20px;`
+    });
+    relationship.add('triangle-icon', {
+      style: `--color: var(--c-${id});`,
+      class: direction
+    });
+  }
+
+  shouldEmphasize(id, type, other) {
+    switch(id) {
+      case 'resistant':
+        return types[other].relationships.ineffective.indexOf(type) >= 0;
+      default:
+        return false;
+    }
   }
 }
 

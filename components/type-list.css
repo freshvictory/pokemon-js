@@ -34,6 +34,10 @@ ul {
   transform: rotate(var(--angle-calc));
 }
 
+:host([checked]) .wrapper.emph {
+  padding-bottom: 50px;
+}
+
 .relationship {
   pointer-events: auto;
 }
@@ -52,6 +56,12 @@ triangle-icon {
   left: 50%;
   transform: translateX(-50%);
   position: absolute;
+}
+
+.emph triangle-icon {
+  --width: 9px;
+  --height: 9px;
+  top: 45%;
 }
 
 triangle-icon.toward {
