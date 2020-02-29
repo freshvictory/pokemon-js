@@ -38,6 +38,10 @@ ul {
   padding-bottom: 50px;
 }
 
+.wrapper.emph type-icon {
+  --c-border: var(--color);
+}
+
 .relationship {
   pointer-events: auto;
 }

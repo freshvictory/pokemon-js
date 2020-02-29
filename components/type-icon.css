@@ -1,9 +1,10 @@
 :host {
   --icon-size: 40px;
+  --c-border: transparent;
 }
 
 .wrapper {
-  padding: calc(var(--icon-size) / 4);
+  border: calc(var(--icon-size) / 4) solid var(--c-border);
 
   border-radius: 50%;
 }

@@ -49,7 +49,7 @@ class TypeList extends CustomElement {
   buildType(id, type, counter, direction, emph) {
     this.wrapper = this.list.add('span', {
       class: 'wrapper' + (emph ? ' emph' : ''),
-      style: `--num: ${counter};`
+      style: `--num: ${counter}; ${emph ? `--color: var(--c-${id})` : ''}`
     });
     const relationship = this.wrapper.add('li', {
       class: 'relationship'
