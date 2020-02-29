@@ -1,5 +1,55 @@
 export const types =
 {
+  get: function(primary, secondary) {
+    const primaryType = this[primary];
+
+    if (!secondary) {
+      return primaryType;
+    }
+
+    if (this[primary + '/' + secondary]) {
+      return this[primary + '/' + secondary];
+    }
+
+    const type = { };
+    const secondaryType = this.get(secondary);
+    type.id = primaryType.id + '/' + secondaryType.id;
+    type.primary = primaryType.id;
+    type.secondary = secondaryType.id;
+    type.name = primaryType.name + '/' + secondaryType.name;
+
+    type.relationships = {
+      counter: [],
+      resistant: []
+    };
+
+    const resistances = new Set([
+      ...primaryType.relationships.resistant,
+      ...secondaryType.relationships.resistant
+    ]);
+
+    const counters = new Set([
+      ...primaryType.relationships.counter,
+      ...secondaryType.relationships.counter
+    ]);
+
+    for (const r of resistances) {
+      if (counters.has(r)) {
+        resistances.delete(r);
+        counters.delete(r);
+      }
+    }
+
+    type.relationships.resistant = [...resistances];
+
+    type.relationships.counter = [...counters];
+
+    this[type.id] = type;
+
+    return type;
+  },
+
+
   'normal': {
     id: 'normal',
     primary: 'normal',

@@ -8,7 +8,7 @@ class TypeList extends CustomElement {
 
 
   connectedCallback() {
-    this.type = types[this.get('type')];
+    this.type = types.get(this.get('type'));
     this.relationship = this.get('list');
 
     this.addList(this.relationship, 'away');
@@ -23,23 +23,18 @@ class TypeList extends CustomElement {
       }
     );
 
-    const emphasized = [];
-
     this.type.relationships[id]
       .sort((a, b) => {
-        if (this.shouldEmphasize(id, this.type.id, a)) {
+        if (this.shouldEmphasize(id, this.type, a)) {
           return -1;
-        } else if (this.shouldEmphasize(id, this.type.id, b)) {
+        } else if (this.shouldEmphasize(id, this.type, b)) {
           return 1;
         } else {
           return 0;
         }
       })
       .map((type, counter) => {
-        const emphasize = this.shouldEmphasize(id, this.type.id, type);
-        if (emphasized) {
-          emphasized.push(type);
-        }
+        const emphasize = this.shouldEmphasize(id, this.type, type);
 
         this.buildType(id, type, counter, direction, emphasize);
       });
@@ -70,7 +65,27 @@ class TypeList extends CustomElement {
   shouldEmphasize(id, type, other) {
     switch(id) {
       case 'resistant':
-        return types[other].relationships.ineffective.indexOf(type) >= 0;
+        const primaryIneffective =
+          types.get(other).relationships.ineffective.indexOf(type.primary) >= 0;
+
+        if (primaryIneffective || !type.secondary) {
+          return primaryIneffective;
+        }
+
+        const secondaryIneffective =
+          types.get(other).relationships.ineffective.indexOf(type.secondary) >= 0;
+
+        return primaryIneffective
+          || secondaryIneffective
+          || (types.get(type.primary).relationships.resistant.indexOf(other) >= 0
+            && types.get(type.secondary).relationships.resistant.indexOf(other) >= 0);
+      case 'counter':
+        if (!type.secondary) {
+          return false;
+        }
+
+        return types.get(type.primary).relationships.counter.indexOf(other) >= 0
+          && types.get(type.secondary).relationships.counter.indexOf(other) >= 0;
       default:
         return false;
     }

@@ -13,9 +13,9 @@ class TypeLink extends CustomElement {
 
 
   connectedCallback() {
-    this.type = types[this.get('type')];
-    this.style.backgroundColor = `var(--c-light-${this.type.id})`;
-    this.id = 'link-' + this.type.id;
+    this.type = types.get(this.get('type'));
+    this.style.backgroundColor = `var(--c-light-${this.type.primary})`;
+    this.id = 'link-' + this.type.primary;
     this.setAttribute('data_placement', this.calculatePlacement());
 
     this.details = this.shadow.add(
@@ -28,7 +28,7 @@ class TypeLink extends CustomElement {
       counter: this.details.add(
         'type-list',
         {
-          type: this.type.id,
+          type: this.type.primary,
           class: 'list',
           list: 'counter'
         }
@@ -36,7 +36,7 @@ class TypeLink extends CustomElement {
       resistant: this.details.add(
         'type-list',
         {
-          type: this.type.id,
+          type: this.type.primary,
           class: 'list',
           list: 'resistant'
         }
@@ -47,7 +47,7 @@ class TypeLink extends CustomElement {
       'a',
       {
         class: 'info',
-        href: '#' + this.type.id,
+        href: '#' + this.type.primary,
         title: this.type.name
       }
     );
@@ -55,7 +55,7 @@ class TypeLink extends CustomElement {
     this.icon = this.link.add(
       'type-icon',
       {
-        type: this.type.id
+        type: this.type.primary
       }
     );
   }

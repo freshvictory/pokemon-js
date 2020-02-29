@@ -8,7 +8,7 @@ class TypeIcon extends CustomElement {
 
 
   connectedCallback() {
-    this.type = types[this.get('type')];
+    this.type = types.get(this.get('type'));
 
     this.wrapper = this.shadow.add(
       'div',
@@ -16,7 +16,7 @@ class TypeIcon extends CustomElement {
         class: 'wrapper'
       }
     );
-    this.wrapper.style.backgroundColor = `var(--c-light-${this.type.id})`;
+    this.wrapper.style.backgroundColor = `var(--c-light-${this.type.primary})`;
 
     this.icon = this.wrapper.add(
       'div',
@@ -24,7 +24,7 @@ class TypeIcon extends CustomElement {
         class: 'icon'
       }
     )
-    this.icon.style.backgroundImage = `var(--icon-${this.type.id})`;
+    this.icon.style.backgroundImage = `var(--icon-${this.type.primary})`;
   }
 }
 
