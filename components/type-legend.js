@@ -69,7 +69,7 @@ class TypeLegend extends CustomElement {
 
 
   updateRoute(id) {
-    const hash = window.location.hash.replace(/,.*/, '') + ',' + id;
+    const hash = window.location.hash.replace(/\/.*/, '') + '/' + id;
     window.location.hash = hash;
   }
 }

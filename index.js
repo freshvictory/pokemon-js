@@ -12,8 +12,8 @@ const shield = document.querySelector('#shield');
 const legend = document.querySelector('type-legend');
 
 function route(hash) {
-  const info = hash.substring(1).split(',');
-  const type = info[0];
+  const info = hash.substring(1).split('/');
+  const [type, secondary] = info[0].split('+');
   const relationship = info[1] || 'counter';
 
   document.body.classList.remove('active');
@@ -23,13 +23,12 @@ function route(hash) {
 
     if (checked) {
       document.body.classList.add('active');
-      const list = link.shadowRoot.querySelector('type-list');
       link.setAttribute('list', relationship);
-      list.setAttribute('list', relationship);
+      link.setAttribute('secondary', secondary || '');
     }
 
-    link[checked 
-      ? 'setAttribute' 
+    link[checked
+      ? 'setAttribute'
       : 'removeAttribute'
     ]('checked', '');
   }

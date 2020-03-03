@@ -2,21 +2,36 @@ import { CustomElement } from './custom-element.js';
 import { types } from '../types.js';
 
 class TypeList extends CustomElement {
+  static get observedAttributes() {
+    return [ 'secondary' ];
+  }
+
+
   constructor() {
     super('type-list.css');
   }
 
 
   connectedCallback() {
-    this.type = types.get(this.get('type'));
+    this.type = types.get(this.get('type'), this.get('secondary'));
     this.relationship = this.get('list');
 
     this.addList(this.relationship, 'away');
   }
 
 
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'secondary'
+      && ((oldValue && !newValue) || (!oldValue && newValue))
+    ) {
+      this.list.innerHTML = '';
+      this.connectedCallback();
+    }
+  }
+
+
   addList(id, direction) {
-    this.list = this.shadow.add(
+    this.list = this.list || this.shadow.add(
       'ul',
       {
         class: 'list ' + id

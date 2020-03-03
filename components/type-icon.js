@@ -8,7 +8,7 @@ class TypeIcon extends CustomElement {
 
 
   connectedCallback() {
-    this.type = types.get(this.get('type'));
+    this.type = types.get(this.get('type'), this.get('secondary'));
 
     this.wrapper = this.shadow.add(
       'div',

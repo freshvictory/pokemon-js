@@ -7,16 +7,16 @@ export const types =
       return primaryType;
     }
 
-    if (this[primary + '/' + secondary]) {
-      return this[primary + '/' + secondary];
+    if (this[primary + '+' + secondary]) {
+      return this[primary + '+' + secondary];
     }
 
     const type = { };
     const secondaryType = this.get(secondary);
-    type.id = primaryType.id + '/' + secondaryType.id;
+    type.id = primaryType.id + '+' + secondaryType.id;
     type.primary = primaryType.id;
     type.secondary = secondaryType.id;
-    type.name = primaryType.name + '/' + secondaryType.name;
+    type.name = primaryType.name + '+' + secondaryType.name;
 
     type.relationships = {
       counter: [],

@@ -53,20 +53,37 @@
   --starting-angle: 90deg;
 }
 
-:host([data_placement*='bottom']) .details {
-  --starting-angle: 0;
+:host([data_placement='bottom center']) .list {
+  --starting-angle: -90deg;
 }
 
-
-/* Steel has so many resistances it gets special treatment. */
-:host([checked][data_placement*='left'][list='resistant'][type='steel']) {
-  transform: scale(1.25) translateX(var(--edge-inset));
-  transition: transform 300ms;
+:host([checked]) {
+  --m-x: 0;
+  --m-y: 0;
+  transform:
+    scale(1.25)
+    translateX(calc(var(--m-x) * var(--edge-inset)))
+    translateY(calc(var(--m-y) * var(--edge-inset)));
 }
 
-:host([checked][data_placement*='right'][list='resistant'][type='steel']) {
-  transform: scale(1.25) translateX(calc(-1 * var(--edge-inset)));
-  transition: transform 300ms;
+:host([checked][data_placement='top left'].half),
+:host([checked][data_placement*='left'].full) {
+  --m-x: 1;
+}
+
+:host([checked][data_placement='top right'].half),
+:host([checked][data_placement*='right'].full) {
+  --m-x: -1;
+}
+
+:host([checked][data_placement='bottom left'].half),
+:host([checked][data_placement='bottom right'].half),
+:host([checked][data_placement*='bottom'].full) {
+  --m-y: -1;
+}
+
+:host([checked][data_placement*='top'].full) {
+  --m-y: 1;
 }
 
 .details {

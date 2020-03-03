@@ -3,7 +3,7 @@ import { types } from '../types.js';
 
 class TypeLink extends CustomElement {
   static get observedAttributes() {
-    return [ 'checked', 'list' ];
+    return [ 'checked', 'list', 'secondary' ];
   }
 
 
@@ -13,7 +13,7 @@ class TypeLink extends CustomElement {
 
 
   connectedCallback() {
-    this.type = types.get(this.get('type'));
+    this.type = types.get(this.get('type'), this.get('secondary'));
     this.style.backgroundColor = `var(--c-light-${this.type.primary})`;
     this.id = 'link-' + this.type.primary;
     this.setAttribute('data_placement', this.calculatePlacement());
@@ -55,7 +55,8 @@ class TypeLink extends CustomElement {
     this.icon = this.link.add(
       'type-icon',
       {
-        type: this.type.primary
+        type: this.type.primary,
+        secondary: this.type.secondary || ''
       }
     );
   }
@@ -76,6 +77,18 @@ class TypeLink extends CustomElement {
       }
 
       this.lists[newValue].setAttribute('checked', '');
+      this.classList[
+        this.type.relationships[newValue].length > 5 ? 'add' : 'remove'
+      ]('half');
+      this.classList[
+        this.type.relationships[newValue].length >= 9 ? 'add' : 'remove'
+      ]('full');
+    } else if (name === 'secondary') {
+      for (const [_, list] of Object.entries(this.lists)) {
+        list.setAttribute('secondary', this.get('secondary') || '');
+      }
+
+      this.icon.setAttribute('secondary', newValue || '');
     }
   }
 
@@ -89,11 +102,11 @@ class TypeLink extends CustomElement {
         : 'center';
     const vert = rect.y < rect.height
       ? 'top'
-      : (window.innerHeight - rect.bottom) < rect.height
+      : (window.innerHeight - rect.bottom) < (rect.height + 40)
         ? 'bottom'
         : 'center';
 
-    return horiz + ' ' + vert;
+    return vert + ' ' + horiz;
   }
 }
 
