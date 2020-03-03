@@ -1,4 +1,5 @@
 import { CustomElement } from './custom-element.js';
+import { Navigation } from '../router.js';
 
 class TypeLegend extends CustomElement {
 
@@ -69,8 +70,7 @@ class TypeLegend extends CustomElement {
 
 
   updateRoute(id) {
-    const hash = window.location.hash.replace(/\/.*/, '') + '/' + id;
-    window.location.hash = hash;
+    Navigation.query('list', id);
   }
 }
 

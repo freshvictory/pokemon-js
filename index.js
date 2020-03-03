@@ -1,25 +1,26 @@
-window.addEventListener(
-  'hashchange',
-  (_) => route(location.hash)
-);
+import { Router } from './router.js';
 
-window.addEventListener(
-  'load',
-  (_) => route(location.hash)
-);
+const router = new Router()
+  .add(
+    'Home',
+    '',
+    () => routeType([], { get: () => '' })
+  )
+  .add(
+    'Type',
+    /\/([^+]+)\+?([^\/]*)?/,
+    (matches, query) => routeType(matches, query)
+  );
 
-const shield = document.querySelector('#shield');
-const legend = document.querySelector('type-legend');
+function routeType(matches, queryParams) {
+  const [primary, secondary] = matches;
 
-function route(hash) {
-  const info = hash.substring(1).split('/');
-  const [type, secondary] = info[0].split('+');
-  const relationship = info[1] || 'counter';
+  const relationship = queryParams.get('list') || 'counter';
 
   document.body.classList.remove('active');
 
   for (const link of document.querySelectorAll('type-link')) {
-    const checked = link.id === 'link-' + type;
+    const checked = link.id === 'link-' + primary;
 
     if (checked) {
       document.body.classList.add('active');
@@ -33,5 +34,18 @@ function route(hash) {
     ]('checked', '');
   }
 
+  const legend = document.querySelector('type-legend');
   legend.setAttribute('selected', relationship);
 }
+
+
+window.addEventListener(
+  'load',
+  (_) => router.route()
+);
+
+window.history.push = (path) => {
+  window.history.pushState({}, '', path);
+  router.route();
+}
+window.onpopstate = () => router.route();

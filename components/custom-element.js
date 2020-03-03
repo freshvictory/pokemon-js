@@ -1,3 +1,5 @@
+import { Navigation } from '../router.js';
+
 export class CustomElement extends HTMLElement {
   constructor(cssPath) {
     super();
@@ -6,7 +8,9 @@ export class CustomElement extends HTMLElement {
 
     this.shadow = this.attachShadow({ mode: 'open' });
 
-    this.attachStyles(cssPath);
+    if (cssPath) {
+      this.attachStyles(cssPath);
+    }
   }
 
 
@@ -18,7 +22,7 @@ export class CustomElement extends HTMLElement {
     const add = function(tag, attributes) {
       const el = document.createElement(tag);
     
-      for (const [key, value] of Object.entries(attributes)) {
+      for (const [key, value] of Object.entries(attributes || {})) {
         el.setAttribute(key, value);
       }
     

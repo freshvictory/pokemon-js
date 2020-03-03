@@ -44,11 +44,11 @@ class TypeLink extends CustomElement {
     }
 
     this.link = this.shadow.add(
-      'a',
+      'internal-link',
       {
-        class: 'info',
-        href: '#' + this.type.primary,
-        title: this.type.name
+        href: this.type.primary,
+        title: this.type.name,
+        class: 'info'
       }
     );
 
@@ -64,7 +64,7 @@ class TypeLink extends CustomElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'checked') {
-      this.link.href = '#' + (newValue === null ? this.type.id : '');
+      this.link.href = '/' + (newValue === null ? this.type.id : '');
       if (newValue === null) {
         this.lists[this.get('list')].removeAttribute('checked');
       } else {
