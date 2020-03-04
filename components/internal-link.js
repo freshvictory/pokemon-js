@@ -7,7 +7,7 @@ export class InternalLink extends CustomElement {
       'a',
       {
         href: this.get('href'),
-        title: this.get('title'),
+        title: this.get('title') || '',
         style: `width: 100%; height: 100%; display: inline-block`
       }
     );
