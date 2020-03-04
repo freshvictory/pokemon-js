@@ -64,7 +64,7 @@ class TypeLink extends CustomElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'checked') {
-      this.link.href = '/' + (newValue === null ? this.type.id : '');
+      this.link.setAttribute('href', (newValue === null ? this.type.id : '/'));
       if (newValue === null) {
         this.lists[this.get('list')].removeAttribute('checked');
       } else {

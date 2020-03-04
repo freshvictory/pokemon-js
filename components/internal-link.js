@@ -2,6 +2,11 @@ import { CustomElement } from './custom-element.js';
 import { Navigation } from '../router.js';
 
 export class InternalLink extends CustomElement {
+  static get observedAttributes() {
+    return ['href'];
+  }
+
+
   connectedCallback() {
     this.link = this.shadow.add(
       'a',
@@ -47,6 +52,13 @@ export class InternalLink extends CustomElement {
     this.link.add(
       'slot'
     );
+  }
+
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'href' && this.link) {
+      this.link.setAttribute('href', newValue);
+    }
   }
 }
 
