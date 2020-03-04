@@ -9,7 +9,7 @@ export class Navigation {
   static query(id, value) {
     const params = new URLSearchParams(window.location.search);
     params.set(id, value)
-    window.history.push(window.location.pathname + '?' + params.toString());
+    window.history.replace(window.location.pathname + '?' + params.toString());
   }
 }
 

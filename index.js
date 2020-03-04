@@ -44,8 +44,13 @@ window.addEventListener(
   (_) => router.route()
 );
 
+
+window.history.replace = (path) => {
+  window.history.replaceState({}, '', path);
+  router.route();
+};
 window.history.push = (path) => {
   window.history.pushState({}, '', path);
   router.route();
-}
+};
 window.onpopstate = () => router.route();
