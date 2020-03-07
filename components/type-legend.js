@@ -70,7 +70,7 @@ class TypeLegend extends CustomElement {
 
 
   updateRoute(id) {
-    Navigation.query('list', id);
+    window.router.route(window.location.pathname, { list: id });
   }
 }
 

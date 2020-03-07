@@ -20,16 +20,21 @@ export class Router {
   }
 
 
-  route() {
-    const path = window.location.pathname.endsWith('/')
-      ? window.location.pathname.substring(0, window.location.pathname.length - 1)
-      : window.location.pathname;
+  routeUrl() {
+    this.route(window.location.pathname, new URLSearchParams(window.location.search));
+  }
+
+
+  route(path, params) {
+    path = path.endsWith('/')
+      ? path.substring(0, path.length - 1)
+      : path;
 
     for (const route of this.routes) {
       if (route.path instanceof RegExp) {
         const matches = path.match(route.path);
         if (matches) {          
-          return route.load(matches.slice(1), new URLSearchParams(window.location.search));
+          return route.load(matches.slice(1), params);
         }
       } else if (path === route.path) {
         route.load();

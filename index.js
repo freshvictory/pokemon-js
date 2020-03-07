@@ -1,6 +1,6 @@
 import { Router } from './router.js';
 
-const router = new Router()
+window.router = new Router()
   .add(
     'Home',
     '',
@@ -12,10 +12,10 @@ const router = new Router()
     (matches, query) => routeType(matches, query)
   );
 
-function routeType(matches, queryParams) {
+function routeType(matches, params) {
   const [primary, secondary] = matches;
 
-  const relationship = queryParams.get('list') || 'counter';
+  const relationship = params['list'] || params.get('list') || 'counter';
 
   document.body.classList.remove('active');
 
@@ -41,16 +41,16 @@ function routeType(matches, queryParams) {
 
 window.addEventListener(
   'load',
-  (_) => router.route()
+  (_) => window.router.routeUrl()
 );
 
 
 window.history.replace = (path) => {
   window.history.replaceState({}, '', path);
-  router.route();
+  window.router.routeUrl();
 };
 window.history.push = (path) => {
   window.history.pushState({}, '', path);
-  router.route();
+  window.router.routeUrl();
 };
-window.onpopstate = () => router.route();
+window.onpopstate = () => window.router.routeUrl();
