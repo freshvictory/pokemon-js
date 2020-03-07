@@ -1,4 +1,5 @@
 import { Router } from './router.js';
+import { types } from './types.js';
 
 window.router = new Router()
   .add(
@@ -16,6 +17,12 @@ function routeType(matches, params) {
   const [primary, secondary] = matches;
 
   const relationship = params['list'] || params.get('list') || 'counter';
+
+  if (primary) {
+    document.title = types.get(primary, secondary).name;
+  } else {
+    document.title = 'Pokémon Types';
+  }
 
   document.body.classList.remove('active');
 

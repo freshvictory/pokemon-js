@@ -28,6 +28,7 @@
 
 
 
+:host([data_placement*='bottom']) .icon.secondary,
 :host([data_placement*='right']) .icon.secondary {
   left: 43px;
   right: auto;

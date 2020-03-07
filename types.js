@@ -16,7 +16,7 @@ export const types =
     type.id = primaryType.id + '+' + secondaryType.id;
     type.primary = primaryType.id;
     type.secondary = secondaryType.id;
-    type.name = primaryType.name + '+' + secondaryType.name;
+    type.name = primaryType.name + ' / ' + secondaryType.name;
 
     type.relationships = {
       counter: [],
