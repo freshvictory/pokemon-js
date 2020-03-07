@@ -3,6 +3,11 @@
   --c-border: transparent;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 .wrapper {
   border: calc(var(--icon-size) / 4) solid var(--c-border);
 
@@ -10,7 +15,33 @@
 }
 
 .icon {
+  border-radius: 50%;
   width: var(--icon-size);
   height: var(--icon-size);
   background-size: var(--icon-size);
+}
+
+.half {
+  height: calc(var(--icon-size) / 2);
+  width: var(--icon-size);
+  border-radius: calc(var(--icon-size) * 2);
+  overflow: hidden;
+  position: relative;
+}
+
+.half.bottom {
+  border-top: 0;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.half.top {
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.half.bottom .icon {
+  position: relative;
+  bottom: 100%;
 }

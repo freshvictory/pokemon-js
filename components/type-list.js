@@ -34,7 +34,8 @@ class TypeList extends CustomElement {
     this.list = this.list || this.shadow.add(
       'ul',
       {
-        class: 'list ' + id
+        class: 'list ' + id,
+        style: 'list-style: none'
       }
     );
 

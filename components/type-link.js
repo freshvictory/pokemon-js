@@ -14,7 +14,6 @@ class TypeLink extends CustomElement {
 
   connectedCallback() {
     this.type = types.get(this.get('type'), this.get('secondary'));
-    this.style.backgroundColor = `var(--c-light-${this.type.primary})`;
     this.id = 'link-' + this.type.primary;
     this.setAttribute('data_placement', this.calculatePlacement());
 
@@ -63,33 +62,46 @@ class TypeLink extends CustomElement {
 
 
   attributeChangedCallback(name, oldValue, newValue) {
+    this.type = types.get(this.get('type'), this.get('secondary'));
     if (name === 'checked') {
-      this.link.setAttribute('href', (newValue === null ? this.type.id : '/'));
       if (newValue === null) {
+        this.setAttribute('secondary', '');
+        this.icon.setAttribute('secondary', '');
         this.lists[this.get('list')].removeAttribute('checked');
       } else {
         this.setAttribute('data_placement', this.calculatePlacement());
         this.lists[this.get('list')].setAttribute('checked', newValue);
       }
+      this.type = types.get(this.get('type'), this.get('secondary'));
+      this.link.setAttribute('href', (newValue === null ? this.type.id : '/'));
     } else if (name === 'list') {
       if (oldValue) {
         this.lists[oldValue].removeAttribute('checked');
       }
 
       this.lists[newValue].setAttribute('checked', '');
-      this.classList[
-        this.type.relationships[newValue].length > 5 ? 'add' : 'remove'
-      ]('half');
-      this.classList[
-        this.type.relationships[newValue].length >= 9 ? 'add' : 'remove'
-      ]('full');
+
+      this.calculateInset(newValue);
     } else if (name === 'secondary') {
       for (const [_, list] of Object.entries(this.lists)) {
         list.setAttribute('secondary', this.get('secondary') || '');
       }
 
       this.icon.setAttribute('secondary', newValue || '');
+      this.calculateInset(this.get('list'));
     }
+  }
+
+
+  calculateInset(list) {
+    if (!list) { return; }
+
+    this.classList[
+      this.type.relationships[list].length > 5 ? 'add' : 'remove'
+    ]('half');
+    this.classList[
+      this.type.relationships[list].length >= 9 ? 'add' : 'remove'
+    ]('full');
   }
 
 
