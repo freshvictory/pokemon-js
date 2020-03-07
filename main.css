@@ -25,6 +25,7 @@ body {
   margin: 0;
   background-color: var(--c-background);
   color: var(--c-text);
+  -webkit-tap-highlight-color: transparent;
 
   font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial;
 }
