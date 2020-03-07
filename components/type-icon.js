@@ -35,24 +35,13 @@ class TypeIcon extends CustomElement {
 
     this.type = types.get(this.get('type'), this.get('secondary'));
 
-
-    if (this.type.secondary) {
-      this.createIcon(this.type.primary, 'top');
-      this.createIcon(this.type.secondary, 'bottom');
-    } else {
-      this.createIcon(this.type.primary)
-    }
-  }
-
-
-  createIcon(type, side) {
     this.wrapper = this.container.add(
       'div',
       {
-        class: 'wrapper ' + (side ? 'half ' + side : '')
+        class: 'wrapper'
       }
     );
-    this.wrapper.style.backgroundColor = `var(--c-light-${type})`;
+    this.wrapper.style.backgroundColor = `var(--c-light-${this.type.primary})`;
 
     this.icon = this.wrapper.add(
       'div',
@@ -60,8 +49,23 @@ class TypeIcon extends CustomElement {
         class: 'icon'
       }
     )
-    this.icon.style.backgroundColor = `var(--c-${type})`;
-    this.icon.style.backgroundImage = `var(--icon-${type})`;
+    this.icon.style.backgroundColor = `var(--c-${this.type.primary})`;
+    this.icon.style.backgroundImage = `var(--icon-${this.type.primary})`;
+
+    if (this.type.secondary) {
+      this.secondary = this.container.add(
+        'div',
+        {
+          class: 'icon secondary'
+        }
+      );
+      this.secondary.style.backgroundColor = `var(--c-${this.type.secondary})`;
+      this.secondary.style.backgroundImage = `var(--icon-${this.type.secondary})`;
+    }
+  }
+
+
+  createIcon(type) {
   }
 }
 

@@ -2,7 +2,7 @@ export class Navigation {
 
 
   static navigate(path) {
-    window.history.push(path);
+    window.history.replace(path);
   }
 
 

@@ -15,7 +15,6 @@ class TypeLink extends CustomElement {
   connectedCallback() {
     this.type = types.get(this.get('type'), this.get('secondary'));
     this.id = 'link-' + this.type.primary;
-    this.setAttribute('data_placement', this.calculatePlacement());
 
     this.details = this.shadow.add(
       'div',
@@ -58,6 +57,10 @@ class TypeLink extends CustomElement {
         secondary: this.type.secondary || ''
       }
     );
+
+    const placement = this.calculatePlacement();
+    this.icon.setAttribute('data_placement', placement);
+    this.setAttribute('data_placement', placement);
   }
 
 
@@ -69,7 +72,9 @@ class TypeLink extends CustomElement {
         this.icon.setAttribute('secondary', '');
         this.lists[this.get('list')].removeAttribute('checked');
       } else {
-        this.setAttribute('data_placement', this.calculatePlacement());
+        const placement = this.calculatePlacement();
+        this.icon.setAttribute('data_placement', placement);
+        this.setAttribute('data_placement', placement);
         this.lists[this.get('list')].setAttribute('checked', newValue);
       }
       this.type = types.get(this.get('type'), this.get('secondary'));
