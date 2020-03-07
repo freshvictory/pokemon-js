@@ -88,10 +88,16 @@ body.active type-legend {
 type-legend {
   display: none;
   position: absolute;
-  bottom: 40px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  margin-bottom: env(safe-area-inset-bottom);
+  margin-bottom: 40px;
+}
+
+@supports(margin: max(0px)) {
+  type-legend {
+    margin-bottom: max(40px, env(safe-area-inset-bottom));
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -100,6 +106,12 @@ type-legend {
   }
 
   type-legend {
-    bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  @supports(margin: max(0px)) {
+    type-legend {
+      margin-bottom: max(20px, env(safe-area-inset-bottom));
+    }
   }
 }
