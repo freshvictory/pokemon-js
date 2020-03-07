@@ -13,7 +13,7 @@ export class InternalLink extends CustomElement {
       {
         href: this.get('href'),
         title: this.get('title') || '',
-        style: `width: 100%; height: 100%; display: inline-block`
+        style: `width: 100%; height: 100%; display: block`
       }
     );
     this.link.addEventListener(
@@ -47,10 +47,6 @@ export class InternalLink extends CustomElement {
           Navigation.navigate(this.link.getAttribute('href'));
         }
       }
-    );
-
-    this.link.add(
-      'slot'
     );
   }
 

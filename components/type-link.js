@@ -52,7 +52,7 @@ class TypeLink extends CustomElement {
       }
     );
 
-    this.icon = this.link.add(
+    this.icon = this.link.link.add(
       'type-icon',
       {
         type: this.type.primary,
