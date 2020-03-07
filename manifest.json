@@ -4,5 +4,17 @@
   "start_url": "/index.html",
   "background-color": "#000",
   "theme-color": "#000",
-  "display": "standalone"
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/images/PremiereBall-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/PremiereBall-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
 }
