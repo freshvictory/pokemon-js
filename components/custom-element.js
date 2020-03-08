@@ -37,7 +37,14 @@ export class CustomElement extends HTMLElement {
 
 
   attachStyles(cssPath) {
-    this.shadow.add('link', { rel: 'stylesheet', href: '/components/' + cssPath});
+    this.shadow.add(
+      'link',
+      {
+        rel: 'stylesheet',
+        href: '/components/' + cssPath,
+        crossorigin: 'anonymous'
+      }
+    );
   }
 
   get(attr) {
