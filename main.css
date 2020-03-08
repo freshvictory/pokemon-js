@@ -99,7 +99,7 @@ type-legend {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-height: 600px) {
   #type-list {
     padding-top: 20px;
   }
