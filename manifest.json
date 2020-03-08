@@ -2,8 +2,8 @@
   "name": "Pokémon Types",
   "short_name": "Poké Tools",
   "start_url": "/index.html",
-  "background-color": "#000",
-  "theme-color": "#000",
+  "background_color": "#000",
+  "theme_color": "#000",
   "display": "standalone",
   "icons": [
     {

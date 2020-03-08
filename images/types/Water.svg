@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 75 75">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        filter: url(#Rectangle);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4a90dd"/>
+      <stop offset="1" stop-color="#6cbde4"/>
+    </linearGradient>
+    <filter id="Rectangle" x="0" y="0" width="75" height="75" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#559edf" flood-opacity="0.702"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Types_Water" data-name="Types/Water" transform="translate(15 15)">
+    <g id="Group">
+      <g class="cls-3" transform="matrix(1, 0, 0, 1, -15, -15)">
+        <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="45" height="45" rx="22.5" transform="translate(15 15)"/>
+      </g>
+      <path id="Oval_5" data-name="Oval 5" class="cls-2" d="M7.5,22.149A7.5,7.5,0,0,1,0,14.677L6.823.426a.751.751,0,0,1,1.354,0L15,14.677A7.494,7.494,0,0,1,7.5,22.149ZM3.1,14.705a6,6,0,0,0,.15,2.211,3.776,3.776,0,0,0,3,2.836,6.318,6.318,0,0,0,1.357.15,6.156,6.156,0,0,0,4.617-2.211l-.015.006a11.153,11.153,0,0,1-3.585.664,6.335,6.335,0,0,1-1.967-.288A6.426,6.426,0,0,1,3.1,14.705Z" transform="translate(15 11.351)"/>
+    </g>
+  </g>
+</svg>

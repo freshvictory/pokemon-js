@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 75 75">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        filter: url(#Rectangle);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#52869d"/>
+      <stop offset="1" stop-color="#58a6aa"/>
+    </linearGradient>
+    <filter id="Rectangle" x="0" y="0" width="75" height="75" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#5094a1" flood-opacity="0.702"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Types_Steel" data-name="Types/Steel" transform="translate(15 15)">
+    <g id="Group">
+      <g class="cls-3" transform="matrix(1, 0, 0, 1, -15, -15)">
+        <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="45" height="45" rx="22.5" transform="translate(15 15)"/>
+      </g>
+      <path id="Path_7" data-name="Path 7" class="cls-2" d="M16.616,19.5H5.941a.559.559,0,0,1-.482-.275L.077,10.037a.556.556,0,0,1,0-.564L5.459.277A.56.56,0,0,1,5.941,0H16.616A.56.56,0,0,1,17.1.279l5.324,9.2a.563.563,0,0,1,0,.56L17.1,19.221A.559.559,0,0,1,16.616,19.5ZM11.25,4.5A5.25,5.25,0,1,0,16.5,9.75,5.256,5.256,0,0,0,11.25,4.5Z" transform="translate(11.25 12.5)"/>
+    </g>
+  </g>
+</svg>

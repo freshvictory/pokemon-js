@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 75 75">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        filter: url(#Rectangle);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="0.987" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#595761"/>
+      <stop offset="1" stop-color="#6e7587"/>
+    </linearGradient>
+    <filter id="Rectangle" x="0" y="0" width="75" height="75" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#5d596a" flood-opacity="0.702"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Types_Dark" data-name="Types/Dark" transform="translate(15 15)">
+    <g id="Group">
+      <g class="cls-3" transform="matrix(1, 0, 0, 1, -15, -15)">
+        <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="45" height="45" rx="22.5" transform="translate(15 15)"/>
+      </g>
+      <path id="Oval_7" data-name="Oval 7" class="cls-2" d="M10.5,21A10.5,10.5,0,1,1,21,10.5,10.512,10.512,0,0,1,10.5,21Zm.146-18.376a8.222,8.222,0,0,0-.88.047,9.78,9.78,0,0,1,3.65,7.829,9.748,9.748,0,0,1-3.995,8.073A8.021,8.021,0,1,0,10.646,2.624Z" transform="translate(12 12)"/>
+    </g>
+  </g>
+</svg>

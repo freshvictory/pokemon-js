@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 75 75">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        filter: url(#Rectangle);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#a864c7"/>
+      <stop offset="1" stop-color="#c261d4"/>
+    </linearGradient>
+    <filter id="Rectangle" x="0" y="0" width="75" height="75" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#a36bcb" flood-opacity="0.702"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Types_Poison" data-name="Types/Poison" transform="translate(15 15)">
+    <g id="Group">
+      <g class="cls-3" transform="matrix(1, 0, 0, 1, -15, -15)">
+        <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="45" height="45" rx="22.5" transform="translate(15 15)"/>
+      </g>
+      <path id="Oval_3" data-name="Oval 3" class="cls-2" d="M15.987,22.5a2.779,2.779,0,0,1-2.369-1.589A2.776,2.776,0,0,1,11.25,22.5a2.885,2.885,0,0,1-2.516-1.879A2.886,2.886,0,0,1,6.217,22.5c-1.632,0-2.961-1.782-2.961-3.972a5.214,5.214,0,0,1,.2-1.439A9.328,9.328,0,0,1,0,9.929C0,4.454,5.047,0,11.25,0S22.5,4.454,22.5,9.929a9.469,9.469,0,0,1-3.7,7.362,5.181,5.181,0,0,1,.147,1.238C18.947,20.719,17.619,22.5,15.987,22.5ZM11.1,5.085c-3.674,0-6.662,2.261-6.662,5.041s2.989,5.041,6.662,5.041,6.661-2.261,6.661-5.041S14.775,5.085,11.1,5.085Z" transform="translate(11 11)"/>
+    </g>
+  </g>
+</svg>

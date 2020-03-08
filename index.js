@@ -1,6 +1,9 @@
 import { Router } from './router.js';
 import { types } from './types.js';
 
+// Disable offline, for now.
+// navigator.serviceWorker.register('/service-worker.js').catch(console.log);
+
 window.router = new Router()
   .add(
     'Home',

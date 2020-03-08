@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 75 75">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        filter: url(#Rectangle);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#5fbc51"/>
+      <stop offset="1" stop-color="#5ac178"/>
+    </linearGradient>
+    <filter id="Rectangle" x="0" y="0" width="75" height="75" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#64b954" flood-opacity="0.702"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Types_Grass" data-name="Types/Grass" transform="translate(15 15)">
+    <g id="Group">
+      <g class="cls-3" transform="matrix(1, 0, 0, 1, -15, -15)">
+        <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="45" height="45" rx="22.5" transform="translate(15 15)"/>
+      </g>
+      <path id="Oval" class="cls-2" d="M9.181,22.5A9.192,9.192,0,0,1,0,13.319c0-1.446.686-4.1,3.954-8.561A53.266,53.266,0,0,1,7.908,0,.112.112,0,0,1,7.93.016a61.492,61.492,0,0,1,5.205,4.742c2.385,2.46,5.227,5.942,5.227,8.561a9.173,9.173,0,0,1-7.52,9.031l-.463-4.54,2.554-3.962-2.925,2.394L9.978,12.83l1.5-2.345L9.508,11.556,8.285,7.29l.263,4.591-2.014-.343,2.241,1.652L8.967,16.4,6.118,14.946l2.859,2.859.49,4.691-.033,0Z" transform="translate(24.144 7.803) rotate(45)"/>
+    </g>
+  </g>
+</svg>

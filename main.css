@@ -77,8 +77,11 @@ ul {
 }
 
 body.active #shield {
-  opacity: var(--o-shield);
   pointer-events: auto;
+}
+
+body.active type-link:not([checked]) {
+  filter: grayscale(0.8);
 }
 
 body.active type-legend {

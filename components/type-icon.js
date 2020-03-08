@@ -41,31 +41,27 @@ class TypeIcon extends CustomElement {
         class: 'wrapper'
       }
     );
-    this.wrapper.style.backgroundColor = `var(--c-light-${this.type.primary})`;
+
 
     this.icon = this.wrapper.add(
-      'div',
+      'img',
       {
-        class: 'icon'
+        class: 'icon',
+        alt: this.type.name,
+        src: `/images/types/${this.type.primary}.svg`
       }
-    )
-    this.icon.style.backgroundColor = `var(--c-${this.type.primary})`;
-    this.icon.style.backgroundImage = `var(--icon-${this.type.primary})`;
+    );
 
     if (this.type.secondary) {
       this.secondary = this.container.add(
-        'div',
+        'img',
         {
-          class: 'icon secondary'
+          class: 'icon secondary',
+          alt: this.type.name,
+          src: `/images/types/${this.type.secondary}.svg`
         }
       );
-      this.secondary.style.backgroundColor = `var(--c-${this.type.secondary})`;
-      this.secondary.style.backgroundImage = `var(--icon-${this.type.secondary})`;
     }
-  }
-
-
-  createIcon(type) {
   }
 }
 

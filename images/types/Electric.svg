@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 75 75">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        filter: url(#Rectangle);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="0.987" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#edd53e"/>
+      <stop offset="1" stop-color="#fbe273"/>
+    </linearGradient>
+    <filter id="Rectangle" x="0" y="0" width="75" height="75" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#f4d556" flood-opacity="0.702"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Types_Electric" data-name="Types/Electric" transform="translate(15 15)">
+    <g id="Group">
+      <g class="cls-3" transform="matrix(1, 0, 0, 1, -15, -15)">
+        <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="45" height="45" rx="22.5" transform="translate(15 15)"/>
+      </g>
+      <path id="Path_5" data-name="Path 5" class="cls-2" d="M2.725.875A.66.66,0,0,1,3.348,0h7.061a.66.66,0,0,1,.63.465L14.515,11.7a.66.66,0,0,1-.63.855H9.563a.33.33,0,0,0-.317.42L11.41,20.59a.66.66,0,0,1-1.162.577L.574,8.3A.66.66,0,0,1,1.1,7.245H4.466a.33.33,0,0,0,.312-.438Z" transform="translate(14.22 12.5)"/>
+    </g>
+  </g>
+</svg>

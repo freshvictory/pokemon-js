@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 75 75">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        filter: url(#Rectangle);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#70ccbd"/>
+      <stop offset="1" stop-color="#8cddd4"/>
+    </linearGradient>
+    <filter id="Rectangle" x="0" y="0" width="75" height="75" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#7ed4c9" flood-opacity="0.702"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Types_Ice" data-name="Types/Ice" transform="translate(15 15)">
+    <g id="Group">
+      <g class="cls-3" transform="matrix(1, 0, 0, 1, -15, -15)">
+        <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="45" height="45" rx="22.5" transform="translate(15 15)"/>
+      </g>
+      <g id="Group_2" data-name="Group 2" transform="translate(9.904 9.816)">
+        <path id="Polygon" class="cls-2" d="M3.452,0l3.6,5.845L3.4,11.394,0,5.875Z" transform="translate(15.867 0.16) rotate(31)"/>
+        <path id="Polygon-2" data-name="Polygon" class="cls-2" d="M3.223,0,6.51,5.987l-3.5,5.872L0,5.876Z" transform="matrix(0.017, 1, -1, 0.017, 24.773, 9.535)"/>
+        <path id="Polygon_Copy" data-name="Polygon Copy" class="cls-2" d="M3.223,0,6.51,5.987l-3.5,5.872L0,5.876Z" transform="matrix(0.017, 1, -1, 0.017, 11.857, 9.535)"/>
+        <path id="Polygon-3" data-name="Polygon" class="cls-2" d="M3.452,0l3.6,5.845L3.4,11.394,0,5.875Z" transform="matrix(0.848, -0.53, 0.53, 0.848, 2.991, 3.739)"/>
+        <path id="Polygon-4" data-name="Polygon" class="cls-2" d="M3.452,0l3.6,5.845L3.4,11.394,0,5.875Z" transform="matrix(-0.848, 0.53, -0.53, -0.848, 21.92, 21.673)"/>
+        <path id="Polygon-5" data-name="Polygon" class="cls-2" d="M3.452,0l3.6,5.845L3.4,11.394,0,5.875Z" transform="translate(9.089 25.341) rotate(-149)"/>
+      </g>
+    </g>
+  </g>
+</svg>

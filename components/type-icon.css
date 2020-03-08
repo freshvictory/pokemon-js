@@ -4,33 +4,39 @@
 }
 
 .wrapper {
-  border: calc(var(--icon-size) / 4) solid var(--c-border);
-
   border-radius: 50%;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  overflow: visible;
 }
 
 .icon {
   border-radius: 50%;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  background-size: var(--icon-size);
+  width: calc(5 * var(--icon-size) / 2);
+  height: calc(5 * var(--icon-size) / 2);
+  display: flex;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .icon.secondary {
-  width: calc(3 * var(--icon-size) / 4);
-  height: calc(3 * var(--icon-size) / 4);
-  background-size: calc(3 * var(--icon-size) / 4);
+  width: calc(var(--icon-size));
+  height: calc(var(--icon-size));
   position: absolute;
-  right: 43px;
-  top: 43px;
-  box-shadow: -2px 2px 10px 0 rgb(0, 0, 0, 0.35);
+  right: 40px;
+  top: 40px;
 }
 
 
 
 :host([data_placement*='bottom']) .icon.secondary,
 :host([data_placement*='right']) .icon.secondary {
-  left: 43px;
+  left: 40px;
   right: auto;
-  box-shadow: 2px 2px 10px 0 rgb(0, 0, 0, 0.35);
 }

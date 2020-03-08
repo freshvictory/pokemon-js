@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 75 75">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        filter: url(#Rectangle);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#90a7da"/>
+      <stop offset="1" stop-color="#a6c2f2"/>
+    </linearGradient>
+    <filter id="Rectangle" x="0" y="0" width="75" height="75" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#9db5e4" flood-opacity="0.702"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Types_Flying" data-name="Types/Flying" transform="translate(15 15)">
+    <g id="Group">
+      <g class="cls-3" transform="matrix(1, 0, 0, 1, -15, -15)">
+        <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="45" height="45" rx="22.5" transform="translate(15 15)"/>
+      </g>
+      <path id="Oval_2" data-name="Oval 2" class="cls-2" d="M7.854,19.5a7.894,7.894,0,0,0,7.283-4.429c.014-.032-4.677,1.219-4.527.777.067-.2,2.943-1.248,5.038-2.473a4.763,4.763,0,0,0,1.759-2.2,22.38,22.38,0,0,1-3.054,1.235,12.472,12.472,0,0,1-3.886.4,32.623,32.623,0,0,0,7.22-3.246A5.969,5.969,0,0,0,20.2,6.289a23.658,23.658,0,0,1-3.484,1.72A19.8,19.8,0,0,1,10.758,9.19c0-.293,2.5-.981,5.15-2.265a28.979,28.979,0,0,0,3.955-2.51A7.023,7.023,0,0,0,22.5,0a35.552,35.552,0,0,1-3.321,1.918A37.082,37.082,0,0,1,7.854,5.149C3.534,5.488,0,8.5,0,12.415S3.516,19.5,7.854,19.5Z" transform="translate(12 12.5)"/>
+    </g>
+  </g>
+</svg>

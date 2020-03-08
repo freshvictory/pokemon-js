@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 75 75">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        filter: url(#Rectangle);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f66f71"/>
+      <stop offset="1" stop-color="#fe9f92"/>
+    </linearGradient>
+    <filter id="Rectangle" x="0" y="0" width="75" height="75" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-color="#f87c7a" flood-opacity="0.702"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Types_Psychic" data-name="Types/Psychic" transform="translate(15 15)">
+    <g id="Group">
+      <g class="cls-3" transform="matrix(1, 0, 0, 1, -15, -15)">
+        <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="45" height="45" rx="22.5" transform="translate(15 15)"/>
+      </g>
+      <path id="Path_9" data-name="Path 9" class="cls-2" d="M17.962,17.439s-2.648,2.124-7.917,1.245c-4-.667-6.13-5.074-6.13-7.443,0-5.616,4.157-6.894,6.967-6.894s4.644,2.74,4.644,4.861a3.818,3.818,0,0,1-3.835,3.977,2.828,2.828,0,0,1-3.026-3.146A2.061,2.061,0,0,1,10.995,8c1.112,0,1.493.949,1.493,1.765a1.074,1.074,0,0,1-1.161,1.108c-.528,0-.58-.266-.782-.546s.258-1.34-.5-1.34-.9,1.218-.9,1.218a2.57,2.57,0,0,0,2.544,2.311A2.924,2.924,0,0,0,14.72,8.988,4.173,4.173,0,0,0,9.767,5.781c-2.956.373-4.163,3.36-3.631,6.552s4.356,5.041,7.363,4.376,6-2.842,6-8.361S14.72-.488,9.021.059-.216,5.588.01,11.575s5.907,9.247,10.711,9.416a11.361,11.361,0,0,0,7.749-2.613s.662-.591.4-1.052S17.962,17.439,17.962,17.439Z" transform="translate(12.75 12)"/>
+    </g>
+  </g>
+</svg>
