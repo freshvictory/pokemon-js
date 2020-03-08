@@ -1,42 +1,37 @@
 :host {
-  --icon-size: 40px;
+  --icon-size: 60px;
   --c-border: transparent;
 }
 
 .wrapper {
   border-radius: 50%;
-  width: var(--icon-size);
-  height: var(--icon-size);
   overflow: visible;
 }
 
 .icon {
   border-radius: 50%;
-  width: calc(5 * var(--icon-size) / 2);
-  height: calc(5 * var(--icon-size) / 2);
+  width: var(--icon-size);
+  height: var(--icon-size);
   display: flex;
   margin: 0;
   padding: 0;
   border: 0;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
 }
 
 .icon.secondary {
-  width: calc(var(--icon-size));
-  height: calc(var(--icon-size));
+  width: calc(var(--icon-size) / 2);
+  height: calc(var(--icon-size) / 2);
   position: absolute;
-  right: 40px;
-  top: 40px;
+  right: 33px;
+  top: 33px;
+  box-shadow: -1px 1px 5px 0;
 }
 
 
 
 :host([data_placement*='bottom']) .icon.secondary,
 :host([data_placement*='right']) .icon.secondary {
-  left: 40px;
+  left: 33px;
+  box-shadow: 1px 1px 5px 0;
   right: auto;
 }

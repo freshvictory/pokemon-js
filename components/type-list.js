@@ -74,9 +74,10 @@ class TypeList extends CustomElement {
     const icon = relationship.add('div', {
       class: 'icon'
     });
+    icon.style.color = `var(--c-${type})`;
     icon.add('type-icon', {
       type: type,
-      style: `--icon-size: 20px;`
+      style: `--icon-size: 30px;`
     });
     relationship.add('triangle-icon', {
       style: `--color: var(--c-${id});`,

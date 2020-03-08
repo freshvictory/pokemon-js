@@ -21,6 +21,7 @@
 
   overflow: visible;
   position: relative;
+  box-shadow: 0 0 15px 0;
 }
 
 :host([hidden]) {
@@ -93,6 +94,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .info {

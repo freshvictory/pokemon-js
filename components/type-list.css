@@ -8,7 +8,6 @@ ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  pointer-events: none;
 }
 
 .list {
@@ -29,11 +28,11 @@ ul {
 }
 
 :host([checked]) .wrapper .relationship {
-  transform: translateY(-55px);
+  transform: translateY(-45px);
 }
 
 :host([checked]) .wrapper.emph .relationship {
-  transform: translateY(-55px);
+  transform: translateY(-50px);
 }
 
 .wrapper.emph type-icon {
@@ -51,9 +50,13 @@ ul {
   border-radius: 50%;
 }
 
+:host([checked]) .icon {
+  box-shadow: 0 0 10px 0;
+}
+
 triangle-icon {
   left: 50%;
-  transform: translateX(-50%) translateY(-12px);
+  transform: translateX(-50%) translateY(-6px);
   position: absolute;
 }
 
@@ -67,5 +70,5 @@ triangle-icon.toward {
 }
 
 triangle-icon.away {
-  transform: translateX(-50%) scale(-1) translateY(-12px);
+  transform: translateX(-50%) scale(-1) translateY(-6px);
 }

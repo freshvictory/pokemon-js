@@ -1,36 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 75 75">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: url(#linear-gradient);
-      }
-
-      .cls-2 {
-        fill: #fff;
-      }
-
-      .cls-3 {
-        filter: url(#Rectangle);
-      }
-    </style>
-    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="0.987" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#dc7545"/>
-      <stop offset="1" stop-color="#d29463"/>
-    </linearGradient>
-    <filter id="Rectangle" x="0" y="0" width="75" height="75" filterUnits="userSpaceOnUse">
-      <feOffset input="SourceAlpha"/>
-      <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feFlood flood-color="#d88255" flood-opacity="0.702"/>
-      <feComposite operator="in" in2="blur"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
-  </defs>
-  <g id="Types_Ground" data-name="Types/Ground" transform="translate(15 15)">
-    <g id="Group">
-      <g class="cls-3" transform="matrix(1, 0, 0, 1, -15, -15)">
-        <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="45" height="45" rx="22.5" transform="translate(15 15)"/>
-      </g>
-      <path id="Path_6" data-name="Path 6" class="cls-2" d="M.3,16.5a.3.3,0,0,1-.283-.408L4.127,5.126a.3.3,0,0,1,.282-.2h3.14a.3.3,0,0,1,.283.405L3.861,16.3a.3.3,0,0,1-.283.2Zm4.756-.063H4.964a.077.077,0,0,1-.062-.089L10.617.2A.3.3,0,0,1,10.9,0h5.789a.3.3,0,0,1,.285.2l5.52,15.833a.3.3,0,0,1-.285.4H5.059Z" transform="translate(11.244 14.5)"/>
-    </g>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 75 75" style="enable-background:new 0 0 75 75;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#Rectangle-2_1_);}
+	.st1{fill:#FFFFFF;}
+</style>
+<g id="Types_Ground" transform="translate(15 15)">
+	<g id="Group">
+		<g transform="matrix(1, 0, 0, 1, -15, -15)">
+			
+				<linearGradient id="Rectangle-2_1_" gradientUnits="userSpaceOnUse" x1="-261.5444" y1="426.3778" x2="-261.5444" y2="424.7328" gradientTransform="matrix(45 0 0 -45 11807 19187)">
+				<stop  offset="0" style="stop-color:#DC7545"/>
+				<stop  offset="1" style="stop-color:#D29463"/>
+			</linearGradient>
+			<path id="Rectangle-2" class="st0" d="M37.5,0L37.5,0C58.2,0,75,16.8,75,37.5l0,0C75,58.2,58.2,75,37.5,75l0,0
+				C16.8,75,0,58.2,0,37.5l0,0C0,16.8,16.8,0,37.5,0z"/>
+		</g>
+		<path id="Path_6" class="st1" d="M4.2,36.7c-0.3,0-0.5-0.2-0.5-0.5c0-0.1,0-0.1,0-0.2l6.8-18.3c0.1-0.2,0.3-0.3,0.5-0.3h5.2
+			c0.3,0,0.5,0.2,0.5,0.5c0,0.1,0,0.1,0,0.2l-6.6,18.3c-0.1,0.2-0.3,0.3-0.5,0.3H4.2z M12.2,36.6H12c-0.1,0-0.1-0.1-0.1-0.1
+			l9.5-26.9c0.1-0.2,0.3-0.3,0.5-0.3h9.6c0.2,0,0.4,0.1,0.5,0.3l9.2,26.4c0.1,0.3,0,0.5-0.3,0.6c-0.1,0-0.1,0-0.2,0L12.2,36.6
+			L12.2,36.6z"/>
+	</g>
+</g>
 </svg>

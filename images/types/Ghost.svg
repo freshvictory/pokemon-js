@@ -1,36 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 75 75">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: url(#linear-gradient);
-      }
-
-      .cls-2 {
-        fill: #fff;
-      }
-
-      .cls-3 {
-        filter: url(#Rectangle);
-      }
-    </style>
-    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="0.987" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#516aac"/>
-      <stop offset="1" stop-color="#7773d4"/>
-    </linearGradient>
-    <filter id="Rectangle" x="0" y="0" width="75" height="75" filterUnits="userSpaceOnUse">
-      <feOffset input="SourceAlpha"/>
-      <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feFlood flood-color="#656cc6" flood-opacity="0.702"/>
-      <feComposite operator="in" in2="blur"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
-  </defs>
-  <g id="Types_Ghost" data-name="Types/Ghost" transform="translate(15 15)">
-    <g id="Group">
-      <g class="cls-3" transform="matrix(1, 0, 0, 1, -15, -15)">
-        <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="45" height="45" rx="22.5" transform="translate(15 15)"/>
-      </g>
-      <path id="Oval_10" data-name="Oval 10" class="cls-2" d="M10.333,20.928a12.746,12.746,0,0,1-7.322-3.474A9.927,9.927,0,0,1,0,10.287,10.407,10.407,0,0,1,10.5,0,10.407,10.407,0,0,1,21,10.287a10.148,10.148,0,0,1-2.689,6.873.457.457,0,0,0-.151.386c.049.3.509.561.953.808s.914.509.984.825a.451.451,0,0,1-.1.373c-.4.551-2.57,1.256-4.865,1.375-.916.047-1.922.073-2.834.073A18.322,18.322,0,0,1,10.333,20.928Zm2.957-10.319A1.626,1.626,0,0,0,14.929,9a1.6,1.6,0,0,0-.82-1.391v.427A.965.965,0,0,1,13.145,9h-1.5A1.627,1.627,0,0,0,13.289,10.608ZM5.742,9A1.641,1.641,0,0,0,9.023,9h-1.5a.964.964,0,0,1-.964-.965V7.609A1.6,1.6,0,0,0,5.742,9Z" transform="translate(12 12)"/>
-    </g>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 75 75" style="enable-background:new 0 0 75 75;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#Rectangle-2_1_);}
+	.st1{fill:#FFFFFF;}
+</style>
+<g id="Types_Ghost" transform="translate(15 15)">
+	<g id="Group">
+		<g transform="matrix(1, 0, 0, 1, -15, -15)">
+			
+				<linearGradient id="Rectangle-2_1_" gradientUnits="userSpaceOnUse" x1="-261.5444" y1="426.3778" x2="-261.5444" y2="424.7328" gradientTransform="matrix(45 0 0 -45 11807 19187)">
+				<stop  offset="0" style="stop-color:#516AAC"/>
+				<stop  offset="1" style="stop-color:#7773D4"/>
+			</linearGradient>
+			<path id="Rectangle-2" class="st0" d="M37.5,0L37.5,0C58.2,0,75,16.8,75,37.5l0,0C75,58.2,58.2,75,37.5,75l0,0
+				C16.8,75,0,58.2,0,37.5l0,0C0,16.8,16.8,0,37.5,0z"/>
+		</g>
+		<path id="Oval_10" class="st1" d="M22.2,39.9c-4.6-0.6-8.9-2.6-12.2-5.8C6.8,31,5,26.6,5,22.1C5.1,12.6,12.9,4.9,22.5,5
+			c9.6-0.1,17.4,7.6,17.5,17.1c0,4.2-1.6,8.3-4.5,11.5c-0.2,0.2-0.3,0.4-0.3,0.6c0.1,0.5,0.8,0.9,1.6,1.3c0.7,0.4,1.5,0.8,1.6,1.4
+			c0,0.2,0,0.4-0.2,0.6c-0.7,0.9-4.3,2.1-8.1,2.3C28.7,40,27,40,25.5,40C24.4,40,23.3,40,22.2,39.9z M27.1,22.7
+			c1.5,0,2.7-1.2,2.7-2.7c0-1-0.5-1.8-1.4-2.3v0.7c0,0.9-0.7,1.6-1.6,1.6h-2.5C24.4,21.5,25.7,22.7,27.1,22.7L27.1,22.7z M14.6,20
+			c0,1.5,1.3,2.7,2.8,2.7c1.5,0,2.6-1.2,2.7-2.7h-2.5c-0.9,0-1.6-0.7-1.6-1.6c0,0,0,0,0,0v-0.7C15.1,18.2,14.6,19,14.6,20z"/>
+	</g>
+</g>
 </svg>

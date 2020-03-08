@@ -15,6 +15,7 @@ class TypeLink extends CustomElement {
   connectedCallback() {
     this.type = types.get(this.get('type'), this.get('secondary'));
     this.id = 'link-' + this.type.primary;
+    this.style.color = `var(--c-${this.type.primary})`;
 
     this.details = this.shadow.add(
       'div',

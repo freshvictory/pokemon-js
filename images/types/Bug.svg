@@ -1,36 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 75 75">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: url(#linear-gradient);
-      }
-
-      .cls-2 {
-        fill: #fff;
-      }
-
-      .cls-3 {
-        filter: url(#Rectangle);
-      }
-    </style>
-    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#92bc2c"/>
-      <stop offset="1" stop-color="#afc836"/>
-    </linearGradient>
-    <filter id="Rectangle" x="0" y="0" width="75" height="75" filterUnits="userSpaceOnUse">
-      <feOffset input="SourceAlpha"/>
-      <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feFlood flood-color="#98c32f" flood-opacity="0.702"/>
-      <feComposite operator="in" in2="blur"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
-  </defs>
-  <g id="Types_Bug" data-name="Types/Bug" transform="translate(15 15)">
-    <g id="Group">
-      <g class="cls-3" transform="matrix(1, 0, 0, 1, -15, -15)">
-        <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="45" height="45" rx="22.5" transform="translate(15 15)"/>
-      </g>
-      <path id="Path_3" data-name="Path 3" class="cls-2" d="M15.035,24.23h0A14.7,14.7,0,0,1,11.486,17.7C10.795,14.1,12.5,10.044,12.521,10a14.392,14.392,0,0,0,2.785-1.291,16.736,16.736,0,0,0,2.244-2.3A8.67,8.67,0,0,1,19.275,8.5,12.227,12.227,0,0,1,21,14.943a10.187,10.187,0,0,1-2.983,6.817,14.853,14.853,0,0,1-2.983,2.469Zm-9.07,0h0A14.842,14.842,0,0,1,2.982,21.76,10.188,10.188,0,0,1,0,14.943,12.385,12.385,0,0,1,1.725,8.5,8.613,8.613,0,0,1,3.451,6.412a16.78,16.78,0,0,0,2.242,2.3A14.422,14.422,0,0,0,8.479,10c.071.169,1.717,4.145,1.034,7.7a14.7,14.7,0,0,1-3.548,6.527ZM10.725,8.552c-3.306,0-5.7-3.13-5.721-3.162,0,0,.007-.006.017-.013A12.643,12.643,0,0,1,7.1,4.392L5.11,2.026A1.125,1.125,0,0,1,6.834.579l2.54,3.027a1.192,1.192,0,0,1,.13.19,7.835,7.835,0,0,1,.91-.054,9.609,9.609,0,0,1,1.282.089,1.351,1.351,0,0,1,.071-.116L14.032.479A1.125,1.125,0,1,1,15.874,1.77l-1.823,2.6a15.005,15.005,0,0,1,1.991.786h0l0,.006C15.829,5.513,13.886,8.552,10.725,8.552Z" transform="translate(12 10.502)"/>
-    </g>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 75 75" style="enable-background:new 0 0 75 75;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#Rectangle-2_1_);}
+	.st1{fill:#FFFFFF;}
+</style>
+<g id="Types_Bug" transform="translate(15 15)">
+	<g id="Group">
+		<g transform="matrix(1, 0, 0, 1, -15, -15)">
+			
+				<linearGradient id="Rectangle-2_1_" gradientUnits="userSpaceOnUse" x1="-261.5444" y1="426.3778" x2="-261.5444" y2="424.7111" gradientTransform="matrix(45 0 0 -45 11807 19187)">
+				<stop  offset="0" style="stop-color:#92BC2C"/>
+				<stop  offset="1" style="stop-color:#AFC836"/>
+			</linearGradient>
+			<path id="Rectangle-2" class="st0" d="M37.5,0L37.5,0C58.2,0,75,16.8,75,37.5l0,0C75,58.2,58.2,75,37.5,75l0,0
+				C16.8,75,0,58.2,0,37.5l0,0C0,16.8,16.8,0,37.5,0z"/>
+		</g>
+		<path id="Path_3" class="st1" d="M30.1,42.9L30.1,42.9c-2.9-3.1-4.9-6.8-5.9-10.9c-1.2-6,1.7-12.8,1.7-12.8
+			c1.6-0.5,3.2-1.3,4.6-2.2c1.4-1.2,2.6-2.4,3.7-3.8c1.1,1,2.1,2.2,2.9,3.5c1.9,3.2,2.9,7,2.9,10.7c-0.2,4.3-1.9,8.3-5,11.4
+			C33.6,40.4,31.9,41.7,30.1,42.9L30.1,42.9z M14.9,42.9L14.9,42.9c-1.8-1.1-3.5-2.5-5-4.1c-3-3-4.8-7.1-5-11.4
+			c0-3.8,1-7.5,2.9-10.7c0.8-1.3,1.7-2.5,2.9-3.5c1.1,1.4,2.4,2.7,3.7,3.8c1.5,0.9,3,1.6,4.6,2.1c0.1,0.3,2.9,6.9,1.7,12.8
+			C19.8,36.1,17.8,39.8,14.9,42.9L14.9,42.9z M22.9,16.8c-5.5,0-9.5-5.2-9.5-5.3c0,0,0,0,0,0c1.1-0.7,2.3-1.2,3.5-1.6l-3.3-3.9
+			c-0.7-0.8-0.6-2,0.2-2.6c0.8-0.7,2-0.6,2.6,0.2l4.2,5c0.1,0.1,0.2,0.2,0.2,0.3c0.5-0.1,1-0.1,1.5-0.1c0.7,0,1.4,0.1,2.1,0.1
+			c0-0.1,0.1-0.1,0.1-0.2l3.8-5.4C29,2.4,30.1,2.2,31,2.8c0.9,0.6,1.1,1.7,0.5,2.6c0,0,0,0-0.1,0.1l-3,4.3c1.1,0.4,2.2,0.8,3.3,1.3
+			l0,0v0C31.4,11.7,28.1,16.8,22.9,16.8z"/>
+	</g>
+</g>
 </svg>

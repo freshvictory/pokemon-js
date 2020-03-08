@@ -1,36 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 75 75">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: url(#linear-gradient);
-      }
-
-      .cls-2 {
-        fill: #fff;
-      }
-
-      .cls-3 {
-        filter: url(#Rectangle);
-      }
-    </style>
-    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="0.987" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#ce4265"/>
-      <stop offset="1" stop-color="#e74347"/>
-    </linearGradient>
-    <filter id="Rectangle" x="0" y="0" width="75" height="75" filterUnits="userSpaceOnUse">
-      <feOffset input="SourceAlpha"/>
-      <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feFlood flood-color="#d4445d" flood-opacity="0.702"/>
-      <feComposite operator="in" in2="blur"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
-  </defs>
-  <g id="Types_Fight" data-name="Types/Fight" transform="translate(7.5 7.5)">
-    <g id="Group" transform="translate(7.5 7.5)">
-      <g class="cls-3" transform="matrix(1, 0, 0, 1, -15, -15)">
-        <rect id="Rectangle-2" data-name="Rectangle" class="cls-1" width="45" height="45" rx="22.5" transform="translate(15 15)"/>
-      </g>
-      <path id="Oval_9" data-name="Oval 9" class="cls-2" d="M10.5,22.5C4.71,22.5,0,18.21,0,12.938a9.085,9.085,0,0,1,2.881-6.58c-.006,3.325.07,5.011.227,5.012.579-.132.01-9.724,0-9.821l-.053.077A1.755,1.755,0,0,1,4.8,0H6.269A1.759,1.759,0,0,1,7.9,1.125H7.95A1.754,1.754,0,0,1,9.386.375H10.85a1.745,1.745,0,0,1,1.724,1.447A1.745,1.745,0,0,1,13.586,1.5H15.05a1.755,1.755,0,0,1,1.734,1.512,1.74,1.74,0,0,1,.684.23A2.4,2.4,0,0,1,18.518,3,2.515,2.515,0,0,1,21,5.482V13.02a9.106,9.106,0,0,1-3.105,6.706A10.979,10.979,0,0,1,10.5,22.5Z" transform="translate(12 12)"/>
-    </g>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 75 75" style="enable-background:new 0 0 75 75;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#Rectangle-2_1_);}
+	.st1{fill:#FFFFFF;}
+</style>
+<g id="Types_Fight" transform="translate(7.5 7.5)">
+	<g id="Group" transform="translate(7.5 7.5)">
+		<g transform="matrix(1, 0, 0, 1, -15, -15)">
+			
+				<linearGradient id="Rectangle-2_1_" gradientUnits="userSpaceOnUse" x1="-261.5444" y1="426.3778" x2="-261.5444" y2="424.7328" gradientTransform="matrix(45 0 0 -45 11807 19187)">
+				<stop  offset="0" style="stop-color:#CE4265"/>
+				<stop  offset="1" style="stop-color:#E74347"/>
+			</linearGradient>
+			<path id="Rectangle-2" class="st0" d="M37.5,0L37.5,0C58.2,0,75,16.8,75,37.5l0,0C75,58.2,58.2,75,37.5,75l0,0
+				C16.8,75,0,58.2,0,37.5l0,0C0,16.8,16.8,0,37.5,0z"/>
+		</g>
+		<path id="Oval_9" class="st1" d="M22.5,42.5C12.9,42.5,5,35.3,5,26.6c0-4.2,1.8-8.1,4.8-11c0,5.5,0.1,8.4,0.4,8.4
+			c1-0.2,0-16.2,0-16.4l-0.1,0.1C10.2,6.2,11.5,5,13,5h2.4c1.2,0,2.3,0.8,2.7,1.9h0.1c0.5-0.8,1.4-1.2,2.4-1.2h2.4
+			c1.4,0,2.6,1,2.9,2.4c0.5-0.3,1.1-0.5,1.7-0.5h2.4c1.5,0,2.7,1.1,2.9,2.5c0.4,0,0.8,0.2,1.1,0.4c0.5-0.3,1.1-0.4,1.8-0.4
+			c2.3,0,4.1,1.9,4.1,4.1v12.6c-0.1,4.3-1.9,8.3-5.2,11.2C31.4,40.9,27,42.5,22.5,42.5z"/>
+	</g>
+</g>
 </svg>

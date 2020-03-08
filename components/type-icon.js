@@ -24,7 +24,7 @@ class TypeIcon extends CustomElement {
 
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'secondary' && this.container) {
+    if (name === 'secondary' && this.container && oldValue !== newValue) {
       this.render();
     }
   }
@@ -41,6 +41,7 @@ class TypeIcon extends CustomElement {
         class: 'wrapper'
       }
     );
+    this.wrapper.style.backgroundColor = `var(--c-${this.type.primary})`;
 
 
     this.icon = this.wrapper.add(
@@ -61,6 +62,7 @@ class TypeIcon extends CustomElement {
           src: `/images/types/${this.type.secondary}.svg`
         }
       );
+      this.secondary.style.color = `var(--c-${this.type.secondary})`;
     }
   }
 }
