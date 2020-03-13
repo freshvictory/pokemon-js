@@ -58,10 +58,6 @@ class TypeLink extends CustomElement {
         secondary: this.type.secondary || ''
       }
     );
-
-    const placement = this.calculatePlacement();
-    this.icon.setAttribute('data_placement', placement);
-    this.setAttribute('data_placement', placement);
   }
 
 
