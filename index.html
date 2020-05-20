@@ -27,11 +27,14 @@
         <link rel="stylesheet" href="/types.css"/>
         <script src="/index.js" type="module"></script>
         <script src="/components/internal-link.js" type="module"></script>
-        <script src="/components/type-icon.js" type="module"></script>
         <script src="/components/triangle-icon.js" type="module"></script>
         <script src="/components/type-list.js" type="module"></script>
         <script src="/components/type-link.js" type="module"></script>
-        <script src="/components/type-legend.js" type="module"></script>
+        <script type="module">
+          import { define } from '/components/component.js';
+
+          window.define = define;
+        </script>
     </head>
     <body>
         <noscript>
@@ -119,9 +122,41 @@
 </style>
 </template>
 <script type="module">
-  import TypeIcon from './components/type-icon.js';
+import { types } from '/types.js';
 
-  customElements.define('type-icon', TypeIcon);
+customElements.define('type-icon',
+  define({
+    id: 'type-icon',
+    attributes: [ 'secondary' ],
+    data: {
+      type: undefined,
+      secondary: undefined
+    },
+    refs: [
+      'container',
+      'icon',
+      'secondary',
+      'wrapper'
+    ],
+    render: (data, refs) => {
+      const type = types.get(data.type, data.secondary);
+
+      refs.wrapper.style.backgroundColor = `var(--c-${type.primary})`;
+      
+      refs.icon.alt = type.name;
+      refs.icon.src = `/images/types/${type.primary}.svg`;
+
+      if (type.secondary) {
+        refs.secondary.alt = type.name;
+        refs.secondary.src = `/images/types/${type.secondary}.svg`;
+        refs.secondary.style.color = `var(--c-${type.secondary})`;
+        refs.secondary.classList.remove('hide');
+      } else {
+        refs.secondary.classList.add('hide');
+      }
+    }
+  })
+);
 </script>
 
 
@@ -201,9 +236,22 @@ triangle-icon {
 }
 </style>
 </template>
-<script type="module">
-  import TypeLegend from './components/type-legend.js';
-
-  customElements.define('type-legend', TypeLegend);
+<script type="module"> 
+customElements.define('type-legend',
+  define({
+    id: 'type-legend',
+    refs: [
+      'counter-label',
+      'resistant-label'
+    ],
+    render: (data, refs) => {
+      const updateRoute = (id) => {
+        window.router.route(window.location.pathname, { list: id });
+      };
+      refs['counter-label'].addEventListener('click', () => updateRoute('counter'));
+      refs['resistant-label'].addEventListener('click', () => updateRoute('resistant'));
+    }
+  })
+);
 </script>
 
