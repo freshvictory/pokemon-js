@@ -22,7 +22,6 @@
         <!-- <link rel="preload" href="components/triangle-icon.css" as="style" crossorigin="anonymous" /> -->
         <!-- <link rel="preload" href="components/type-link.css" as="style" crossorigin="anonymous" /> -->
         <!-- <link rel="preload" href="components/type-list.css" as="style" crossorigin="anonymous" /> -->
-        <!-- <link rel="preload" href="components/type-icon.css" as="style" crossorigin="anonymous" /> -->
         <!-- <link rel="preload" href="components/type-legend.css" as="style" crossorigin="anonymous" /> -->
 
         <link rel="stylesheet" href="/main.css"/>
@@ -67,3 +66,62 @@
         <type-legend></type-legend>
     </body>
 </html>
+
+
+<!-- Type Icon -->
+<template id="type-icon">
+<div id="container">
+  <div id="wrapper">
+    <img id="icon" class="icon"/>
+  </div>
+  <img id="secondary" class="icon secondary hide"/>
+</div>
+
+<style>
+:host {
+  --icon-size: 60px;
+  --c-border: transparent;
+}
+
+.hide {
+  display: none !important;
+}
+
+#wrapper {
+  border-radius: 50%;
+  overflow: visible;
+}
+
+.icon {
+  border-radius: 50%;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  display: flex;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.icon.secondary {
+  width: calc(var(--icon-size) / 2);
+  height: calc(var(--icon-size) / 2);
+  position: absolute;
+  right: 33px;
+  top: 33px;
+  box-shadow: -1px px 5px 0;
+}
+
+:host([data_placement*='bottom']) .icon.secondary,
+:host([data_placement*='right']) .icon.secondary {
+  left: 33px;
+  box-shadow: 1px 1px 5px 0;
+  right: auto;
+}
+</style>
+</template>
+<script type="module">
+  import TypeIcon from './components/type-icon.js';
+
+  customElements.define('type-icon', TypeIcon);
+</script>
+

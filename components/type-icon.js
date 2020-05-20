@@ -1,70 +1,35 @@
-import { CustomElement } from './custom-element.js';
+import { define } from './component.js';
 import { types } from '../types.js';
 
-class TypeIcon extends CustomElement {
-  static get observedAttributes() {
-    return ['secondary'];
-  }
+export default define({
+  id: 'type-icon',
+  attributes: [ 'secondary' ],
+  data: {
+    type: undefined,
+    secondary: undefined
+  },
+  refs: [
+    'container',
+    'icon',
+    'secondary',
+    'wrapper'
+  ],
+  render: (data, refs) => {
+    const type = types.get(data.type, data.secondary);
 
+    refs.wrapper.style.backgroundColor = `var(--c-${type.primary})`;
+    
+    refs.icon.alt = type.name;
+    refs.icon.src = `/images/types/${type.primary}.svg`;
 
-  constructor() {
-    super('type-icon.css');
-  }
-
-
-  connectedCallback() {
-    this.container = this.shadow.add(
-      'div',
-      {
-        class: 'container'
-      }
-    );
-    this.render();
-  }
-
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'secondary' && this.container && oldValue !== newValue) {
-      this.render();
+    if (type.secondary) {
+      refs.secondary.alt = type.name;
+      refs.secondary.src = `/images/types/${type.secondary}.svg`;
+      refs.secondary.style.color = `var(--c-${type.secondary})`;
+      refs.secondary.classList.remove('hide');
+    } else {
+      refs.secondary.classList.add('hide');
     }
   }
+});
 
-
-  render() {
-    this.container.innerHTML = '';
-
-    this.type = types.get(this.get('type'), this.get('secondary'));
-
-    this.wrapper = this.container.add(
-      'div',
-      {
-        class: 'wrapper'
-      }
-    );
-    this.wrapper.style.backgroundColor = `var(--c-${this.type.primary})`;
-
-
-    this.icon = this.wrapper.add(
-      'img',
-      {
-        class: 'icon',
-        alt: this.type.name,
-        src: `/images/types/${this.type.primary}.svg`
-      }
-    );
-
-    if (this.type.secondary) {
-      this.secondary = this.container.add(
-        'img',
-        {
-          class: 'icon secondary',
-          alt: this.type.name,
-          src: `/images/types/${this.type.secondary}.svg`
-        }
-      );
-      this.secondary.style.color = `var(--c-${this.type.secondary})`;
-    }
-  }
-}
-
-customElements.define('type-icon', TypeIcon);
