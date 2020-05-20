@@ -1,77 +1,17 @@
-import { CustomElement } from './custom-element.js';
-import { Navigation } from '../router.js';
+import { define } from './component.js';
 
-class TypeLegend extends CustomElement {
-
-  constructor() {
-    super('type-legend.css');
-  }
-
-
-  connectedCallback() {
-    this.container = this.shadow.add(
-      'div',
-      {
-        class: 'container'
-      }
-    );
-
-    this.group = this.container.add(
-      'div',
-      {
-        id: 'against',
-        class: 'group'
-      }
-    );
-
-    this.buttons = {
-      counter: this.addLegendEntry(this.group, 'counter', 'Good counters'),
-      resistant: this.addLegendEntry(this.group, 'resistant', 'Bad counters')
+export default define({
+  id: 'type-legend',
+  refs: [
+    'counter-label',
+    'resistant-label'
+  ],
+  render: (data, refs) => {
+    const updateRoute = (id) => {
+      window.router.route(window.location.pathname, { list: id });
     };
+    refs['counter-label'].addEventListener('click', () => updateRoute('counter'));
+    refs['resistant-label'].addEventListener('click', () => updateRoute('resistant'));
   }
+});
 
-
-  addLegendEntry(group, id, name) {
-    const button = group.add(
-      'input',
-      {
-        type: 'radio',
-        id: id,
-        name: group.id,
-        class: 'button'
-      }
-    );
-
-    const label = group.add(
-      'label',
-      {
-        class: 'label',
-        style: `--c-highlighted: var(--c-${id}-light)`,
-        for: id,
-      }
-    );
-    label.addEventListener('click', () => this.updateRoute(id));
-
-    label.add(
-      'triangle-icon',
-      {
-        style: `--color: var(--c-${id})`
-      }
-    );
-
-    const text = label.add(
-      'div',
-      { }
-    )
-    text.textContent = name;
-
-    return button;
-  }
-
-
-  updateRoute(id) {
-    window.router.route(window.location.pathname, { list: id });
-  }
-}
-
-customElements.define('type-legend', TypeLegend);

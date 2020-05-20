@@ -22,7 +22,6 @@
         <!-- <link rel="preload" href="components/triangle-icon.css" as="style" crossorigin="anonymous" /> -->
         <!-- <link rel="preload" href="components/type-link.css" as="style" crossorigin="anonymous" /> -->
         <!-- <link rel="preload" href="components/type-list.css" as="style" crossorigin="anonymous" /> -->
-        <!-- <link rel="preload" href="components/type-legend.css" as="style" crossorigin="anonymous" /> -->
 
         <link rel="stylesheet" href="/main.css"/>
         <link rel="stylesheet" href="/types.css"/>
@@ -123,5 +122,88 @@
   import TypeIcon from './components/type-icon.js';
 
   customElements.define('type-icon', TypeIcon);
+</script>
+
+
+<!-- Type Legend -->
+<template id="type-legend">
+<div class="container">
+  <div id="against" class="group">
+    <input type="radio" id="counter" name="against" class="button"/>
+    <label for="counter" id="counter-label" class="label">
+      <triangle-icon></triangle-icon><span>Good counters</span>
+    </label>
+
+    <input type="radio" id="resistant" name="against" class="button"/>
+    <label for="resistant" id="resistant-label" class="label">
+      <triangle-icon></triangle-icon><span>Bad counters</span>
+    </label>
+  </div>
+</div>
+<style>
+.container {
+  border-radius: 20px;
+  background-color: var(--c-background-light);
+  padding: 5px;
+}
+
+.group {
+  display: grid;
+  grid-auto-columns: max-content;
+  grid-auto-flow: column;
+  gap: 5px;
+}
+
+input[type=radio] {
+  display: none;
+}
+
+.label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  padding: 5px 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  background-color: var(--c-background-light);
+  transition: none;
+}
+
+#counter-label {
+  --c-highlighted: var(--c-counter-light);
+}
+
+#counter-label > triangle-icon {
+  --color: var(--c-counter);
+}
+
+triangle-icon {
+  --width: 0.5em;
+  --height: 0.5em;
+
+  padding-right: 10px;
+}
+
+#resistant-label {
+  --c-highlighted: var(--c-resistant-light);
+}
+
+#resistant-label > triangle-icon {
+  --color: var(--c-resistant);
+}
+
+:host([selected='counter']) #counter-label,
+:host([selected='resistant']) #resistant-label {
+  background-color: var(--c-highlighted);
+  color: #000;
+  transition: background-color 200ms;
+}
+</style>
+</template>
+<script type="module">
+  import TypeLegend from './components/type-legend.js';
+
+  customElements.define('type-legend', TypeLegend);
 </script>
 
