@@ -14,6 +14,8 @@ export class Component extends HTMLElement {
 
 
 export function define(options) {
+  options.attributes = options.attributes || [];
+  options.data = options.data || {};
   return buildElementClass(options);
 }
 
