@@ -22,9 +22,8 @@
         <link rel="stylesheet" href="/main.css"/>
         <link rel="stylesheet" href="/types.css"/>
         <script src="/index.js" type="module"></script>
-        <script src="/components/triangle-icon.js" type="module"></script>
         <script type="module">
-          import { define } from '/components/component.js';
+          import { define } from './component.js';
           import { types } from './types.js';
 
           window.component = (opts) => customElements.define(
@@ -236,7 +235,6 @@ component({
     };
 
     if (name === 'checked') {
-      console.log('checked changed', newValue)
       if (newValue === null) {
         data.secondary = '';
         refs.icon.data.secondary = '';
@@ -249,7 +247,6 @@ component({
       }
       type = types.get(data.type, data.secondary);
       refs.link.data.href = (newValue === null ? type.id : '/');
-      console.log(refs.link.data.href)
     } else if (name === 'list') {
       if (oldValue) {
         refs[oldValue+'-list'].removeAttribute('checked');
@@ -607,6 +604,72 @@ component({
     refs['resistant-label'].addEventListener('click', () => updateRoute('resistant'));
   }
 });
+</script>
+
+
+<!-- Triangle Icon -->
+<template id="triangle-icon">
+<div class="triangle"></div>
+
+<style>
+:host {
+  --color: #69c423;
+
+  --width: 5px;
+  --height: 5px;
+  --border-radius: 50%;
+}
+
+
+/* Adapted from https://stackoverflow.com/a/14451916 */
+
+.triangle {
+  position: relative;
+  background-color: var(--color);
+  text-align: left;
+}
+
+.triangle:before,
+.triangle:after {
+  content: '';
+  position: absolute;
+  background-color: inherit;
+}
+
+.triangle,
+.triangle:before,
+.triangle:after {
+	width:  var(--width);
+	height: var(--height);
+  border-top-right-radius: var(--border-radius);
+}
+
+.triangle {
+  transform:
+    rotate(-60deg)
+    skewX(-30deg)
+    scale(1, 0.866);
+}
+
+.triangle:before {
+  transform:
+    rotate(-135deg)
+    skewX(-45deg)
+    scale(1.414, 0.707)
+    translate(0, -50%);
+}
+
+.triangle:after {
+  transform:
+    rotate(135deg)
+    skewY(-45deg)
+    scale(0.707, 1.414)
+    translate(50%);
+}
+</style>
+</template>
+<script type="module">
+component({ id: 'triangle-icon' });
 </script>
 
 
