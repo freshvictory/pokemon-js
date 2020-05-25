@@ -74,7 +74,7 @@ function buildElementClass(options) {
       }
 
 
-      this.refs = {};      
+      this.refs = { host: this };      
       if (options.refs && this.shadowRoot) {  
         for (const ref of options.refs) {
           const el = this.shadowRoot.querySelector('#' + ref);
@@ -86,14 +86,19 @@ function buildElementClass(options) {
 
     
     connectedCallback() {
-      if (options.render) {
+      if (options.connected) {
+        options.connected(this.data, this.refs);
+      } else if (options.render) {
         options.render(this.data, this.refs);
       }
     }
 
 
     attributeChangedCallback(name, oldValue, newValue) {
-      if (options.render && (oldValue !== newValue)) {
+      if (oldValue === newValue) { return; }
+      if (options.changed) {
+        options.changed(this.data, this.refs, name, oldValue, newValue);
+      } else if (options.render) {
         options.render(this.data, this.refs);
       }
     }

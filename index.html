@@ -18,22 +18,20 @@
 
         <!-- <link rel="preload" href="router.js" as="script" crossorigin="anonymous" /> -->
         <!-- <link rel="preload" href="types.js" as="script" crossorigin="anonymous" /> -->
-        <!-- <link rel="preload" href="components/custom-element.js" as="script" crossorigin="anonymous" /> -->
-        <!-- <link rel="preload" href="components/triangle-icon.css" as="style" crossorigin="anonymous" /> -->
-        <!-- <link rel="preload" href="components/type-link.css" as="style" crossorigin="anonymous" /> -->
-        <!-- <link rel="preload" href="components/type-list.css" as="style" crossorigin="anonymous" /> -->
 
         <link rel="stylesheet" href="/main.css"/>
         <link rel="stylesheet" href="/types.css"/>
         <script src="/index.js" type="module"></script>
-        <script src="/components/internal-link.js" type="module"></script>
         <script src="/components/triangle-icon.js" type="module"></script>
-        <script src="/components/type-list.js" type="module"></script>
-        <script src="/components/type-link.js" type="module"></script>
         <script type="module">
           import { define } from '/components/component.js';
+          import { types } from './types.js';
 
-          window.define = define;
+          window.component = (opts) => customElements.define(
+            opts.id,
+            define(opts)
+          );
+          window.types = types;
         </script>
     </head>
     <body>
@@ -42,7 +40,7 @@
         </noscript>
         <div id="app">
             <div id="list-container">
-                <ul id="type-list">
+                <ul id="list">
                     <li><type-link type="normal"></type-link></li>
                     <li><type-link type="fighting"></type-link></li>
                     <li><type-link type="flying"></type-link></li>
@@ -68,6 +66,368 @@
         <type-legend></type-legend>
     </body>
 </html>
+
+
+<!-- Type Link -->
+<template id="type-link">
+<div class="details">
+  <type-list class="list" id="counter-list" list="counter"></type-list>
+  <type-list class="list" id="resistant-list" list="resistant"></type-list>
+</div>
+<internal-link id="link" class="info">
+  <type-icon id="icon" slot="content"></type-icon>
+</internal-link>
+
+<style>
+:host {
+  --size: 60px;
+
+  --edge-inset: 35px;
+}
+
+:host {
+  transition:
+    transform 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    filter 300ms;
+  will-change: transform;
+  filter: grayscale(0);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size);
+  height: var(--size);
+
+  border-radius: 50%;
+
+  overflow: visible;
+  position: relative;
+  box-shadow: 0 0 10px 0;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+:host([checked]) {
+  transform: scale(1.25);
+  z-index: 2;
+}
+
+:host([checked]) .details {
+  transform: scale(1) translate(-50%, -50%);
+}
+
+
+/* Screen edge overrides */
+
+:host([data_placement*='left']) .details {
+  --angle-multiplier: 1;
+}
+
+:host([data_placement*='right']) .list {
+  --angle-multiplier: -1;
+}
+
+:host([data_placement*='top']) .list {
+  --starting-angle: 90deg;
+}
+
+:host([data_placement='bottom center']) .list {
+  --starting-angle: -90deg;
+}
+
+:host([checked]) {
+  --m-x: 0;
+  --m-y: 0;
+  transform:
+    scale(1.25)
+    translateX(calc(var(--m-x) * var(--edge-inset)))
+    translateY(calc(var(--m-y) * var(--edge-inset)));
+}
+
+:host([checked][data_placement='top left'].half),
+:host([checked][data_placement*='left'].full) {
+  --m-x: 1;
+}
+
+:host([checked][data_placement='top right'].half),
+:host([checked][data_placement*='right'].full) {
+  --m-x: -1;
+}
+
+:host([checked][data_placement='bottom left'].half),
+:host([checked][data_placement='bottom right'].half),
+:host([checked][data_placement*='bottom'].full) {
+  --m-y: -1;
+}
+
+:host([checked][data_placement*='top'].full) {
+  --m-y: 1;
+}
+
+.details {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.info {
+  text-decoration: none;
+  color: inherit;
+  
+  box-sizing: border-box;
+
+  border-radius: 50%;
+
+  position: relative;
+}
+</style>
+</template>
+<script type="module">
+component({
+  id: 'type-link',
+  attributes: [ 'type', 'checked', 'list', 'secondary' ],
+  data: {
+    type: undefined,
+    secondary: undefined
+  },
+  refs: [ 'counter-list', 'resistant-list', 'link', 'icon' ],
+  connected: (data, refs) => {
+    const type = types.get(data.type, data.secondary);
+
+    refs.host.id = 'link-' + type.primary;
+    refs.host.style = `color: var(--c-${type.primary})`;
+
+    refs['counter-list'].setAttribute('type', type.primary);
+    refs['resistant-list'].setAttribute('type', type.primary);
+
+    refs.link.setAttribute('href', type.primary);
+    refs.link.title = type.name;
+
+    refs.icon.setAttribute('type', type.primary);
+  },
+  changed: (data, refs, name, oldValue, newValue) => {
+    let type = types.get(data.type, data.secondary);
+
+    const calculateInset = (relationship) => {
+      refs.host.classList[type.relationships[relationship].length > 5
+        ? 'add' : 'remove']('half');
+      refs.host.classList[type.relationships[relationship].length > 9
+        ? 'add' : 'remove']('full');
+    };
+
+    const calculatePlacement = () => {
+      const rect = refs.host.getBoundingClientRect();
+      const horiz = rect.x < rect.width
+        ? 'left'
+        : (window.innerWidth - rect.left) < rect.right
+          ? 'right'
+          : 'center';
+      const vert = rect.y < rect.height
+        ? 'top'
+        : (window.innerHeight - rect.bottom) < (rect.height + 40)
+          ? 'bottom'
+          : 'center';
+
+      return vert + ' ' + horiz;
+    };
+
+    if (name === 'checked') {
+      console.log('checked changed', newValue)
+      if (newValue === null) {
+        data.secondary = '';
+        refs.icon.data.secondary = '';
+        refs[data.list+'-list'].removeAttribute('checked');
+      } else {
+        const placement = calculatePlacement();
+        refs.icon.setAttribute('data_placement', placement);
+        refs.host.setAttribute('data_placement', placement);
+        refs[data.list+'-list'].setAttribute('checked', newValue);
+      }
+      type = types.get(data.type, data.secondary);
+      refs.link.data.href = (newValue === null ? type.id : '/');
+      console.log(refs.link.data.href)
+    } else if (name === 'list') {
+      if (oldValue) {
+        refs[oldValue+'-list'].removeAttribute('checked');
+      }
+      refs[newValue+'-list'].setAttribute('checked', '');
+      calculateInset(newValue);
+    } else if (name === 'secondary') {
+      refs['counter-list'].data.secondary = data.secondary;
+      refs['resistant-list'].data.secondary = data.secondary;
+      refs.icon.data.secondary = data.secondary;
+      calculateInset(data.list);
+    }
+  }
+});
+</script>
+
+
+<!-- Type List -->
+<template id="type-list">
+<ul id="list">
+  <li id="relationship" class="wrapper">
+    <div class="relationship">
+      <div class="icon">
+        <type-icon id="icon"></type-icon>
+      </div>
+      <triangle-icon id="triangle"></triangle-icon>
+    </div>
+  </li>
+</ul>
+
+<style>
+:host {
+  --angle: 33deg;
+  --starting-angle: 0deg;
+  --angle-multiplier: 1;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#list {
+  width: 60px;
+  height: 60px;
+}
+
+.wrapper {
+  --num: 0;
+
+  --angle-calc: calc(var(--angle-multiplier) * (var(--starting-angle)
+    + var(--angle) * var(--num)));
+
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  transform: translate(-50%) rotate(var(--angle-calc));
+}
+
+:host([checked]) .wrapper .relationship {
+  transform: translateY(-45px);
+}
+
+:host([checked]) .wrapper.emph .relationship {
+  transform: translateY(-50px);
+}
+
+.wrapper.emph type-icon {
+  --c-border: var(--color);
+}
+
+.relationship {
+  transition: transform 300ms;
+  will-change: transform;
+  pointer-events: auto;
+}
+
+.icon {
+  transform: rotate(calc(-1 * var(--angle-calc)));
+  border-radius: 50%;
+}
+
+:host([checked]) .icon {
+  box-shadow: 0 0 10px 0;
+}
+
+triangle-icon {
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  position: absolute;
+}
+
+.emph triangle-icon {
+  --width: 9px;
+  --height: 9px;
+}
+
+triangle-icon.toward {
+  top: 46%;
+}
+
+triangle-icon.away {
+  transform: translateX(-50%) scale(-1) translateY(-6px);
+}
+</style>
+</template>
+<script type="module">
+component({
+  id: 'type-list',
+  attributes: [ 'type', 'secondary', 'list' ],
+  data: {
+    type: undefined,
+    secondary: undefined,
+    list: undefined
+  },
+  refs: [ 'list', 'relationship', 'icon', 'triangle' ],
+  render: (data, refs) => {
+    if (!data.type) { return; }
+    const type = types.get(data.type, data.secondary);
+
+    refs.list.innerHTML = '';
+    refs.icon.style = '--icon-size: 30px';
+    refs.triangle.style = `--color: var(--c-${data.list})`;
+    refs.triangle.classList.add('away');
+
+    const shouldEmphasize = (other) => {
+      switch(data.list) {
+        case 'resistant':
+          const primaryIneffective =
+            types.get(other).relationships.ineffective.indexOf(type.primary) >= 0;
+
+          if (primaryIneffective || !type.secondary) {
+            return primaryIneffective;
+          }
+
+          const secondaryIneffective =
+            types.get(other).relationships.ineffective.indexOf(type.secondary) >= 0;
+
+          return primaryIneffective
+            || secondaryIneffective
+            || (types.get(type.primary).relationships.resistant.indexOf(other) >= 0
+              && types.get(type.secondary).relationships.resistant.indexOf(other) >= 0);
+        case 'counter':
+          if (!type.secondary) {
+            return false;
+          }
+
+          return types.get(type.primary).relationships.counter.indexOf(other) >= 0
+            && types.get(type.secondary).relationships.counter.indexOf(other) >= 0;
+        default:
+          return false;
+      }
+    };
+
+    type.relationships[data.list]
+      .sort((a, b) => {
+        return shouldEmphasize(a) ? -1
+          : shouldEmphasize(b) ? 1
+          : 0;
+      })
+      .map((t, counter) => {
+        const emphasize = shouldEmphasize(t);
+
+        refs.relationship.classList[emphasize ? 'add' : 'remove']('emph');
+        refs.relationship.style = `--num: ${counter}; ${
+          emphasize ? `--color: var(--c-${data.list})` : ''
+        }`;
+        refs.icon.setAttribute('type', t);
+        refs.relationship.style.color = `var(--c-${t})`;
+
+        const li = refs.relationship.cloneNode(true);
+        refs.list.appendChild(li);
+      });
+  }
+});
+</script>
 
 
 <!-- Type Icon -->
@@ -122,41 +482,37 @@
 </style>
 </template>
 <script type="module">
-import { types } from '/types.js';
+component({
+  id: 'type-icon',
+  attributes: [ 'secondary' ],
+  data: {
+    type: undefined,
+    secondary: undefined
+  },
+  refs: [
+    'container',
+    'icon',
+    'secondary',
+    'wrapper'
+  ],
+  render: (data, refs) => {
+    const type = types.get(data.type, data.secondary);
 
-customElements.define('type-icon',
-  define({
-    id: 'type-icon',
-    attributes: [ 'secondary' ],
-    data: {
-      type: undefined,
-      secondary: undefined
-    },
-    refs: [
-      'container',
-      'icon',
-      'secondary',
-      'wrapper'
-    ],
-    render: (data, refs) => {
-      const type = types.get(data.type, data.secondary);
+    refs.wrapper.style.backgroundColor = `var(--c-${type.primary})`;
+    
+    refs.icon.alt = type.name;
+    refs.icon.src = `/images/types/${type.primary}.svg`;
 
-      refs.wrapper.style.backgroundColor = `var(--c-${type.primary})`;
-      
-      refs.icon.alt = type.name;
-      refs.icon.src = `/images/types/${type.primary}.svg`;
-
-      if (type.secondary) {
-        refs.secondary.alt = type.name;
-        refs.secondary.src = `/images/types/${type.secondary}.svg`;
-        refs.secondary.style.color = `var(--c-${type.secondary})`;
-        refs.secondary.classList.remove('hide');
-      } else {
-        refs.secondary.classList.add('hide');
-      }
+    if (type.secondary) {
+      refs.secondary.alt = type.name;
+      refs.secondary.src = `/images/types/${type.secondary}.svg`;
+      refs.secondary.style.color = `var(--c-${type.secondary})`;
+      refs.secondary.classList.remove('hide');
+    } else {
+      refs.secondary.classList.add('hide');
     }
-  })
-);
+  }
+});
 </script>
 
 
@@ -237,21 +593,75 @@ triangle-icon {
 </style>
 </template>
 <script type="module"> 
-customElements.define('type-legend',
-  define({
-    id: 'type-legend',
-    refs: [
-      'counter-label',
-      'resistant-label'
-    ],
-    render: (data, refs) => {
-      const updateRoute = (id) => {
-        window.router.route(window.location.pathname, { list: id });
-      };
-      refs['counter-label'].addEventListener('click', () => updateRoute('counter'));
-      refs['resistant-label'].addEventListener('click', () => updateRoute('resistant'));
-    }
-  })
-);
+component({
+  id: 'type-legend',
+  refs: [
+    'counter-label',
+    'resistant-label'
+  ],
+  render: (data, refs) => {
+    const updateRoute = (id) => {
+      window.router.route(window.location.pathname, { list: id });
+    };
+    refs['counter-label'].addEventListener('click', () => updateRoute('counter'));
+    refs['resistant-label'].addEventListener('click', () => updateRoute('resistant'));
+  }
+});
 </script>
 
+
+<!-- Internal Link -->
+<template id="internal-link">
+<a id="link"><slot name="content"></slot></a>
+<style>
+#link {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+</style>
+</template>
+<script type="module">
+import { Navigation } from '../router.js';
+
+component({
+  id: 'internal-link',
+  attributes: [ 'href', 'title' ],
+  data: { href: undefined, title: undefined },
+  refs: [ 'link' ], 
+  connected: (data, refs) => {
+    refs.link.href = data.href;
+    refs.link.title = data.title || '';
+    refs.link.onclick = (e) => {
+      /*
+        * If we're trying to open the link in a new tab,
+        * don't preventDefault(). Otherwise, we're clicking
+        * normally and should handle it ourselves.
+        *
+        * https://stackoverflow.com/a/20025627
+        */ 
+        if (
+          !(
+            (
+              e.type == 'click' 
+              || e.type == 'mousedown'
+              || e.type == 'mouseup'
+            )
+            &&
+            (
+              e.which > 1
+              || e.button > 1
+              || e.ctrlKey
+              || e.shiftKey
+              || e.metaKey
+            )
+          )
+        ) {
+          
+          e.preventDefault();
+          Navigation.navigate(data.href);
+        }
+    };
+  }
+})
+</script>
