@@ -429,12 +429,10 @@ component({
 
 <!-- Type Icon -->
 <template id="type-icon">
-<div id="container">
   <div id="wrapper">
     <img id="icon" class="icon"/>
   </div>
   <img id="secondary" class="icon secondary hide"/>
-</div>
 
 <style>
 :host {
@@ -486,12 +484,7 @@ component({
     type: undefined,
     secondary: undefined
   },
-  refs: [
-    'container',
-    'icon',
-    'secondary',
-    'wrapper'
-  ],
+  refs: [ 'icon', 'secondary', 'wrapper' ],
   render: (data, refs) => {
     const type = types.get(data.type, data.secondary);
 
@@ -515,21 +508,19 @@ component({
 
 <!-- Type Legend -->
 <template id="type-legend">
-<div class="container">
-  <div id="against" class="group">
-    <input type="radio" id="counter" name="against" class="button"/>
-    <label for="counter" id="counter-label" class="label">
-      <triangle-icon></triangle-icon><span>Good counters</span>
-    </label>
+<div id="against" class="group">
+  <input type="radio" id="counter" name="against" class="button"/>
+  <label for="counter" id="counter-label" class="label">
+    <triangle-icon></triangle-icon><span>Good counters</span>
+  </label>
 
-    <input type="radio" id="resistant" name="against" class="button"/>
-    <label for="resistant" id="resistant-label" class="label">
-      <triangle-icon></triangle-icon><span>Bad counters</span>
-    </label>
-  </div>
+  <input type="radio" id="resistant" name="against" class="button"/>
+  <label for="resistant" id="resistant-label" class="label">
+    <triangle-icon></triangle-icon><span>Bad counters</span>
+  </label>
 </div>
 <style>
-.container {
+:host {
   border-radius: 20px;
   background-color: var(--c-background-light);
   padding: 5px;
