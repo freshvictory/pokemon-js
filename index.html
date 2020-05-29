@@ -69,13 +69,13 @@
 
 <!-- Type Link -->
 <template id="type-link">
-<div class="details">
-  <type-list class="list" id="counter-list" list="counter"></type-list>
-  <type-list class="list" id="resistant-list" list="resistant"></type-list>
-</div>
-<internal-link id="link" class="info">
-  <type-icon id="icon" slot="content"></type-icon>
-</internal-link>
+  <div class="details">
+    <type-list class="list" id="counter-list" list="counter"></type-list>
+    <type-list class="list" id="resistant-list" list="resistant"></type-list>
+  </div>
+  <internal-link id="link" class="info">
+    <type-icon id="icon" slot="content"></type-icon>
+  </internal-link>
 
 <style>
 :host {
@@ -266,16 +266,16 @@ component({
 
 <!-- Type List -->
 <template id="type-list">
-<ul id="list">
-  <li id="relationship" class="wrapper">
-    <div class="relationship">
-      <div class="icon">
-        <type-icon id="icon"></type-icon>
+  <ul id="list">
+    <li id="relationship" class="wrapper">
+      <div class="relationship">
+        <div class="icon">
+          <type-icon id="icon"></type-icon>
+        </div>
+        <triangle-icon id="triangle"></triangle-icon>
       </div>
-      <triangle-icon id="triangle"></triangle-icon>
-    </div>
-  </li>
-</ul>
+    </li>
+  </ul>
 
 <style>
 :host {
@@ -356,6 +356,8 @@ triangle-icon.away {
 </style>
 </template>
 <script type="module">
+import { shouldEmphasize } from './types.js';
+
 component({
   id: 'type-list',
   attributes: [ 'type', 'secondary', 'list' ],
@@ -374,43 +376,14 @@ component({
     refs.triangle.style = `--color: var(--c-${data.list})`;
     refs.triangle.classList.add('away');
 
-    const shouldEmphasize = (other) => {
-      switch(data.list) {
-        case 'resistant':
-          const primaryIneffective =
-            types.get(other).relationships.ineffective.indexOf(type.primary) >= 0;
-
-          if (primaryIneffective || !type.secondary) {
-            return primaryIneffective;
-          }
-
-          const secondaryIneffective =
-            types.get(other).relationships.ineffective.indexOf(type.secondary) >= 0;
-
-          return primaryIneffective
-            || secondaryIneffective
-            || (types.get(type.primary).relationships.resistant.indexOf(other) >= 0
-              && types.get(type.secondary).relationships.resistant.indexOf(other) >= 0);
-        case 'counter':
-          if (!type.secondary) {
-            return false;
-          }
-
-          return types.get(type.primary).relationships.counter.indexOf(other) >= 0
-            && types.get(type.secondary).relationships.counter.indexOf(other) >= 0;
-        default:
-          return false;
-      }
-    };
-
     type.relationships[data.list]
       .sort((a, b) => {
-        return shouldEmphasize(a) ? -1
-          : shouldEmphasize(b) ? 1
+        return shouldEmphasize(data.list, type, a) ? -1
+          : shouldEmphasize(data.list, type, b) ? 1
           : 0;
       })
       .map((t, counter) => {
-        const emphasize = shouldEmphasize(t);
+        const emphasize = shouldEmphasize(data.list, type, t);
 
         refs.relationship.classList[emphasize ? 'add' : 'remove']('emph');
         refs.relationship.style = `--num: ${counter}; ${
@@ -479,7 +452,7 @@ component({
 <script type="module">
 component({
   id: 'type-icon',
-  attributes: [ 'secondary' ],
+  attributes: [ 'type', 'secondary' ],
   data: {
     type: undefined,
     secondary: undefined
@@ -508,17 +481,18 @@ component({
 
 <!-- Type Legend -->
 <template id="type-legend">
-<div id="against" class="group">
-  <input type="radio" id="counter" name="against" class="button"/>
-  <label for="counter" id="counter-label" class="label">
-    <triangle-icon></triangle-icon><span>Good counters</span>
-  </label>
+  <div id="against" class="group">
+    <input type="radio" id="counter" name="against" class="button"/>
+    <label for="counter" id="counter-label" class="label">
+      <triangle-icon></triangle-icon><span>Good counters</span>
+    </label>
 
-  <input type="radio" id="resistant" name="against" class="button"/>
-  <label for="resistant" id="resistant-label" class="label">
-    <triangle-icon></triangle-icon><span>Bad counters</span>
-  </label>
-</div>
+    <input type="radio" id="resistant" name="against" class="button"/>
+    <label for="resistant" id="resistant-label" class="label">
+      <triangle-icon></triangle-icon><span>Bad counters</span>
+    </label>
+  </div>
+
 <style>
 :host {
   border-radius: 20px;
@@ -600,7 +574,7 @@ component({
 
 <!-- Triangle Icon -->
 <template id="triangle-icon">
-<div class="triangle"></div>
+  <div class="triangle"></div>
 
 <style>
 :host {
@@ -666,7 +640,8 @@ component({ id: 'triangle-icon' });
 
 <!-- Internal Link -->
 <template id="internal-link">
-<a id="link"><slot name="content"></slot></a>
+  <a id="link"><slot name="content"></slot></a>
+
 <style>
 #link {
   width: 100%;
@@ -688,33 +663,32 @@ component({
     refs.link.title = data.title || '';
     refs.link.onclick = (e) => {
       /*
-        * If we're trying to open the link in a new tab,
-        * don't preventDefault(). Otherwise, we're clicking
-        * normally and should handle it ourselves.
-        *
-        * https://stackoverflow.com/a/20025627
-        */ 
-        if (
-          !(
-            (
-              e.type == 'click' 
-              || e.type == 'mousedown'
-              || e.type == 'mouseup'
-            )
-            &&
-            (
-              e.which > 1
-              || e.button > 1
-              || e.ctrlKey
-              || e.shiftKey
-              || e.metaKey
-            )
+       * If we're trying to open the link in a new tab,
+       * don't preventDefault(). Otherwise, we're clicking
+       * normally and should handle it ourselves.
+       *
+       * https://stackoverflow.com/a/20025627
+       */ 
+      if (
+        !(
+          (
+            e.type == 'click' 
+            || e.type == 'mousedown'
+            || e.type == 'mouseup'
           )
-        ) {
-          
-          e.preventDefault();
-          Navigation.navigate(data.href);
-        }
+          &&
+          (
+            e.which > 1
+            || e.button > 1
+            || e.ctrlKey
+            || e.shiftKey
+            || e.metaKey
+          )
+        )
+      ) {
+        e.preventDefault();
+        Navigation.navigate(data.href);
+      }
     };
   }
 })

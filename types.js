@@ -637,3 +637,47 @@ export const types =
     }
   },
 }
+
+export function shouldEmphasize(list, type, other) {
+  switch(list) {
+    case 'resistant':
+      const otherType = types.get(other);
+
+      const primaryIneffective = otherType.relationships.ineffective
+        .indexOf(type.primary) >= 0;
+
+      // If there's just one type, we don't need to check more cases.
+      // If the primary type is ineffective, the dual type is as well.
+      if (primaryIneffective || !type.secondary) {
+        return primaryIneffective;
+      }
+
+      const secondaryIneffective = type.secondary
+        && otherType.relationships.ineffective
+            .indexOf(type.secondary) >= 0;
+      
+      // If the secondary type is ineffective, the dual type is as well.
+      if (secondaryIneffective) {
+        return true;
+      }
+
+      const primaryResistant = types.get(type.primary).relationships.resistant
+        .indexOf(other) >= 0;
+
+      const secondaryResistant = type.secondary
+        && types.get(type.secondary).relationships.resistant
+            .indexOf(other) >= 0;
+
+      // Otherwise, the dual type is ineffective if both types are resisted.
+      return primaryResistant && secondaryResistant;
+    case 'counter':
+      if (!type.secondary) {
+        return false;
+      }
+
+      return types.get(type.primary).relationships.counter.indexOf(other) >= 0
+        && types.get(type.secondary).relationships.counter.indexOf(other) >= 0;
+    default:
+      return false;
+  }
+}
