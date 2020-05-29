@@ -81,7 +81,7 @@
 :host {
   --size: 60px;
 
-  --edge-inset: 35px;
+  --edge-inset: 40px;
 }
 
 :host {
@@ -89,7 +89,7 @@
     transform 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
     filter 300ms;
   will-change: transform;
-  filter: grayscale(0);
+  filter: grayscale(0) brightness(1);
 
   display: inline-flex;
   align-items: center;
@@ -101,7 +101,8 @@
 
   overflow: visible;
   position: relative;
-  box-shadow: 0 0 10px 0;
+  border: 2px solid;
+  padding: 3px;
 }
 
 :host([hidden]) {
@@ -189,11 +190,6 @@
 component({
   id: 'type-link',
   attributes: [ 'type', 'checked', 'list', 'secondary' ],
-  data: {
-    type: undefined,
-    secondary: undefined
-  },
-  refs: [ 'counter-list', 'resistant-list', 'link', 'icon' ],
   connected: (data, refs) => {
     const type = types.get(data.type, data.secondary);
 
@@ -309,11 +305,11 @@ ul {
 }
 
 :host([checked]) .wrapper .relationship {
-  transform: translateY(-45px);
+  transform: translateY(-50px);
 }
 
 :host([checked]) .wrapper.emph .relationship {
-  transform: translateY(-50px);
+  transform: translateY(-55px);
 }
 
 .wrapper.emph type-icon {
@@ -332,7 +328,7 @@ ul {
 }
 
 :host([checked]) .icon {
-  box-shadow: 0 0 10px 0;
+  /* box-shadow: 0 0 10px 0; */
 }
 
 triangle-icon {
@@ -361,12 +357,6 @@ import { shouldEmphasize } from './types.js';
 component({
   id: 'type-list',
   attributes: [ 'type', 'secondary', 'list' ],
-  data: {
-    type: undefined,
-    secondary: undefined,
-    list: undefined
-  },
-  refs: [ 'list', 'relationship', 'icon', 'triangle' ],
   render: (data, refs) => {
     if (!data.type) { return; }
     const type = types.get(data.type, data.secondary);
@@ -453,11 +443,6 @@ component({
 component({
   id: 'type-icon',
   attributes: [ 'type', 'secondary' ],
-  data: {
-    type: undefined,
-    secondary: undefined
-  },
-  refs: [ 'icon', 'secondary', 'wrapper' ],
   render: (data, refs) => {
     const type = types.get(data.type, data.secondary);
 
@@ -557,10 +542,6 @@ triangle-icon {
 <script type="module"> 
 component({
   id: 'type-legend',
-  refs: [
-    'counter-label',
-    'resistant-label'
-  ],
   render: (data, refs) => {
     const updateRoute = (id) => {
       window.router.route(window.location.pathname, { list: id });
@@ -656,8 +637,6 @@ import { Navigation } from '../router.js';
 component({
   id: 'internal-link',
   attributes: [ 'href', 'title' ],
-  data: { href: undefined, title: undefined },
-  refs: [ 'link' ], 
   connected: (data, refs) => {
     refs.link.href = data.href;
     refs.link.title = data.title || '';

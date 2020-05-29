@@ -16,6 +16,9 @@ export class Component extends HTMLElement {
 export function define(options) {
   options.attributes = options.attributes || [];
   options.data = options.data || {};
+  for (const attribute of options.attributes) {
+    options.data[attribute] = options.data[attribute] || undefined;
+  }
   return buildElementClass(options);
 }
 
@@ -75,11 +78,9 @@ function buildElementClass(options) {
 
 
       this.refs = { host: this };      
-      if (options.refs && this.shadowRoot) {  
-        for (const ref of options.refs) {
-          const el = this.shadowRoot.querySelector('#' + ref);
-          if (!el) { throw new Error('Cannot find ref ' + ref); }
-          this.refs[ref] = el;
+      if (this.shadowRoot) {
+        for (const ref of this.shadowRoot.querySelectorAll('[id]')) {
+          this.refs[ref.id] = ref;
         }
       }
     }

@@ -77,7 +77,7 @@ body.active #shield {
 }
 
 body.active type-link:not([checked]) {
-  filter: grayscale(0.5);
+  filter: grayscale(0.5) brightness(0.5);
 }
 
 body.active type-legend {
