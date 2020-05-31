@@ -67,7 +67,11 @@
 </html>
 
 
+
+
+
 <!-- Type Link -->
+
 <template id="type-link">
   <div class="details">
     <type-list class="list" id="counter-list" list="counter"></type-list>
@@ -86,7 +90,7 @@
 
 :host {
   transition:
-    transform 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    transform 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
     filter 300ms;
   will-change: transform;
   filter: grayscale(0) brightness(1);
@@ -101,8 +105,8 @@
 
   overflow: visible;
   position: relative;
-  border: 2px solid;
-  padding: 3px;
+
+  box-shadow: 0 0 10px 0;
 }
 
 :host([hidden]) {
@@ -260,7 +264,11 @@ component({
 </script>
 
 
+
+
+
 <!-- Type List -->
+
 <template id="type-list">
   <ul id="list">
     <li id="relationship" class="wrapper">
@@ -328,7 +336,7 @@ ul {
 }
 
 :host([checked]) .icon {
-  /* box-shadow: 0 0 10px 0; */
+  box-shadow: 0 0 10px 0;
 }
 
 triangle-icon {
@@ -390,7 +398,11 @@ component({
 </script>
 
 
+
+
+
 <!-- Type Icon -->
+
 <template id="type-icon">
   <div id="wrapper">
     <img id="icon" class="icon"/>
@@ -464,7 +476,11 @@ component({
 </script>
 
 
+
+
+
 <!-- Type Legend -->
+
 <template id="type-legend">
   <div id="against" class="group">
     <input type="radio" id="counter" name="against" class="button"/>
@@ -553,7 +569,11 @@ component({
 </script>
 
 
+
+
+
 <!-- Triangle Icon -->
+
 <template id="triangle-icon">
   <div class="triangle"></div>
 
@@ -619,7 +639,11 @@ component({ id: 'triangle-icon' });
 </script>
 
 
+
+
+
 <!-- Internal Link -->
+
 <template id="internal-link">
   <a id="link"><slot name="content"></slot></a>
 

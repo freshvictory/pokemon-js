@@ -77,7 +77,13 @@ body.active #shield {
 }
 
 body.active type-link:not([checked]) {
-  filter: grayscale(0.5) brightness(0.5);
+  filter: grayscale(0.5) brightness(0.8);
+}
+
+@media (prefers-color-scheme: dark) {
+  body.active type-link:not([checked]) {
+    filter: grayscale(0.5) brightness(0.5);
+  }
 }
 
 body.active type-legend {
@@ -91,6 +97,7 @@ type-legend {
   left: 50%;
   transform: translateX(-50%);
   margin-bottom: 40px;
+  z-index: 3;
 }
 
 @supports(margin: max(0px)) {
