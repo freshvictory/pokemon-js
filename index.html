@@ -80,6 +80,7 @@
   <internal-link id="link" class="info">
     <type-icon id="icon" slot="content"></type-icon>
   </internal-link>
+  <button id="add">＋</button>
 
 <style>
 :host {
@@ -120,6 +121,34 @@
   transform: scale(1) translate(-50%, -50%);
 }
 
+#add {
+  display: none;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  background-color: #fff3;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+
+  border-radius: 50%;
+  position: absolute;
+  right: 33px;
+  top: 33px;
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  font-size: 19px;
+  width: 30px;
+  height: 30px;
+  color: #333;
+  line-height: 0;
+  text-align: center;
+}
+
+:host([checked]) #add {
+  display: block;
+}
 
 /* Screen edge overrides */
 
@@ -137,6 +166,12 @@
 
 :host([data_placement='bottom center']) .list {
   --starting-angle: -90deg;
+}
+
+:host([data_placement*='bottom']) #add,
+:host([data_placement*='right']) #add {
+  left: 33px;
+  right: auto;
 }
 
 :host([checked]) {
@@ -435,15 +470,14 @@ component({
   width: calc(var(--icon-size) / 2);
   height: calc(var(--icon-size) / 2);
   position: absolute;
-  right: 33px;
-  top: 33px;
+  right: 36px;
+  top: 36px;
   box-shadow: -1px px 5px 0;
 }
 
 :host([data_placement*='bottom']) .icon.secondary,
 :host([data_placement*='right']) .icon.secondary {
-  left: 33px;
-  box-shadow: 1px 1px 5px 0;
+  left: 36px;
   right: auto;
 }
 </style>
