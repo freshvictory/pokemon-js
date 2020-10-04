@@ -1,729 +1,1851 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Pokémon Types</title>
-
-        <!-- PWA settings -->
-        <link rel="manifest" href="/manifest.json">
-        <meta name="theme-color" content="#000000">
-        <link rel="shortcut icon" href="/images/PremiereBall-192.png">
-        <link rel="apple-touch-icon" sizes="192x192" href="/images/PremiereBall-192.png">
-        <link rel="apple-touch-icon" sizes="512x512" href="/images/PremiereBall-512.png">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-        <!-- <link rel="preload" href="router.js" as="script" crossorigin="anonymous" /> -->
-        <!-- <link rel="preload" href="types.js" as="script" crossorigin="anonymous" /> -->
-
-        <link rel="stylesheet" href="/main.css"/>
-        <link rel="stylesheet" href="/types.css"/>
-        <script src="/index.js" type="module"></script>
-        <script type="module">
-          import { define } from './component.js';
-          import { types } from './types.js';
-
-          window.component = (opts) => customElements.define(
-            opts.id,
-            define(opts)
-          );
-          window.types = types;
-        </script>
-    </head>
-    <body>
-        <noscript>
-            This app requires JavaScript. Sorry about that!
-        </noscript>
-        <div id="app">
-            <div id="list-container">
-                <ul id="list">
-                    <li><type-link type="normal"></type-link></li>
-                    <li><type-link type="fighting"></type-link></li>
-                    <li><type-link type="flying"></type-link></li>
-                    <li><type-link type="poison"></type-link></li>
-                    <li><type-link type="ground"></type-link></li>
-                    <li><type-link type="rock"></type-link></li>
-                    <li><type-link type="bug"></type-link></li>
-                    <li><type-link type="ghost"></type-link></li>
-                    <li><type-link type="steel"></type-link></li>
-                    <li><type-link type="fire"></type-link></li>
-                    <li><type-link type="water"></type-link></li>
-                    <li><type-link type="grass"></type-link></li>
-                    <li><type-link type="electric"></type-link></li>
-                    <li><type-link type="psychic"></type-link></li>
-                    <li><type-link type="ice"></type-link></li>
-                    <li><type-link type="dragon"></type-link></li>
-                    <li><type-link type="fairy"></type-link></li>
-                    <li><type-link type="dark"></type-link></li>
-                </ul>
-            </div>
-        </div>
-        <internal-link href="/" title="Home" id="shield"></internal-link>
-        <type-legend></type-legend>
-    </body>
-</html>
-
-
-
-
-
-<!-- Type Link -->
-
-<template id="type-link">
-  <div class="details">
-    <type-list class="list" id="counter-list" list="counter"></type-list>
-    <type-list class="list" id="resistant-list" list="resistant"></type-list>
-  </div>
-  <internal-link id="link" class="info">
-    <type-icon id="icon" slot="content"></type-icon>
-  </internal-link>
-  <button id="add">＋</button>
-
-<style>
-:host {
-  --size: 60px;
-
-  --edge-inset: 40px;
-}
-
-:host {
-  transition:
-    transform 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    filter 300ms;
-  will-change: transform;
-  filter: grayscale(0) brightness(1);
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--size);
-  height: var(--size);
-
-  border-radius: 50%;
-
-  overflow: visible;
-  position: relative;
-}
-
-:host([hidden]) {
-  display: none;
-}
-
-:host([checked]) {
-  transform: scale(1.25);
-  z-index: 2;
-}
-
-:host([checked]) .details {
-  transform: scale(1) translate(-50%, -50%);
-}
-
-#add {
-  display: none;
-  padding: 0;
-  border: 0;
-  margin: 0;
-  background-color: #fff3;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-
-  border-radius: 50%;
-  position: absolute;
-  right: 33px;
-  top: 33px;
-
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  font-size: 19px;
-  width: 30px;
-  height: 30px;
-  color: #333;
-  line-height: 0;
-  text-align: center;
-}
-
-:host([checked]) #add {
-  display: block;
-}
-
-/* Screen edge overrides */
-
-:host([data_placement*='left']) .details {
-  --angle-multiplier: 1;
-}
-
-:host([data_placement*='right']) .list {
-  --angle-multiplier: -1;
-}
-
-:host([data_placement*='top']) .list {
-  --starting-angle: 90deg;
-}
-
-:host([data_placement='bottom center']) .list {
-  --starting-angle: -90deg;
-}
-
-:host([data_placement*='bottom']) #add,
-:host([data_placement*='right']) #add {
-  left: 33px;
-  right: auto;
-}
-
-:host([checked]) {
-  --m-x: 0;
-  --m-y: 0;
-  transform:
-    scale(1.25)
-    translateX(calc(var(--m-x) * var(--edge-inset)))
-    translateY(calc(var(--m-y) * var(--edge-inset)));
-}
-
-:host([checked][data_placement='top left'].half),
-:host([checked][data_placement*='left'].full) {
-  --m-x: 1;
-}
-
-:host([checked][data_placement='top right'].half),
-:host([checked][data_placement*='right'].full) {
-  --m-x: -1;
-}
-
-:host([checked][data_placement='bottom left'].half),
-:host([checked][data_placement='bottom right'].half),
-:host([checked][data_placement*='bottom'].full) {
-  --m-y: -1;
-}
-
-:host([checked][data_placement*='top'].full) {
-  --m-y: 1;
-}
-
-.details {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.info {
-  text-decoration: none;
-  color: inherit;
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  box-sizing: border-box;
-
-  border-radius: 50%;
-
-  position: relative;
-
-  border: 2px solid;
-  padding: 3px;
-}
-</style>
-</template>
-<script type="module">
-component({
-  id: 'type-link',
-  attributes: [ 'type', 'checked', 'list', 'secondary' ],
-  connected: (data, refs) => {
-    const type = types.get(data.type, data.secondary);
-
-    refs.host.id = 'link-' + type.primary;
-    refs.host.style = `color: var(--c-${type.primary})`;
-
-    refs['counter-list'].setAttribute('type', type.primary);
-    refs['resistant-list'].setAttribute('type', type.primary);
-
-    refs.link.setAttribute('href', type.primary);
-    refs.link.title = type.name;
-
-    refs.icon.setAttribute('type', type.primary);
-  },
-  changed: (data, refs, name, oldValue, newValue) => {
-    let type = types.get(data.type, data.secondary);
-
-    const calculateInset = (relationship) => {
-      refs.host.classList[type.relationships[relationship].length > 5
-        ? 'add' : 'remove']('half');
-      refs.host.classList[type.relationships[relationship].length > 9
-        ? 'add' : 'remove']('full');
-    };
-
-    const calculatePlacement = () => {
-      const rect = refs.host.getBoundingClientRect();
-      const horiz = rect.x < rect.width
-        ? 'left'
-        : (window.innerWidth - rect.left) < rect.right
-          ? 'right'
-          : 'center';
-      const vert = rect.y < rect.height
-        ? 'top'
-        : (window.innerHeight - rect.bottom) < (rect.height + 40)
-          ? 'bottom'
-          : 'center';
-
-      return vert + ' ' + horiz;
-    };
-
-    if (name === 'checked') {
-      if (newValue === null) {
-        data.secondary = '';
-        refs.icon.data.secondary = '';
-        refs[data.list+'-list'].removeAttribute('checked');
-      } else {
-        const placement = calculatePlacement();
-        refs.icon.setAttribute('data_placement', placement);
-        refs.host.setAttribute('data_placement', placement);
-        refs[data.list+'-list'].setAttribute('checked', newValue);
-      }
-      type = types.get(data.type, data.secondary);
-      refs.link.data.href = (newValue === null ? type.id : '/');
-    } else if (name === 'list') {
-      if (oldValue) {
-        refs[oldValue+'-list'].removeAttribute('checked');
-      }
-      refs[newValue+'-list'].setAttribute('checked', '');
-      calculateInset(newValue);
-    } else if (name === 'secondary') {
-      refs['counter-list'].data.secondary = data.secondary;
-      refs['resistant-list'].data.secondary = data.secondary;
-      refs.icon.data.secondary = data.secondary;
-      calculateInset(data.list);
+  <title>Pokémon Types</title>
+  
+  <!-- PWA settings -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#000000">
+  <link rel="shortcut icon" href="/images/PremiereBall-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/images/PremiereBall-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="/images/PremiereBall-512.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+  <style>
+    :root {
+      --c-shadow: #fff;
+      --c-border: #555;
     }
-  }
-});
-</script>
 
-
-
-
-
-<!-- Type List -->
-
-<template id="type-list">
-  <ul id="list">
-    <li id="relationship" class="wrapper">
-      <div class="relationship">
-        <div class="icon">
-          <type-icon id="icon"></type-icon>
-        </div>
-        <triangle-icon id="triangle"></triangle-icon>
-      </div>
-    </li>
-  </ul>
-
-<style>
-:host {
-  --angle: 33deg;
-  --starting-angle: 0deg;
-  --angle-multiplier: 1;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#list {
-  width: 60px;
-  height: 60px;
-}
-
-.wrapper {
-  --num: 0;
-
-  --angle-calc: calc(var(--angle-multiplier) * (var(--starting-angle)
-    + var(--angle) * var(--num)));
-
-  position: absolute;
-  bottom: 50%;
-  left: 50%;
-  transform-origin: bottom center;
-  transform: translate(-50%) rotate(var(--angle-calc));
-}
-
-:host([checked]) .wrapper .relationship {
-  transform: translateY(-50px);
-}
-
-:host([checked]) .wrapper.emph .relationship {
-  transform: translateY(-55px);
-}
-
-.wrapper.emph type-icon {
-  --c-border: var(--color);
-}
-
-.relationship {
-  transition: transform 300ms;
-  will-change: transform;
-  pointer-events: auto;
-}
-
-.icon {
-  transform: rotate(calc(-1 * var(--angle-calc)));
-  border-radius: 50%;
-}
-
-triangle-icon {
-  left: 50%;
-  transform: translateX(-50%) translateY(-6px);
-  position: absolute;
-}
-
-.emph triangle-icon {
-  --width: 9px;
-  --height: 9px;
-}
-
-triangle-icon.toward {
-  top: 46%;
-}
-
-triangle-icon.away {
-  transform: translateX(-50%) scale(-1) translateY(-6px);
-}
-</style>
-</template>
-<script type="module">
-import { shouldEmphasize } from './types.js';
-
-component({
-  id: 'type-list',
-  attributes: [ 'type', 'secondary', 'list' ],
-  render: (data, refs) => {
-    if (!data.type) { return; }
-    const type = types.get(data.type, data.secondary);
-
-    refs.list.innerHTML = '';
-    refs.icon.style = '--icon-size: 30px';
-    refs.triangle.style = `--color: var(--c-${data.list})`;
-    refs.triangle.classList.add('away');
-
-    type.relationships[data.list]
-      .sort((a, b) => {
-        return shouldEmphasize(data.list, type, a) ? -1
-          : shouldEmphasize(data.list, type, b) ? 1
-          : 0;
-      })
-      .map((t, counter) => {
-        const emphasize = shouldEmphasize(data.list, type, t);
-
-        refs.relationship.classList[emphasize ? 'add' : 'remove']('emph');
-        refs.relationship.style = `--num: ${counter}; ${
-          emphasize ? `--color: var(--c-${data.list})` : ''
-        }`;
-        refs.icon.setAttribute('type', t);
-        refs.relationship.style.color = `var(--c-${t})`;
-
-        const li = refs.relationship.cloneNode(true);
-        refs.list.appendChild(li);
-      });
-  }
-});
-</script>
-
-
-
-
-
-<!-- Type Icon -->
-
-<template id="type-icon">
-  <div id="wrapper">
-    <img id="icon" class="icon"/>
-  </div>
-  <img id="secondary" class="icon secondary hide"/>
-
-<style>
-:host {
-  --icon-size: 60px;
-  --c-border: transparent;
-}
-
-.hide {
-  display: none !important;
-}
-
-#wrapper {
-  border-radius: 50%;
-  overflow: visible;
-}
-
-.icon {
-  border-radius: 50%;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  display: flex;
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-.icon.secondary {
-  width: calc(var(--icon-size) / 2);
-  height: calc(var(--icon-size) / 2);
-  position: absolute;
-  right: 36px;
-  top: 36px;
-  box-shadow: -1px px 5px 0;
-}
-
-:host([data_placement*='bottom']) .icon.secondary,
-:host([data_placement*='right']) .icon.secondary {
-  left: 36px;
-  right: auto;
-}
-</style>
-</template>
-<script type="module">
-component({
-  id: 'type-icon',
-  attributes: [ 'type', 'secondary' ],
-  render: (data, refs) => {
-    const type = types.get(data.type, data.secondary);
-
-    refs.wrapper.style.backgroundColor = `var(--c-${type.primary})`;
-    
-    refs.icon.alt = type.name;
-    refs.icon.src = `/images/types/${type.primary}.svg`;
-
-    if (type.secondary) {
-      refs.secondary.alt = type.name;
-      refs.secondary.src = `/images/types/${type.secondary}.svg`;
-      refs.secondary.style.color = `var(--c-${type.secondary})`;
-      refs.secondary.classList.remove('hide');
-    } else {
-      refs.secondary.classList.add('hide');
-    }
-  }
-});
-</script>
-
-
-
-
-
-<!-- Type Legend -->
-
-<template id="type-legend">
-  <div id="against" class="group">
-    <input type="radio" id="counter" name="against" class="button"/>
-    <label for="counter" id="counter-label" class="label">
-      <triangle-icon></triangle-icon><span>Good counters</span>
-    </label>
-
-    <input type="radio" id="resistant" name="against" class="button"/>
-    <label for="resistant" id="resistant-label" class="label">
-      <triangle-icon></triangle-icon><span>Bad counters</span>
-    </label>
-  </div>
-
-<style>
-:host {
-  border-radius: 20px;
-  background-color: var(--c-background-light);
-  padding: 5px;
-}
-
-.group {
-  display: grid;
-  grid-auto-columns: max-content;
-  grid-auto-flow: column;
-  gap: 5px;
-}
-
-input[type=radio] {
-  display: none;
-}
-
-.label {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  position: relative;
-  padding: 5px 10px;
-  border-radius: 15px;
-  cursor: pointer;
-  background-color: var(--c-background-light);
-  transition: none;
-}
-
-#counter-label {
-  --c-highlighted: var(--c-counter-light);
-}
-
-#counter-label > triangle-icon {
-  --color: var(--c-counter);
-}
-
-triangle-icon {
-  --width: 0.5em;
-  --height: 0.5em;
-
-  padding-right: 10px;
-}
-
-#resistant-label {
-  --c-highlighted: var(--c-resistant-light);
-}
-
-#resistant-label > triangle-icon {
-  --color: var(--c-resistant);
-}
-
-:host([selected='counter']) #counter-label,
-:host([selected='resistant']) #resistant-label {
-  background-color: var(--c-highlighted);
-  color: #000;
-  transition: background-color 200ms;
-}
-</style>
-</template>
-<script type="module"> 
-component({
-  id: 'type-legend',
-  render: (data, refs) => {
-    const updateRoute = (id) => {
-      window.router.route(window.location.pathname, { list: id });
-    };
-    refs['counter-label'].addEventListener('click', () => updateRoute('counter'));
-    refs['resistant-label'].addEventListener('click', () => updateRoute('resistant'));
-  }
-});
-</script>
-
-
-
-
-
-<!-- Triangle Icon -->
-
-<template id="triangle-icon">
-  <div class="triangle"></div>
-
-<style>
-:host {
-  --color: #69c423;
-
-  --width: 5px;
-  --height: 5px;
-  --border-radius: 50%;
-}
-
-
-/* Adapted from https://stackoverflow.com/a/14451916 */
-
-.triangle {
-  position: relative;
-  background-color: var(--color);
-  text-align: left;
-}
-
-.triangle:before,
-.triangle:after {
-  content: '';
-  position: absolute;
-  background-color: inherit;
-}
-
-.triangle,
-.triangle:before,
-.triangle:after {
-	width:  var(--width);
-	height: var(--height);
-  border-top-right-radius: var(--border-radius);
-}
-
-.triangle {
-  transform:
-    rotate(-60deg)
-    skewX(-30deg)
-    scale(1, 0.866);
-}
-
-.triangle:before {
-  transform:
-    rotate(-135deg)
-    skewX(-45deg)
-    scale(1.414, 0.707)
-    translate(0, -50%);
-}
-
-.triangle:after {
-  transform:
-    rotate(135deg)
-    skewY(-45deg)
-    scale(0.707, 1.414)
-    translate(50%);
-}
-</style>
-</template>
-<script type="module">
-component({ id: 'triangle-icon' });
-</script>
-
-
-
-
-
-<!-- Internal Link -->
-
-<template id="internal-link">
-  <a id="link"><slot name="content"></slot></a>
-
-<style>
-#link {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-</style>
-</template>
-<script type="module">
-import { Navigation } from '../router.js';
-
-component({
-  id: 'internal-link',
-  attributes: [ 'href', 'title' ],
-  connected: (data, refs) => {
-    refs.link.href = data.href;
-    refs.link.title = data.title || '';
-    refs.link.onclick = (e) => {
-      /*
-       * If we're trying to open the link in a new tab,
-       * don't preventDefault(). Otherwise, we're clicking
-       * normally and should handle it ourselves.
-       *
-       * https://stackoverflow.com/a/20025627
-       */ 
-      if (
-        !(
-          (
-            e.type == 'click' 
-            || e.type == 'mousedown'
-            || e.type == 'mouseup'
-          )
-          &&
-          (
-            e.which > 1
-            || e.button > 1
-            || e.ctrlKey
-            || e.shiftKey
-            || e.metaKey
-          )
-        )
-      ) {
-        e.preventDefault();
-        Navigation.navigate(data.href);
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --c-shadow: #1c1c1c;
+        --c-border: #ccc;
       }
-    };
-  }
-})
-</script>
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body, h1, h2, ul, li, p {
+      margin: 0;
+      padding: 0;
+    }
+
+    .visually-hidden {
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
+
+    html, body, #app {
+      height: 100%;
+      width: 100%;
+    }
+
+    html {
+      background-color: #fafafa;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html {
+        background-color: #1c1c1c;
+      }
+    }
+
+    .shield {
+      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+
+    .type:target > .shield {
+      display: block;
+    }
+
+    ul#list {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+
+      display: grid;
+      margin: 0 auto;
+      margin-top: env(safe-area-inset-top);
+      box-sizing: border-box;
+      grid-row-gap: 30px;
+      row-gap: 30px;
+      justify-content: space-around;
+      width: min(100vw - 40px, calc(6 * 60px + 5 * 20px));
+      grid-template-columns: repeat(3, 60px);
+    }
+
+    .listed-type {
+      pointer-events: auto;
+      line-height: 0;
+      border-radius: 50%;
+    }
+
+    .type-link {
+      display: block;
+      position: absolute;
+      z-index: 1;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+
+    .type {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      border-radius: 30px;
+      transform: scale(1);
+      transition: transform 300ms;
+      box-shadow: 0 0 0 3px var(--c-border);
+    }
+
+    .type:target {
+      transform: scale(1.2);
+      z-index: 2;
+      box-shadow: 0 0 0 3px var(--c-border),
+        0 0 100px 130px var(--c-shadow);
+    }
+
+    .type header {
+      position: relative;
+      z-index: 1;
+      background-color: var(--c-type);
+      height: 100%;
+      border-radius: 50%;
+    }
+
+    .type > .type-label {
+      width: 60px;
+      height: 60px;
+    }
+
+    .type .type-name {
+      /* Fix me */
+      display: none;
+    }
+
+    .relationship-section {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+
+    .relationship-header {
+      /* Fix me */
+      display: none;
+    }
+
+    .relationship-list {
+      --direction: 1;
+      --offset: 0;
+
+      width: 100%;
+      height: 100%;
+    }
+
+    #flying .relationship-list,
+    #rock   .relationship-list,
+    #steel  .relationship-list,
+    #grass  .relationship-list,
+    #ice    .relationship-list,
+    #dark   .relationship-list {
+      --direction: -1;
+    }
+
+    #normal   .relationship-list,
+    #flying   .relationship-list,
+    #fighting .relationship-list {
+      --offset: -2.75;
+    }
+
+    #normal { --c-type: #9298A4; }
+    #fighting { --c-type: #CE4265 }
+    #flying { --c-type: #90A7DA; }
+    #poision { --c-type: #A864C7; }
+    #ground { --c-type: #DC7545; }
+    #rock { --c-type: #C5B489; }
+    #bug { --c-type: #92BC2C; }
+    #ghost { --c-type: #516AAC; }
+    #steel { --c-type: #52869D; }
+    #fire { --c-type: #FB9B51; }
+    #water { --c-type: #4A90DD; }
+    #grass { --c-type: #5FBC51; }
+    #electric { --c-type: #EDD53E; }
+    #psychic { --c-type: #F66F71; }
+    #ice { --c-type: #70CCBD; }
+    #dragon { --c-type: #0C69C8; }
+    #fairy { --c-type: #EC8CE5; }
+    #dark { --c-type: #595761; }
+
+    .relationship-list li.relationship:nth-of-type(1) {
+      --num: 1;
+    }
+
+    .relationship-list li.relationship:nth-of-type(2) {
+      --num: 2;
+    }
+
+    .relationship-list li.relationship:nth-of-type(3) {
+      --num: 3;
+    }
+
+    .relationship-list li.relationship:nth-of-type(4) {
+      --num: 4;
+    }
+
+    .relationship-list li.relationship:nth-of-type(5) {
+      --num: 5;
+    }
+
+    .relationship-list li.relationship:nth-of-type(6) {
+      --num: 6;
+    }
+
+    .relationship-list li.relationship:nth-of-type(7) {
+      --num: 7;
+    }
+
+    .relationship-list li.relationship:nth-of-type(8) {
+      --num: 8;
+    }
+
+    .relationship-list li.relationship:nth-of-type(9) {
+      --num: 9;
+    }
+
+    .relationship-list li.relationship:nth-of-type(10) {
+      --num: 10;
+    }
+
+    .relationship-list li.relationship:nth-of-type(11) {
+      --num: 11;
+    }
+
+    .relationship-list li.relationship:nth-of-type(12) {
+      --num: 12;
+    }
+
+    .relationship {
+      --row-offset: calc((0.775 * (var(--row) - 1) + 1) * var(--offset));
+      --angle: calc(32deg * (var(--num) - 1 - var(--row-offset)) * var(--direction) / (3 / 4 * (var(--row) - 1) + 1));
+      --row-transform: 50%;
+
+      position: absolute;
+      transform-origin: bottom center;
+      left: 50%;
+      transform: translateX(-50%) rotate(var(--angle)) translateY(var(--row-transform));
+      transition: transform 250ms;
+      transition-delay: calc(100ms * (var(--row) - 1));
+      will-change: transform;
+      height: 30px;
+    }
+
+    .type:target .relationship {
+      --row-transform: calc(var(--row) * -50px);
+    }
+
+    .relationship .type-label {
+      width: 30px;
+      height: 30px;
+      border-radius: 15px;
+      z-index: 1;
+    }
+
+    .relationship .type-label img {
+      transform: rotate(calc(-1 * var(--angle)));
+      background-color: var(--fill);
+      box-shadow: 0px 0px 0px 2px var(--c-border);
+      border-radius: 50%;
+    }
+
+    .relationship .triangle {
+      transform: rotate(180deg);
+    }
+
+    .type:target .relationship .triangle {
+      margin-top: 5px;
+    }
+
+    .type:target .relationship.relationship.extra .triangle {
+      margin-top: 2px;
+    }
+
+    .counters {
+      --fill: #1cb91c;
+      --row: 1;
+    }
+
+    .resistant {
+      --fill: #e72323;
+      --row: 2;
+    }
+
+    .relationship.extra .triangle {
+      width: 15px;
+      height: 15px;
+    }
+
+    .icon {
+      width: 100%;
+      height: 100%;
+    }
+
+    .triangle {
+      background-color: var(--fill);
+      -webkit-mask: url(/images/triangle.svg) no-repeat center;
+      mask: url(/images/triangle.svg) no-repeat center;
+      width: 10px;
+      height: 10px;
+      margin: auto;
+    }
+  </style>
+  <main id="app">
+    <ul id="list">
+
+
+      <!-- Normal -->
+
+      <li class="listed-type">
+        <a href="#normal" class="type-link">
+          <span class="visually-hidden">Normal</span>
+        </a>
+        <article id="normal" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/normal.svg" class="icon" alt=""/>
+              <span class="type-name">Normal</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fighting.svg" class="icon" alt=""/>
+                  <span class="type-name">Fighting</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship extra">
+                <p class="type-label">
+                  <img src="images/types/ghost.svg" class="icon" alt=""/>
+                  <span class="type-name">Ghost</span>
+                </p>
+              
+<div class="triangle"></div>
+              
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Fighting -->
+
+      <li class="listed-type">
+        <a href="#fighting" class="type-link">
+          <span class="visually-hidden">Fighting</span>
+        </a>
+        <article id="fighting" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/fighting.svg" class="icon" alt=""/>
+              <span class="type-name">Fighting</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/flying.svg" class="icon" alt=""/>
+                  <span class="type-name">Flying</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/psychic.svg" class="icon" alt=""/>
+                  <span class="type-name">Psychic</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fairy.svg" class="icon" alt=""/>
+                  <span class="type-name">Fairy</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/rock.svg" class="icon" alt=""/>
+                  <span class="type-name">Rock</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/bug.svg" class="icon" alt=""/>
+                  <span class="type-name">Bug</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/dark.svg" class="icon" alt=""/>
+                  <span class="type-name">Dark</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Flying -->
+
+      <li class="listed-type">
+        <a href="#flying" class="type-link">
+          <span class="visually-hidden">Flying</span>
+        </a>
+        <article id="flying" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/flying.svg" class="icon" alt=""/>
+              <span class="type-name">Flying</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/rock.svg" class="icon" alt="">
+                  <span class="type-name">Rock</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/electric.svg" class="icon" alt="">
+                  <span class="type-name">Electric</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ice.svg" class="icon" alt="">
+                  <span class="type-name">Ice</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship extra">
+                <p class="type-label">
+                  <img src="images/types/ground.svg" class="icon" alt="">
+                  <span class="type-name">Ground</span>
+                </p>
+              
+<div class="triangle"></div>
+              
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fighting.svg" class="icon" alt="">
+                  <span class="type-name">Fighting</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/bug.svg" class="icon" alt="">
+                  <span class="type-name">Bug</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/grass.svg" class="icon" alt="">
+                  <span class="type-name">Grass</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Poison -->
+
+      <li class="listed-type">
+        <a href="#poison" class="type-link">
+          <span class="visually-hidden">Poison</span>
+        </a>
+        <article id="poison" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/poison.svg" class="icon" alt=""/>
+              <span class="type-name">Poison</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ground.svg" class="icon" alt="">
+                  <span class="type-name">Ground</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/psychic.svg" class="icon" alt=""/>
+                  <span class="type-name">Psychic</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fighting.svg" class="icon" alt="">
+                  <span class="type-name">Fighting</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/poison.svg" class="icon" alt="">
+                  <span class="type-name">Poison</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/grass.svg" class="icon" alt="">
+                  <span class="type-name">Grass</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fairy.svg" class="icon" alt="">
+                  <span class="type-name">Fairy</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Ground -->
+
+      <li class="listed-type">
+        <a href="#ground" class="type-link">
+          <span class="visually-hidden">Ground</span>
+        </a>
+        <article id="ground" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/ground.svg" class="icon" alt=""/>
+              <span class="type-name">Ground</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/water.svg" class="icon" alt="">
+                  <span class="type-name">Water</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/grass.svg" class="icon" alt="">
+                  <span class="type-name">Grass</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ice.svg" class="icon" alt="">
+                  <span class="type-name">Ice</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship extra">
+                <p class="type-label">
+                  <img src="images/types/electric.svg" class="icon" alt="">
+                  <span class="type-name">Electric</span>
+                </p>
+              
+<div class="triangle"></div>
+              
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/poison.svg" class="icon" alt="">
+                  <span class="type-name">Poison</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/rock.svg" class="icon" alt="">
+                  <span class="type-name">Rock</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Rock -->
+
+      <li class="listed-type">
+        <a href="#rock" class="type-link">
+          <span class="visually-hidden">Rock</span>
+        </a>
+        <article id="rock" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/rock.svg" class="icon" alt=""/>
+              <span class="type-name">Rock</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fighting.svg" class="icon" alt="">
+                  <span class="type-name">Fighting</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ground.svg" class="icon" alt="">
+                  <span class="type-name">Ground</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/steel.svg" class="icon" alt="">
+                  <span class="type-name">Steel</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/water.svg" class="icon" alt="">
+                  <span class="type-name">Water</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/grass.svg" class="icon" alt="">
+                  <span class="type-name">Grass</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/normal.svg" class="icon" alt="">
+                  <span class="type-name">Normal</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/flying.svg" class="icon" alt="">
+                  <span class="type-name">Flying</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/poison.svg" class="icon" alt="">
+                  <span class="type-name">Poison</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fire.svg" class="icon" alt="">
+                  <span class="type-name">Fire</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Bug -->
+
+      <li class="listed-type">
+        <a href="#bug" class="type-link">
+          <span class="visually-hidden">Bug</span>
+        </a>
+        <article id="bug" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/bug.svg" class="icon" alt=""/>
+              <span class="type-name">Bug</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/flying.svg" class="icon" alt="">
+                  <span class="type-name">Flying</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/rock.svg" class="icon" alt="">
+                  <span class="type-name">Rock</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fire.svg" class="icon" alt="">
+                  <span class="type-name">Fire</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fighting.svg" class="icon" alt="">
+                  <span class="type-name">Fighting</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ground.svg" class="icon" alt="">
+                  <span class="type-name">Ground</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/grass.svg" class="icon" alt="">
+                  <span class="type-name">Grass</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Ghost -->
+
+      <li class="listed-type">
+        <a href="#ghost" class="type-link">
+          <span class="visually-hidden">Ghost</span>
+        </a>
+        <article id="ghost" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/ghost.svg" class="icon" alt=""/>
+              <span class="type-name">Ghost</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ghost.svg" class="icon" alt="">
+                  <span class="type-name">Ghost</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/dark.svg" class="icon" alt="">
+                  <span class="type-name">Dark</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship extra">
+                <p class="type-label">
+                  <img src="images/types/normal.svg" class="icon" alt="">
+                  <span class="type-name">Normal</span>
+                </p>
+              
+<div class="triangle"></div>
+              
+              </li>
+              <li class="relationship extra">
+                <p class="type-label">
+                  <img src="images/types/fighting.svg" class="icon" alt="">
+                  <span class="type-name">Fighting</span>
+                </p>
+              
+<div class="triangle"></div>
+              
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/poison.svg" class="icon" alt="">
+                  <span class="type-name">Poison</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/bug.svg" class="icon" alt="">
+                  <span class="type-name">Bug</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Steel -->
+
+      <li class="listed-type">
+        <a href="#steel" class="type-link">
+          <span class="visually-hidden">Steel</span>
+        </a>
+        <article id="steel" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/steel.svg" class="icon" alt=""/>
+              <span class="type-name">Steel</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fighting.svg" class="icon" alt="">
+                  <span class="type-name">Fighting</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ground.svg" class="icon" alt="">
+                  <span class="type-name">Ground</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fire.svg" class="icon" alt="">
+                  <span class="type-name">Fire</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship extra">
+                <p class="type-label">
+                  <img src="images/types/poison.svg" class="icon" alt="">
+                  <span class="type-name">Poison</span>
+                </p>
+              
+<div class="triangle"></div>
+              
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/normal.svg" class="icon" alt="">
+                  <span class="type-name">Normal</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/flying.svg" class="icon" alt="">
+                  <span class="type-name">Flying</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/rock.svg" class="icon" alt="">
+                  <span class="type-name">Rock</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/bug.svg" class="icon" alt="">
+                  <span class="type-name">Bug</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/steel.svg" class="icon" alt="">
+                  <span class="type-name">Steel</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/grass.svg" class="icon" alt="">
+                  <span class="type-name">Grass</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/psychic.svg" class="icon" alt="">
+                  <span class="type-name">Psychic</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ice.svg" class="icon" alt="">
+                  <span class="type-name">Ice</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/dragon.svg" class="icon" alt="">
+                  <span class="type-name">Dragon</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fairy.svg" class="icon" alt="">
+                  <span class="type-name">Fairy</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Fire -->
+
+      <li class="listed-type">
+        <a href="#fire" class="type-link">
+          <span class="visually-hidden">Fire</span>
+        </a>
+        <article id="fire" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/fire.svg" class="icon" alt=""/>
+              <span class="type-name">Fire</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ground.svg" class="icon" alt="">
+                  <span class="type-name">Ground</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/rock.svg" class="icon" alt="">
+                  <span class="type-name">Rock</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/water.svg" class="icon" alt="">
+                  <span class="type-name">Water</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/bug.svg" class="icon" alt="">
+                  <span class="type-name">Bug</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/steel.svg" class="icon" alt="">
+                  <span class="type-name">Steel</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fire.svg" class="icon" alt="">
+                  <span class="type-name">Fire</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/grass.svg" class="icon" alt="">
+                  <span class="type-name">Grass</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ice.svg" class="icon" alt="">
+                  <span class="type-name">Ice</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fairy.svg" class="icon" alt="">
+                  <span class="type-name">Fairy</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Water -->
+
+      <li class="listed-type">
+        <a href="#water" class="type-link">
+          <span class="visually-hidden">Water</span>
+        </a>
+        <article id="water" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/water.svg" class="icon" alt=""/>
+              <span class="type-name">Water</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/grass.svg" class="icon" alt="">
+                  <span class="type-name">Grass</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/electric.svg" class="icon" alt="">
+                  <span class="type-name">Electric</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/steel.svg" class="icon" alt="">
+                  <span class="type-name">Steel</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fire.svg" class="icon" alt="">
+                  <span class="type-name">Fire</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/water.svg" class="icon" alt="">
+                  <span class="type-name">Water</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ice.svg" class="icon" alt="">
+                  <span class="type-name">Ice</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Grass -->
+
+      <li class="listed-type">
+        <a href="#grass" class="type-link">
+          <span class="visually-hidden">Grass</span>
+        </a>
+        <article id="grass" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/grass.svg" class="icon" alt=""/>
+              <span class="type-name">Grass</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/flying.svg" class="icon" alt="">
+                  <span class="type-name">Flying</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/poison.svg" class="icon" alt="">
+                  <span class="type-name">Poison</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/bug.svg" class="icon" alt="">
+                  <span class="type-name">Bug</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fire.svg" class="icon" alt="">
+                  <span class="type-name">fire</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ice.svg" class="icon" alt="">
+                  <span class="type-name">Ice</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ground.svg" class="icon" alt="">
+                  <span class="type-name">Ground</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/water.svg" class="icon" alt="">
+                  <span class="type-name">Water</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/grass.svg" class="icon" alt="">
+                  <span class="type-name">Grass</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/electric.svg" class="icon" alt="">
+                  <span class="type-name">Electric</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Electric -->
+
+      <li class="listed-type">
+        <a href="#electric" class="type-link">
+          <span class="visually-hidden">Electric</span>
+        </a>
+        <article id="electric" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/electric.svg" class="icon" alt=""/>
+              <span class="type-name">Electric</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ground.svg" class="icon" alt="">
+                  <span class="type-name">Ground</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/flying.svg" class="icon" alt="">
+                  <span class="type-name">Flying</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/steel.svg" class="icon" alt="">
+                  <span class="type-name">Steel</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/electric.svg" class="icon" alt="">
+                  <span class="type-name">Electric</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Psychic -->
+
+      <li class="listed-type">
+        <a href="#psychic" class="type-link">
+          <span class="visually-hidden">Psychic</span>
+        </a>
+        <article id="psychic" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/psychic.svg" class="icon" alt=""/>
+              <span class="type-name">Psychic</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/bug.svg" class="icon" alt="">
+                  <span class="type-name">Bug</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ghost.svg" class="icon" alt="">
+                  <span class="type-name">Ghost</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/dark.svg" class="icon" alt="">
+                  <span class="type-name">Dark</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fighting.svg" class="icon" alt="">
+                  <span class="type-name">Fighting</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/psychic.svg" class="icon" alt="">
+                  <span class="type-name">Psychic</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Ice -->
+
+      <li class="listed-type">
+        <a href="#ice" class="type-link">
+          <span class="visually-hidden">Ice</span>
+        </a>
+        <article id="ice" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/ice.svg" class="icon" alt=""/>
+              <span class="type-name">Ice</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fighting.svg" class="icon" alt="">
+                  <span class="type-name">Fighting</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/rock.svg" class="icon" alt="">
+                  <span class="type-name">Rock</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/steel.svg" class="icon" alt="">
+                  <span class="type-name">Steel</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fire.svg" class="icon" alt="">
+                  <span class="type-name">Fire</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ice.svg" class="icon" alt="">
+                  <span class="type-name">Ice</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Dragon -->
+
+      <li class="listed-type">
+        <a href="#dragon" class="type-link">
+          <span class="visually-hidden">Dragon</span>
+        </a>
+        <article id="dragon" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/dragon.svg" class="icon" alt=""/>
+              <span class="type-name">Dragon</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fire.svg" class="icon" alt="">
+                  <span class="type-name">Fire</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/water.svg" class="icon" alt="">
+                  <span class="type-name">Water</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/grass.svg" class="icon" alt="">
+                  <span class="type-name">Grass</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/electric.svg" class="icon" alt="">
+                  <span class="type-name">Electric</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ice.svg" class="icon" alt="">
+                  <span class="type-name">Ice</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/dragon.svg" class="icon" alt="">
+                  <span class="type-name">Dragon</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fairy.svg" class="icon" alt="">
+                  <span class="type-name">Fairy</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Fairy -->
+
+      <li class="listed-type">
+        <a href="#fairy" class="type-link">
+          <span class="visually-hidden">Fairy</span>
+        </a>
+        <article id="fairy" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/fairy.svg" class="icon" alt=""/>
+              <span class="type-name">Fairy</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/poison.svg" class="icon" alt="">
+                  <span class="type-name">Poison</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/steel.svg" class="icon" alt="">
+                  <span class="type-name">Steel</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship extra">
+                <p class="type-label">
+                  <img src="images/types/dragon.svg" class="icon" alt="">
+                  <span class="type-name">Dragon</span>
+                </p>
+              
+<div class="triangle"></div>
+              
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fighting.svg" class="icon" alt="">
+                  <span class="type-name">Fighting</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/bug.svg" class="icon" alt="">
+                  <span class="type-name">Bug</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/dark.svg" class="icon" alt="">
+                  <span class="type-name">Dark</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+
+
+      <!-- Dark -->
+
+      <li class="listed-type">
+        <a href="#dark" class="type-link">
+          <span class="visually-hidden">Dark</span>
+        </a>
+        <article id="dark" class="type">
+          <a href="#" aria-hidden class="shield"></a>
+
+          <header>
+            <h1 class="type-label">
+              <img src="images/types/dark.svg" class="icon" alt=""/>
+              <span class="type-name">Dark</span>
+            </h1>
+          </header>
+
+          <section class="relationship-section counters">
+            <h2 class="relationship-header">Good counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fighting.svg" class="icon" alt="">
+                  <span class="type-name">Fighting</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/bug.svg" class="icon" alt="">
+                  <span class="type-name">Bug</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/fairy.svg" class="icon" alt="">
+                  <span class="type-name">Fairy</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="relationship-section resistant">
+            <h2 class="relationship-header">Bad counters</h2>
+            <ul class="relationship-list">
+              <li class="relationship extra">
+                <p class="type-label">
+                  <img src="images/types/psychic.svg" class="icon" alt="">
+                  <span class="type-name">Psychic</span>
+                </p>
+              
+<div class="triangle"></div>
+              
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/ghost.svg" class="icon" alt="">
+                  <span class="type-name">Ghost</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+              <li class="relationship">
+                <p class="type-label">
+                  <img src="images/types/dark.svg" class="icon" alt="">
+                  <span class="type-name">Dark</span>
+                </p>
+
+                <div class="triangle"></div>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </li>
+    </ul>
+  </main>
+</body>
+</html>
