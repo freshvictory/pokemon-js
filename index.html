@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <title>Pokémon Types</title>
@@ -149,11 +149,6 @@
       right: 0;
     }
 
-    .relationship-header {
-      /* Fix me */
-      display: none;
-    }
-
     .relationship-list {
       --direction: 1;
       --offset: 0;
@@ -228,25 +223,39 @@
       transition-delay: calc(75ms * (var(--row) - 1));
     }
 
-    .relationship .type-label {
+    .relationship .icon {
       width: 30px;
       height: 30px;
       border-radius: 50%;
       z-index: 1;
     }
 
-    .relationship .type-label img {
+    .relationship .icon {
       transform: rotate(calc(-1 * var(--angle)));
       border: 2px solid var(--c-type);
       border-radius: 50%;
     }
 
-    .relationship .indicator {
+    .relationship::after {
+      content: ' ';
+      position: absolute;
+      background-color: var(--fill);
+      -webkit-mask: url(/images/triangle.svg) no-repeat center;
+      mask: url(/images/triangle.svg) no-repeat center;
+      width: 10px;
+      height: 10px;
+      left: 10px;
       transform: rotate(180deg);
     }
 
-    .type:target .relationship .indicator {
-      margin-top: 5px;
+    .relationship.extra::after {
+      background-color: var(--fill);
+      -webkit-mask: url(/images/x.svg) no-repeat center;
+      mask: url(/images/x.svg) no-repeat center;
+    }
+
+    .type:target .relationship::after {
+      margin-top: 35px;
     }
 
     .counters {
@@ -263,24 +272,6 @@
       width: 100%;
       height: 100%;
     }
-
-    .triangle {
-      background-color: var(--fill);
-      -webkit-mask: url(/images/triangle.svg) no-repeat center;
-      mask: url(/images/triangle.svg) no-repeat center;
-      width: 10px;
-      height: 10px;
-      margin: auto;
-    }
-
-    .x {
-      background-color: var(--fill);
-      -webkit-mask: url(/images/x.svg) no-repeat center;
-      mask: url(/images/x.svg) no-repeat center;
-      width: 10px;
-      height: 10px;
-      margin: auto;
-    }
   </style>
   <main id="app">
     <ul id="list">
@@ -289,43 +280,30 @@
       <!-- Normal -->
 
       <li class="listed-type">
-        <a href="#normal" class="type-link">
-          <span class="visually-hidden">Normal</span>
-        </a>
+        <a href="#normal" class="type-link" aria-label="Normal"></a>
         <article id="normal" class="type normal">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/normal.svg" class="icon" alt=""/>
-              <span class="type-name">Normal</span>
+              <img src="images/types/normal.svg" class="icon" alt="Normal">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label fighting">
-                  <img src="images/types/fighting.svg" class="icon" alt=""/>
-                  <span class="type-name">Fighting</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fighting">
+                <img src="images/types/fighting.svg" class="icon" alt="fighting">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship extra">
-                <p class="type-label ghost">
-                  <img src="images/types/ghost.svg" class="icon" alt=""/>
-                  <span class="type-name">Ghost</span>
-                </p>
-
-                <div class="indicator x"></div>
+              <li class="relationship extra ghost">
+                <img src="images/types/ghost.svg" class="icon" alt="ghost">
               </li>
             </ul>
           </section>
@@ -336,75 +314,42 @@
       <!-- Fighting -->
 
       <li class="listed-type">
-        <a href="#fighting" class="type-link">
-          <span class="visually-hidden">Fighting</span>
-        </a>
+        <a href="#fighting" class="type-link" aria-label="Fighting"></a>
         <article id="fighting" class="type fighting">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/fighting.svg" class="icon" alt=""/>
-              <span class="type-name">Fighting</span>
+              <img src="images/types/fighting.svg" class="icon" alt="Fighting">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label flying">
-                  <img src="images/types/flying.svg" class="icon" alt=""/>
-                  <span class="type-name">Flying</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship flying">
+                <img src="images/types/flying.svg" class="icon" alt="flying">
               </li>
-              <li class="relationship">
-                <p class="type-label psychic">
-                  <img src="images/types/psychic.svg" class="icon" alt=""/>
-                  <span class="type-name">Psychic</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship psychic">
+                <img src="images/types/psychic.svg" class="icon" alt="psychic">
               </li>
-              <li class="relationship">
-                <p class="type-label fairy">
-                  <img src="images/types/fairy.svg" class="icon" alt=""/>
-                  <span class="type-name">Fairy</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fairy">
+                <img src="images/types/fairy.svg" class="icon" alt="fairy">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label rock">
-                  <img src="images/types/rock.svg" class="icon" alt=""/>
-                  <span class="type-name">Rock</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship rock">
+                <img src="images/types/rock.svg" class="icon" alt="rock">
               </li>
-              <li class="relationship">
-                <p class="type-label bug">
-                  <img src="images/types/bug.svg" class="icon" alt=""/>
-                  <span class="type-name">Bug</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship bug">
+                <img src="images/types/bug.svg" class="icon" alt="bug">
               </li>
-              <li class="relationship">
-                <p class="type-label dark">
-                  <img src="images/types/dark.svg" class="icon" alt=""/>
-                  <span class="type-name">Dark</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship dark">
+                <img src="images/types/dark.svg" class="icon" alt="dark">
               </li>
             </ul>
           </section>
@@ -415,83 +360,45 @@
       <!-- Flying -->
 
       <li class="listed-type">
-        <a href="#flying" class="type-link">
-          <span class="visually-hidden">Flying</span>
-        </a>
+        <a href="#flying" class="type-link" aria-label="Flying"></a>
         <article id="flying" class="type flying">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/flying.svg" class="icon" alt=""/>
-              <span class="type-name">Flying</span>
+              <img src="images/types/flying.svg" class="icon" alt="Flying">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label rock">
-                  <img src="images/types/rock.svg" class="icon" alt="">
-                  <span class="type-name">Rock</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship rock">
+                <img src="images/types/rock.svg" class="icon" alt="rock">
               </li>
-              <li class="relationship">
-                <p class="type-label electric">
-                  <img src="images/types/electric.svg" class="icon" alt="">
-                  <span class="type-name">Electric</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship electric">
+                <img src="images/types/electric.svg" class="icon" alt="electric">
               </li>
-              <li class="relationship">
-                <p class="type-label ice">
-                  <img src="images/types/ice.svg" class="icon" alt="">
-                  <span class="type-name">Ice</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ice">
+                <img src="images/types/ice.svg" class="icon" alt="ice">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship extra">
-                <p class="type-label ground">
-                  <img src="images/types/ground.svg" class="icon" alt="">
-                  <span class="type-name">Ground</span>
-                </p>
-
-                <div class="indicator x"></div>
+              <li class="relationship extra ground">
+                <img src="images/types/ground.svg" class="icon" alt="ground">
               </li>
-              <li class="relationship">
-                <p class="type-label fighting">
-                  <img src="images/types/fighting.svg" class="icon" alt="">
-                  <span class="type-name">Fighting</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fighting">
+                <img src="images/types/fighting.svg" class="icon" alt="fighting">
               </li>
-              <li class="relationship">
-                <p class="type-label bug">
-                  <img src="images/types/bug.svg" class="icon" alt="">
-                  <span class="type-name">Bug</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship bug">
+                <img src="images/types/bug.svg" class="icon" alt="bug">
               </li>
-              <li class="relationship">
-                <p class="type-label grass">
-                  <img src="images/types/grass.svg" class="icon" alt="">
-                  <span class="type-name">Grass</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship grass">
+                <img src="images/types/grass.svg" class="icon" alt="grass">
               </li>
             </ul>
           </section>
@@ -502,75 +409,42 @@
       <!-- Poison -->
 
       <li class="listed-type">
-        <a href="#poison" class="type-link">
-          <span class="visually-hidden">Poison</span>
-        </a>
+        <a href="#poison" class="type-link" aria-label="Poison"></a>
         <article id="poison" class="type poison">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/poison.svg" class="icon" alt=""/>
-              <span class="type-name">Poison</span>
+              <img src="images/types/poison.svg" class="icon" alt="Poison">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label ground">
-                  <img src="images/types/ground.svg" class="icon" alt="">
-                  <span class="type-name">Ground</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ground">
+                <img src="images/types/ground.svg" class="icon" alt="ground">
               </li>
-              <li class="relationship">
-                <p class="type-label psychic">
-                  <img src="images/types/psychic.svg" class="icon" alt=""/>
-                  <span class="type-name">Psychic</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship psychic">
+                <img src="images/types/psychic.svg" class="icon" alt="psychic">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label fighting">
-                  <img src="images/types/fighting.svg" class="icon" alt="">
-                  <span class="type-name">Fighting</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fighting">
+                <img src="images/types/fighting.svg" class="icon" alt="fighting">
               </li>
-              <li class="relationship">
-                <p class="type-label poison">
-                  <img src="images/types/poison.svg" class="icon" alt="">
-                  <span class="type-name">Poison</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship poison">
+                <img src="images/types/poison.svg" class="icon" alt="poison">
               </li>
-              <li class="relationship">
-                <p class="type-label grass">
-                  <img src="images/types/grass.svg" class="icon" alt="">
-                  <span class="type-name">Grass</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship grass">
+                <img src="images/types/grass.svg" class="icon" alt="grass">
               </li>
-              <li class="relationship">
-                <p class="type-label fairy">
-                  <img src="images/types/fairy.svg" class="icon" alt="">
-                  <span class="type-name">Fairy</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fairy">
+                <img src="images/types/fairy.svg" class="icon" alt="fairy">
               </li>
             </ul>
           </section>
@@ -581,75 +455,42 @@
       <!-- Ground -->
 
       <li class="listed-type">
-        <a href="#ground" class="type-link">
-          <span class="visually-hidden">Ground</span>
-        </a>
+        <a href="#ground" class="type-link" aria-label="Ground"></a>
         <article id="ground" class="type ground">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/ground.svg" class="icon" alt=""/>
-              <span class="type-name">Ground</span>
+              <img src="images/types/ground.svg" class="icon" alt="Ground">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label water">
-                  <img src="images/types/water.svg" class="icon" alt="">
-                  <span class="type-name">Water</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship water">
+                <img src="images/types/water.svg" class="icon" alt="water">
               </li>
-              <li class="relationship">
-                <p class="type-label grass">
-                  <img src="images/types/grass.svg" class="icon" alt="">
-                  <span class="type-name">Grass</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship grass">
+                <img src="images/types/grass.svg" class="icon" alt="grass">
               </li>
-              <li class="relationship">
-                <p class="type-label ice">
-                  <img src="images/types/ice.svg" class="icon" alt="">
-                  <span class="type-name">Ice</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ice">
+                <img src="images/types/ice.svg" class="icon" alt="ice">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship extra">
-                <p class="type-label electric">
-                  <img src="images/types/electric.svg" class="icon" alt="">
-                  <span class="type-name">Electric</span>
-                </p>
-
-                <div class="indicator x"></div>
+              <li class="relationship extra electric">
+                <img src="images/types/electric.svg" class="icon" alt="electric">
               </li>
-              <li class="relationship">
-                <p class="type-label poison">
-                  <img src="images/types/poison.svg" class="icon" alt="">
-                  <span class="type-name">Poison</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship poison">
+                <img src="images/types/poison.svg" class="icon" alt="poison">
               </li>
-              <li class="relationship">
-                <p class="type-label rock">
-                  <img src="images/types/rock.svg" class="icon" alt="">
-                  <span class="type-name">Rock</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship rock">
+                <img src="images/types/rock.svg" class="icon" alt="rock">
               </li>
             </ul>
           </section>
@@ -660,99 +501,51 @@
       <!-- Rock -->
 
       <li class="listed-type">
-        <a href="#rock" class="type-link">
-          <span class="visually-hidden">Rock</span>
-        </a>
+        <a href="#rock" class="type-link" aria-label="Rock"></a>
         <article id="rock" class="type rock">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/rock.svg" class="icon" alt=""/>
-              <span class="type-name">Rock</span>
+              <img src="images/types/rock.svg" class="icon" alt="Rock">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label fighting">
-                  <img src="images/types/fighting.svg" class="icon" alt="">
-                  <span class="type-name">Fighting</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fighting">
+                <img src="images/types/fighting.svg" class="icon" alt="fighting">
               </li>
-              <li class="relationship">
-                <p class="type-label ground">
-                  <img src="images/types/ground.svg" class="icon" alt="">
-                  <span class="type-name">Ground</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ground">
+                <img src="images/types/ground.svg" class="icon" alt="ground">
               </li>
-              <li class="relationship">
-                <p class="type-label steel">
-                  <img src="images/types/steel.svg" class="icon" alt="">
-                  <span class="type-name">Steel</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship steel">
+                <img src="images/types/steel.svg" class="icon" alt="steel">
               </li>
-              <li class="relationship">
-                <p class="type-label water">
-                  <img src="images/types/water.svg" class="icon" alt="">
-                  <span class="type-name">Water</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship water">
+                <img src="images/types/water.svg" class="icon" alt="water">
               </li>
-              <li class="relationship">
-                <p class="type-label grass">
-                  <img src="images/types/grass.svg" class="icon" alt="">
-                  <span class="type-name">Grass</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship grass">
+                <img src="images/types/grass.svg" class="icon" alt="grass">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label normal">
-                  <img src="images/types/normal.svg" class="icon" alt="">
-                  <span class="type-name">Normal</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship normal">
+                <img src="images/types/normal.svg" class="icon" alt="normal">
               </li>
-              <li class="relationship">
-                <p class="type-label flying">
-                  <img src="images/types/flying.svg" class="icon" alt="">
-                  <span class="type-name">Flying</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship flying">
+                <img src="images/types/flying.svg" class="icon" alt="flying">
               </li>
-              <li class="relationship">
-                <p class="type-label poison">
-                  <img src="images/types/poison.svg" class="icon" alt="">
-                  <span class="type-name">Poison</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship poison">
+                <img src="images/types/poison.svg" class="icon" alt="poison">
               </li>
-              <li class="relationship">
-                <p class="type-label fire">
-                  <img src="images/types/fire.svg" class="icon" alt="">
-                  <span class="type-name">Fire</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fire">
+                <img src="images/types/fire.svg" class="icon" alt="fire">
               </li>
             </ul>
           </section>
@@ -763,75 +556,42 @@
       <!-- Bug -->
 
       <li class="listed-type">
-        <a href="#bug" class="type-link">
-          <span class="visually-hidden">Bug</span>
-        </a>
+        <a href="#bug" class="type-link" aria-label="Bug"></a>
         <article id="bug" class="type bug">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/bug.svg" class="icon" alt=""/>
-              <span class="type-name">Bug</span>
+              <img src="images/types/bug.svg" class="icon" alt="Bug">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label flying">
-                  <img src="images/types/flying.svg" class="icon" alt="">
-                  <span class="type-name">Flying</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship flying">
+                <img src="images/types/flying.svg" class="icon" alt="flying">
               </li>
-              <li class="relationship">
-                <p class="type-label rock">
-                  <img src="images/types/rock.svg" class="icon" alt="">
-                  <span class="type-name">Rock</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship rock">
+                <img src="images/types/rock.svg" class="icon" alt="rock">
               </li>
-              <li class="relationship">
-                <p class="type-label fire">
-                  <img src="images/types/fire.svg" class="icon" alt="">
-                  <span class="type-name">Fire</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fire">
+                <img src="images/types/fire.svg" class="icon" alt="fire">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label fighting">
-                  <img src="images/types/fighting.svg" class="icon" alt="">
-                  <span class="type-name">Fighting</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fighting">
+                <img src="images/types/fighting.svg" class="icon" alt="fighting">
               </li>
-              <li class="relationship">
-                <p class="type-label ground">
-                  <img src="images/types/ground.svg" class="icon" alt="">
-                  <span class="type-name">Ground</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ground">
+                <img src="images/types/ground.svg" class="icon" alt="ground">
               </li>
-              <li class="relationship">
-                <p class="type-label grass">
-                  <img src="images/types/grass.svg" class="icon" alt="">
-                  <span class="type-name">Grass</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship grass">
+                <img src="images/types/grass.svg" class="icon" alt="grass">
               </li>
             </ul>
           </section>
@@ -842,75 +602,42 @@
       <!-- Ghost -->
 
       <li class="listed-type">
-        <a href="#ghost" class="type-link">
-          <span class="visually-hidden">Ghost</span>
-        </a>
+        <a href="#ghost" class="type-link" aria-label="Ghost"></a>
         <article id="ghost" class="type ghost">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/ghost.svg" class="icon" alt=""/>
-              <span class="type-name">Ghost</span>
+              <img src="images/types/ghost.svg" class="icon" alt="Ghost">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label ghost">
-                  <img src="images/types/ghost.svg" class="icon" alt="">
-                  <span class="type-name">Ghost</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ghost">
+                <img src="images/types/ghost.svg" class="icon" alt="ghost">
               </li>
-              <li class="relationship">
-                <p class="type-label dark">
-                  <img src="images/types/dark.svg" class="icon" alt="">
-                  <span class="type-name">Dark</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship dark">
+                <img src="images/types/dark.svg" class="icon" alt="dark">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship extra">
-                <p class="type-label normal">
-                  <img src="images/types/normal.svg" class="icon" alt="">
-                  <span class="type-name">Normal</span>
-                </p>
-
-                <div class="indicator x"></div>
+              <li class="relationship extra normal">
+                <img src="images/types/normal.svg" class="icon" alt="normal">
               </li>
-              <li class="relationship extra">
-                <p class="type-label fighting">
-                  <img src="images/types/fighting.svg" class="icon" alt="">
-                  <span class="type-name">Fighting</span>
-                </p>
-
-                <div class="indicator x"></div>
+              <li class="relationship extra fighting">
+                <img src="images/types/fighting.svg" class="icon" alt="fighting">
               </li>
-              <li class="relationship">
-                <p class="type-label poison">
-                  <img src="images/types/poison.svg" class="icon" alt="">
-                  <span class="type-name">Poison</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship poison">
+                <img src="images/types/poison.svg" class="icon" alt="poison">
               </li>
-              <li class="relationship">
-                <p class="type-label bug">
-                  <img src="images/types/bug.svg" class="icon" alt="">
-                  <span class="type-name">Bug</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship bug">
+                <img src="images/types/bug.svg" class="icon" alt="bug">
               </li>
             </ul>
           </section>
@@ -921,139 +648,66 @@
       <!-- Steel -->
 
       <li class="listed-type">
-        <a href="#steel" class="type-link">
-          <span class="visually-hidden">Steel</span>
-        </a>
+        <a href="#steel" class="type-link" aria-label="Steel"></a>
         <article id="steel" class="type steel">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/steel.svg" class="icon" alt=""/>
-              <span class="type-name">Steel</span>
+              <img src="images/types/steel.svg" class="icon" alt="Steel">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label fighting">
-                  <img src="images/types/fighting.svg" class="icon" alt="">
-                  <span class="type-name">Fighting</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fighting">
+                <img src="images/types/fighting.svg" class="icon" alt="fighting">
               </li>
-              <li class="relationship">
-                <p class="type-label ground">
-                  <img src="images/types/ground.svg" class="icon" alt="">
-                  <span class="type-name">Ground</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ground">
+                <img src="images/types/ground.svg" class="icon" alt="ground">
               </li>
-              <li class="relationship">
-                <p class="type-label fire">
-                  <img src="images/types/fire.svg" class="icon" alt="">
-                  <span class="type-name">Fire</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fire">
+                <img src="images/types/fire.svg" class="icon" alt="fire">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship extra">
-                <p class="type-label poison">
-                  <img src="images/types/poison.svg" class="icon" alt="">
-                  <span class="type-name">Poison</span>
-                </p>
-
-                <div class="indicator x"></div>
+              <li class="relationship extra poison">
+                <img src="images/types/poison.svg" class="icon" alt="poison">
               </li>
-              <li class="relationship">
-                <p class="type-label normal">
-                  <img src="images/types/normal.svg" class="icon" alt="">
-                  <span class="type-name">Normal</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship normal">
+                <img src="images/types/normal.svg" class="icon" alt="normal">
               </li>
-              <li class="relationship">
-                <p class="type-label flying">
-                  <img src="images/types/flying.svg" class="icon" alt="">
-                  <span class="type-name">Flying</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship flying">
+                <img src="images/types/flying.svg" class="icon" alt="flying">
               </li>
-              <li class="relationship">
-                <p class="type-label rock">
-                  <img src="images/types/rock.svg" class="icon" alt="">
-                  <span class="type-name">Rock</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship rock">
+                <img src="images/types/rock.svg" class="icon" alt="rock">
               </li>
-              <li class="relationship">
-                <p class="type-label bug">
-                  <img src="images/types/bug.svg" class="icon" alt="">
-                  <span class="type-name">Bug</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship bug">
+                <img src="images/types/bug.svg" class="icon" alt="bug">
               </li>
-              <li class="relationship">
-                <p class="type-label steel">
-                  <img src="images/types/steel.svg" class="icon" alt="">
-                  <span class="type-name">Steel</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship steel">
+                <img src="images/types/steel.svg" class="icon" alt="steel">
               </li>
-              <li class="relationship">
-                <p class="type-label grass">
-                  <img src="images/types/grass.svg" class="icon" alt="">
-                  <span class="type-name">Grass</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship grass">
+                <img src="images/types/grass.svg" class="icon" alt="grass">
               </li>
-              <li class="relationship">
-                <p class="type-label psychic">
-                  <img src="images/types/psychic.svg" class="icon" alt="">
-                  <span class="type-name">Psychic</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship psychic">
+                <img src="images/types/psychic.svg" class="icon" alt="psychic">
               </li>
-              <li class="relationship">
-                <p class="type-label ice">
-                  <img src="images/types/ice.svg" class="icon" alt="">
-                  <span class="type-name">Ice</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ice">
+                <img src="images/types/ice.svg" class="icon" alt="ice">
               </li>
-              <li class="relationship">
-                <p class="type-label dragon">
-                  <img src="images/types/dragon.svg" class="icon" alt="">
-                  <span class="type-name">Dragon</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship dragon">
+                <img src="images/types/dragon.svg" class="icon" alt="dragon">
               </li>
-              <li class="relationship">
-                <p class="type-label fairy">
-                  <img src="images/types/fairy.svg" class="icon" alt="">
-                  <span class="type-name">Fairy</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fairy">
+                <img src="images/types/fairy.svg" class="icon" alt="fairy">
               </li>
             </ul>
           </section>
@@ -1064,99 +718,51 @@
       <!-- Fire -->
 
       <li class="listed-type">
-        <a href="#fire" class="type-link">
-          <span class="visually-hidden">Fire</span>
-        </a>
+        <a href="#fire" class="type-link" aria-label="Fire"></a>
         <article id="fire" class="type fire">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/fire.svg" class="icon" alt=""/>
-              <span class="type-name">Fire</span>
+              <img src="images/types/fire.svg" class="icon" alt="Fire">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label ground">
-                  <img src="images/types/ground.svg" class="icon" alt="">
-                  <span class="type-name">Ground</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ground">
+                <img src="images/types/ground.svg" class="icon" alt="ground">
               </li>
-              <li class="relationship">
-                <p class="type-label rock">
-                  <img src="images/types/rock.svg" class="icon" alt="">
-                  <span class="type-name">Rock</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship rock">
+                <img src="images/types/rock.svg" class="icon" alt="rock">
               </li>
-              <li class="relationship">
-                <p class="type-label water">
-                  <img src="images/types/water.svg" class="icon" alt="">
-                  <span class="type-name">Water</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship water">
+                <img src="images/types/water.svg" class="icon" alt="water">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label bug">
-                  <img src="images/types/bug.svg" class="icon" alt="">
-                  <span class="type-name">Bug</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship bug">
+                <img src="images/types/bug.svg" class="icon" alt="bug">
               </li>
-              <li class="relationship">
-                <p class="type-label steel">
-                  <img src="images/types/steel.svg" class="icon" alt="">
-                  <span class="type-name">Steel</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship steel">
+                <img src="images/types/steel.svg" class="icon" alt="steel">
               </li>
-              <li class="relationship">
-                <p class="type-label fire">
-                  <img src="images/types/fire.svg" class="icon" alt="">
-                  <span class="type-name">Fire</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fire">
+                <img src="images/types/fire.svg" class="icon" alt="fire">
               </li>
-              <li class="relationship">
-                <p class="type-label grass">
-                  <img src="images/types/grass.svg" class="icon" alt="">
-                  <span class="type-name">Grass</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship grass">
+                <img src="images/types/grass.svg" class="icon" alt="grass">
               </li>
-              <li class="relationship">
-                <p class="type-label ice">
-                  <img src="images/types/ice.svg" class="icon" alt="">
-                  <span class="type-name">Ice</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ice">
+                <img src="images/types/ice.svg" class="icon" alt="ice">
               </li>
-              <li class="relationship">
-                <p class="type-label fairy">
-                  <img src="images/types/fairy.svg" class="icon" alt="">
-                  <span class="type-name">Fairy</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fairy">
+                <img src="images/types/fairy.svg" class="icon" alt="fairy">
               </li>
             </ul>
           </section>
@@ -1167,75 +773,42 @@
       <!-- Water -->
 
       <li class="listed-type">
-        <a href="#water" class="type-link">
-          <span class="visually-hidden">Water</span>
-        </a>
+        <a href="#water" class="type-link" aria-label="Water"></a>
         <article id="water" class="type water">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/water.svg" class="icon" alt=""/>
-              <span class="type-name">Water</span>
+              <img src="images/types/water.svg" class="icon" alt="Water">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label grass">
-                  <img src="images/types/grass.svg" class="icon" alt="">
-                  <span class="type-name">Grass</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship grass">
+                <img src="images/types/grass.svg" class="icon" alt="grass">
               </li>
-              <li class="relationship">
-                <p class="type-label electric">
-                  <img src="images/types/electric.svg" class="icon" alt="">
-                  <span class="type-name">Electric</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship electric">
+                <img src="images/types/electric.svg" class="icon" alt="electric">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label steel">
-                  <img src="images/types/steel.svg" class="icon" alt="">
-                  <span class="type-name">Steel</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship steel">
+                <img src="images/types/steel.svg" class="icon" alt="steel">
               </li>
-              <li class="relationship">
-                <p class="type-label fire">
-                  <img src="images/types/fire.svg" class="icon" alt="">
-                  <span class="type-name">Fire</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fire">
+                <img src="images/types/fire.svg" class="icon" alt="fire">
               </li>
-              <li class="relationship">
-                <p class="type-label water">
-                  <img src="images/types/water.svg" class="icon" alt="">
-                  <span class="type-name">Water</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship water">
+                <img src="images/types/water.svg" class="icon" alt="water">
               </li>
-              <li class="relationship">
-                <p class="type-label ice">
-                  <img src="images/types/ice.svg" class="icon" alt="">
-                  <span class="type-name">Ice</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ice">
+                <img src="images/types/ice.svg" class="icon" alt="ice">
               </li>
             </ul>
           </section>
@@ -1246,99 +819,51 @@
       <!-- Grass -->
 
       <li class="listed-type">
-        <a href="#grass" class="type-link">
-          <span class="visually-hidden">Grass</span>
-        </a>
+        <a href="#grass" class="type-link" aria-label="Grass"></a>
         <article id="grass" class="type grass">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/grass.svg" class="icon" alt=""/>
-              <span class="type-name">Grass</span>
+              <img src="images/types/grass.svg" class="icon" alt="Grass">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label flying">
-                  <img src="images/types/flying.svg" class="icon" alt="">
-                  <span class="type-name">Flying</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship flying">
+                <img src="images/types/flying.svg" class="icon" alt="flying">
               </li>
-              <li class="relationship">
-                <p class="type-label poison">
-                  <img src="images/types/poison.svg" class="icon" alt="">
-                  <span class="type-name">Poison</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship poison">
+                <img src="images/types/poison.svg" class="icon" alt="poison">
               </li>
-              <li class="relationship">
-                <p class="type-label bug">
-                  <img src="images/types/bug.svg" class="icon" alt="">
-                  <span class="type-name">Bug</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship bug">
+                <img src="images/types/bug.svg" class="icon" alt="bug">
               </li>
-              <li class="relationship">
-                <p class="type-label fire">
-                  <img src="images/types/fire.svg" class="icon" alt="">
-                  <span class="type-name">fire</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fire">
+                <img src="images/types/fire.svg" class="icon" alt="fire">
               </li>
-              <li class="relationship">
-                <p class="type-label ice">
-                  <img src="images/types/ice.svg" class="icon" alt="">
-                  <span class="type-name">Ice</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ice">
+                <img src="images/types/ice.svg" class="icon" alt="ice">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label ground">
-                  <img src="images/types/ground.svg" class="icon" alt="">
-                  <span class="type-name">Ground</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ground">
+                <img src="images/types/ground.svg" class="icon" alt="ground">
               </li>
-              <li class="relationship">
-                <p class="type-label water">
-                  <img src="images/types/water.svg" class="icon" alt="">
-                  <span class="type-name">Water</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship water">
+                <img src="images/types/water.svg" class="icon" alt="water">
               </li>
-              <li class="relationship">
-                <p class="type-label grass">
-                  <img src="images/types/grass.svg" class="icon" alt="">
-                  <span class="type-name">Grass</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship grass">
+                <img src="images/types/grass.svg" class="icon" alt="grass">
               </li>
-              <li class="relationship">
-                <p class="type-label electric">
-                  <img src="images/types/electric.svg" class="icon" alt="">
-                  <span class="type-name">Electric</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship electric">
+                <img src="images/types/electric.svg" class="icon" alt="electric">
               </li>
             </ul>
           </section>
@@ -1349,59 +874,36 @@
       <!-- Electric -->
 
       <li class="listed-type">
-        <a href="#electric" class="type-link">
-          <span class="visually-hidden">Electric</span>
-        </a>
+        <a href="#electric" class="type-link" aria-label="Electric"></a>
         <article id="electric" class="type electric">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/electric.svg" class="icon" alt=""/>
-              <span class="type-name">Electric</span>
+              <img src="images/types/electric.svg" class="icon" alt="Electric">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label ground">
-                  <img src="images/types/ground.svg" class="icon" alt="">
-                  <span class="type-name">Ground</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ground">
+                <img src="images/types/ground.svg" class="icon" alt="ground">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label flying">
-                  <img src="images/types/flying.svg" class="icon" alt="">
-                  <span class="type-name">Flying</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship flying">
+                <img src="images/types/flying.svg" class="icon" alt="flying">
               </li>
-              <li class="relationship">
-                <p class="type-label steel">
-                  <img src="images/types/steel.svg" class="icon" alt="">
-                  <span class="type-name">Steel</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship steel">
+                <img src="images/types/steel.svg" class="icon" alt="steel">
               </li>
-              <li class="relationship">
-                <p class="type-label electric">
-                  <img src="images/types/electric.svg" class="icon" alt="">
-                  <span class="type-name">Electric</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship electric">
+                <img src="images/types/electric.svg" class="icon" alt="electric">
               </li>
             </ul>
           </section>
@@ -1412,67 +914,39 @@
       <!-- Psychic -->
 
       <li class="listed-type">
-        <a href="#psychic" class="type-link">
-          <span class="visually-hidden">Psychic</span>
-        </a>
+        <a href="#psychic" class="type-link" aria-label="Psychic"></a>
         <article id="psychic" class="type psychic">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/psychic.svg" class="icon" alt=""/>
-              <span class="type-name">Psychic</span>
+              <img src="images/types/psychic.svg" class="icon" alt="Psychic">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label bug">
-                  <img src="images/types/bug.svg" class="icon" alt="">
-                  <span class="type-name">Bug</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship bug">
+                <img src="images/types/bug.svg" class="icon" alt="bug">
               </li>
-              <li class="relationship">
-                <p class="type-label ghost">
-                  <img src="images/types/ghost.svg" class="icon" alt="">
-                  <span class="type-name">Ghost</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ghost">
+                <img src="images/types/ghost.svg" class="icon" alt="ghost">
               </li>
-              <li class="relationship">
-                <p class="type-label dark">
-                  <img src="images/types/dark.svg" class="icon" alt="">
-                  <span class="type-name">Dark</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship dark">
+                <img src="images/types/dark.svg" class="icon" alt="dark">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label fighting">
-                  <img src="images/types/fighting.svg" class="icon" alt="">
-                  <span class="type-name">Fighting</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fighting">
+                <img src="images/types/fighting.svg" class="icon" alt="fighting">
               </li>
-              <li class="relationship">
-                <p class="type-label psychic">
-                  <img src="images/types/psychic.svg" class="icon" alt="">
-                  <span class="type-name">Psychic</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship psychic">
+                <img src="images/types/psychic.svg" class="icon" alt="psychic">
               </li>
             </ul>
           </section>
@@ -1483,67 +957,39 @@
       <!-- Ice -->
 
       <li class="listed-type">
-        <a href="#ice" class="type-link">
-          <span class="visually-hidden">Ice</span>
-        </a>
+        <a href="#ice" class="type-link" aria-label="Ice"></a>
         <article id="ice" class="type ice">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/ice.svg" class="icon" alt=""/>
-              <span class="type-name">Ice</span>
+              <img src="images/types/ice.svg" class="icon" alt="Ice">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label fighting">
-                  <img src="images/types/fighting.svg" class="icon" alt="">
-                  <span class="type-name">Fighting</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fighting">
+                <img src="images/types/fighting.svg" class="icon" alt="fighting">
               </li>
-              <li class="relationship">
-                <p class="type-label rock">
-                  <img src="images/types/rock.svg" class="icon" alt="">
-                  <span class="type-name">Rock</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship rock">
+                <img src="images/types/rock.svg" class="icon" alt="rock">
               </li>
-              <li class="relationship">
-                <p class="type-label steel">
-                  <img src="images/types/steel.svg" class="icon" alt="">
-                  <span class="type-name">Steel</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship steel">
+                <img src="images/types/steel.svg" class="icon" alt="steel">
               </li>
-              <li class="relationship">
-                <p class="type-label fire">
-                  <img src="images/types/fire.svg" class="icon" alt="">
-                  <span class="type-name">Fire</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fire">
+                <img src="images/types/fire.svg" class="icon" alt="fire">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label ice">
-                  <img src="images/types/ice.svg" class="icon" alt="">
-                  <span class="type-name">Ice</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ice">
+                <img src="images/types/ice.svg" class="icon" alt="ice">
               </li>
             </ul>
           </section>
@@ -1554,83 +1000,45 @@
       <!-- Dragon -->
 
       <li class="listed-type">
-        <a href="#dragon" class="type-link">
-          <span class="visually-hidden">Dragon</span>
-        </a>
+        <a href="#dragon" class="type-link" aria-label="Dragon"></a>
         <article id="dragon" class="type dragon">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/dragon.svg" class="icon" alt=""/>
-              <span class="type-name">Dragon</span>
+              <img src="images/types/dragon.svg" class="icon" alt="Dragon">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label fire">
-                  <img src="images/types/fire.svg" class="icon" alt="">
-                  <span class="type-name">Fire</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fire">
+                <img src="images/types/fire.svg" class="icon" alt="fire">
               </li>
-              <li class="relationship">
-                <p class="type-label water">
-                  <img src="images/types/water.svg" class="icon" alt="">
-                  <span class="type-name">Water</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship water">
+                <img src="images/types/water.svg" class="icon" alt="water">
               </li>
-              <li class="relationship">
-                <p class="type-label grass">
-                  <img src="images/types/grass.svg" class="icon" alt="">
-                  <span class="type-name">Grass</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship grass">
+                <img src="images/types/grass.svg" class="icon" alt="grass">
               </li>
-              <li class="relationship">
-                <p class="type-label electric">
-                  <img src="images/types/electric.svg" class="icon" alt="">
-                  <span class="type-name">Electric</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship electric">
+                <img src="images/types/electric.svg" class="icon" alt="electric">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label ice">
-                  <img src="images/types/ice.svg" class="icon" alt="">
-                  <span class="type-name">Ice</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ice">
+                <img src="images/types/ice.svg" class="icon" alt="ice">
               </li>
-              <li class="relationship">
-                <p class="type-label dragon">
-                  <img src="images/types/dragon.svg" class="icon" alt="">
-                  <span class="type-name">Dragon</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship dragon">
+                <img src="images/types/dragon.svg" class="icon" alt="dragon">
               </li>
-              <li class="relationship">
-                <p class="type-label fairy">
-                  <img src="images/types/fairy.svg" class="icon" alt="">
-                  <span class="type-name">Fairy</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fairy">
+                <img src="images/types/fairy.svg" class="icon" alt="fairy">
               </li>
             </ul>
           </section>
@@ -1641,75 +1049,42 @@
       <!-- Fairy -->
 
       <li class="listed-type">
-        <a href="#fairy" class="type-link">
-          <span class="visually-hidden">Fairy</span>
-        </a>
+        <a href="#fairy" class="type-link" aria-label="Fairy"></a>
         <article id="fairy" class="type fairy">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/fairy.svg" class="icon" alt=""/>
-              <span class="type-name">Fairy</span>
+              <img src="images/types/fairy.svg" class="icon" alt="Fairy">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label poison">
-                  <img src="images/types/poison.svg" class="icon" alt="">
-                  <span class="type-name">Poison</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship poison">
+                <img src="images/types/poison.svg" class="icon" alt="poison">
               </li>
-              <li class="relationship">
-                <p class="type-label steel">
-                  <img src="images/types/steel.svg" class="icon" alt="">
-                  <span class="type-name">Steel</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship steel">
+                <img src="images/types/steel.svg" class="icon" alt="steel">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship extra">
-                <p class="type-label dragon">
-                  <img src="images/types/dragon.svg" class="icon" alt="">
-                  <span class="type-name">Dragon</span>
-                </p>
-
-                <div class="indicator x"></div>
+              <li class="relationship extra dragon">
+                <img src="images/types/dragon.svg" class="icon" alt="dragon">
               </li>
-              <li class="relationship">
-                <p class="type-label fighting">
-                  <img src="images/types/fighting.svg" class="icon" alt="">
-                  <span class="type-name">Fighting</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fighting">
+                <img src="images/types/fighting.svg" class="icon" alt="fighting">
               </li>
-              <li class="relationship">
-                <p class="type-label bug">
-                  <img src="images/types/bug.svg" class="icon" alt="">
-                  <span class="type-name">Bug</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship bug">
+                <img src="images/types/bug.svg" class="icon" alt="bug">
               </li>
-              <li class="relationship">
-                <p class="type-label dark">
-                  <img src="images/types/dark.svg" class="icon" alt="">
-                  <span class="type-name">Dark</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship dark">
+                <img src="images/types/dark.svg" class="icon" alt="dark">
               </li>
             </ul>
           </section>
@@ -1720,75 +1095,42 @@
       <!-- Dark -->
 
       <li class="listed-type">
-        <a href="#dark" class="type-link">
-          <span class="visually-hidden">Dark</span>
-        </a>
+        <a href="#dark" class="type-link" aria-label="Dark"></a>
         <article id="dark" class="type dark">
-          <a href="#" aria-hidden="true" class="shield"><span class="visually-hidden">Home</span></a>
+          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
 
           <header>
             <h1 class="type-label">
-              <img src="images/types/dark.svg" class="icon" alt=""/>
-              <span class="type-name">Dark</span>
+              <img src="images/types/dark.svg" class="icon" alt="Dark">
             </h1>
           </header>
 
           <section class="relationship-section counters">
-            <h2 class="relationship-header">Good counters</h2>
+            <h2 class="relationship-header visually-hidden">Good counters</h2>
             <ul class="relationship-list">
-              <li class="relationship">
-                <p class="type-label fighting">
-                  <img src="images/types/fighting.svg" class="icon" alt="">
-                  <span class="type-name">Fighting</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fighting">
+                <img src="images/types/fighting.svg" class="icon" alt="fighting">
               </li>
-              <li class="relationship">
-                <p class="type-label bug">
-                  <img src="images/types/bug.svg" class="icon" alt="">
-                  <span class="type-name">Bug</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship bug">
+                <img src="images/types/bug.svg" class="icon" alt="bug">
               </li>
-              <li class="relationship">
-                <p class="type-label fairy">
-                  <img src="images/types/fairy.svg" class="icon" alt="">
-                  <span class="type-name">Fairy</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship fairy">
+                <img src="images/types/fairy.svg" class="icon" alt="fairy">
               </li>
             </ul>
           </section>
 
           <section class="relationship-section resistant">
-            <h2 class="relationship-header">Bad counters</h2>
+            <h2 class="relationship-header visually-hidden">Bad counters</h2>
             <ul class="relationship-list">
-              <li class="relationship extra">
-                <p class="type-label psychic">
-                  <img src="images/types/psychic.svg" class="icon" alt="">
-                  <span class="type-name">Psychic</span>
-                </p>
-
-                <div class="indicator x"></div>
+              <li class="relationship extra psychic">
+                <img src="images/types/psychic.svg" class="icon" alt="psychic">
               </li>
-              <li class="relationship">
-                <p class="type-label ghost">
-                  <img src="images/types/ghost.svg" class="icon" alt="">
-                  <span class="type-name">Ghost</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship ghost">
+                <img src="images/types/ghost.svg" class="icon" alt="ghost">
               </li>
-              <li class="relationship">
-                <p class="type-label dark">
-                  <img src="images/types/dark.svg" class="icon" alt="">
-                  <span class="type-name">Dark</span>
-                </p>
-
-                <div class="indicator triangle"></div>
+              <li class="relationship dark">
+                <img src="images/types/dark.svg" class="icon" alt="dark">
               </li>
             </ul>
           </section>
