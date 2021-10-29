@@ -23,6 +23,7 @@
       --c-shadow: #000000c9;
       --c-border: #888;
       --c-background: #000;
+      --c-background-off: #1c1c1c;
     }
 
     ul {
@@ -31,9 +32,6 @@
 
     * {
       box-sizing: border-box;
-    }
-
-    body, h1, h2, ul, li, p {
       margin: 0;
       padding: 0;
     }
@@ -55,18 +53,6 @@
 
     html {
       background-color: var(--c-background);
-    }
-
-    .shield {
-      display: none;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
-    }
-
-    .type:target > .shield {
-      display: block;
     }
 
     ul#list {
@@ -92,67 +78,48 @@
       border-radius: 50%;
     }
 
-    .type-link {
-      display: block;
-      position: absolute;
-      z-index: 1;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-    }
-
     .type {
       position: relative;
       width: 60px;
       height: 60px;
       border-radius: 50%;
       box-sizing: content-box;
-      transform: scale(1);
-      transition: transform 200ms;
-      border: 3px solid var(--c-type);
     }
 
-    .type:target {
+    .type[open] {
       z-index: 2;
-      transform: scale(1.1);
       box-shadow: 0 0 20px 100vh var(--c-shadow);
     }
 
-    .type-link:active + .type {
+    .type:active summary {
       transform: scale(0.9);
     }
 
-    .type header {
+    .type summary {
       position: relative;
       z-index: 1;
-      background-color: var(--c-background);
+      background-color: var(--c-background-off);
       height: 100%;
       border-radius: 50%;
-      box-shadow: 0 0 10px var(--c-type), inset 0 0 10px var(--c-type)
+      box-shadow: 0 0 10px var(--c-type), inset 0 0 10px var(--c-type);
+      border: 3px solid var(--c-type);
+      background-image: var(--img);
+      list-style: none;
+      transition: transform 50ms;
+      transform: scale(1);
     }
 
-    .type > .type-label {
-      width: 60px;
-      height: 60px;
-    }
-
-    .type .type-name {
-      /* Fix me */
+    .type summary::-webkit-details-marker {
       display: none;
-    }
-
-    .relationship-section {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
     }
 
     .relationship-list {
       --direction: 1;
       --offset: 0;
 
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
     }
@@ -264,74 +231,63 @@
       --row-transform: 50%;
 
       position: absolute;
-      transform-origin: bottom center;
+      transform-origin: left center;
       left: 50%;
-      transform: translateX(-50%) rotate(var(--angle)) translateY(var(--row-transform));
-      transition: transform 250ms;
+      top: 50%;
       will-change: transform;
       height: 30px;
       width: 30px;
-      /* list-style: inside var(--img); */
-      background-image: var(--img);
+      list-style: outside var(--triangle);
+      font-size: 1.5rem;
+      line-height: 20px;
       border: 2px solid var(--c-type);
-      background-color: var(--c-background);
+      background-color: var(--c-background-off);
       border-radius: 50%;
-    }
-
-    .type:target .relationship {
-      --row-transform: calc(var(--row) * -52px);
-      transition-delay: calc(75ms * (var(--row) - 1));
-    }
-
-    .relationship .icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      z-index: 1;
-    }
-
-    .relationship::marker {
-      transform: rotate(calc(-1 * var(--angle)));
-      border: 2px solid var(--c-type);
-      background-color: var(--c-background);
-      border-radius: 50%;
+      transform: translateY(-50%) rotate(var(--angle)) rotate(-90deg) scaleY(-1);
     }
 
     .relationship::after {
       content: ' ';
       position: absolute;
-      background-color: var(--fill);
-      -webkit-mask: url(/images/triangle.svg) no-repeat center;
-      mask: url(/images/triangle.svg) no-repeat center;
-      width: 10px;
-      height: 10px;
-      left: 10px;
-      transform: rotate(180deg);
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background-image: var(--img);
+      transform: scaleY(-1) rotate(calc(90deg + -1 * var(--angle)));
     }
 
-    .relationship.extra::after {
-      background-color: var(--fill);
-      -webkit-mask: url(/images/x.svg) no-repeat center;
-      mask: url(/images/x.svg) no-repeat center;
+    .relationship.extra {
+      list-style-image: var(--extra);
     }
 
-    .type:target .relationship::after {
-      margin-top: 35px;
+    .relationship.animate {
+      animation: springout 150ms;
+      animation-fill-mode: both;
+      animation-delay: calc(75ms * (var(--row) - 1));
+    }
+
+    @keyframes springout {
+      from {
+        transform: translateY(-50%) rotate(var(--angle)) rotate(-90deg) scaleY(-1);
+      }
+
+      to {
+        transform: translateY(-50%) rotate(var(--angle)) translateY(calc(var(--row) * -60px)) rotate(-90deg) scaleY(-1);;
+      }
     }
 
     .counters {
       --fill: #1cb91c;
+      --triangle: url('data:image/svg+xml;utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"%3E%3Cpath stroke="%231cb91c" fill="%231cb91c" stroke-linejoin="round" stroke-width="8px" transform="rotate(-90, 25, 25)" d="M 24 4 L 43 37 L 5 37 z" /%3E%3C/svg%3E');
       --row: 1;
     }
 
     .resistant {
       --fill: #e72323;
+      --triangle: url('data:image/svg+xml;utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"%3E%3Cpath stroke="%23e72323" fill="%23e72323" stroke-linejoin="round" stroke-width="8px" transform="rotate(-90, 25, 25)" d="M 24 4 L 43 37 L 5 37 z" /%3E%3C/svg%3E');
+      --extra: url('data:image/svg+xml;utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"%3E%3Cline x1="4" y1="4" x2="46" y2="46" stroke="%23e72323" stroke-linecap="round" stroke-width="15px"/%3E%3Cline x1="46" y1="4" x2="4" y2="46" stroke="%23e72323" stroke-linecap="round" stroke-width="15px"/%3E%3C/svg%3E');
       --row: 2;
-    }
-
-    .icon {
-      width: 100%;
-      height: 100%;
     }
   </style>
 </head>
@@ -343,79 +299,61 @@
       <!-- Normal -->
 
       <li class="listed-type">
-        <a href="#normal" class="type-link" aria-label="Normal"></a>
-        <article id="normal" class="type normal">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="normal" class="type normal">
+          <summary>
+            <h2 class="visually-hidden">Normal</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/normal.svg" class="icon" alt="Normal">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship fighting">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate fighting">
                 <span class="visually-hidden">fighting</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship extra ghost">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate extra ghost">
                 <span class="visually-hidden">ghost</span>
               </li>
             </ul>
-          </section>
-        </article>
+        </details>
       </li>
 
 
       <!-- Fighting -->
 
       <li class="listed-type">
-        <a href="#fighting" class="type-link" aria-label="Fighting"></a>
-        <article id="fighting" class="type fighting">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="fighting" class="type fighting">
+          <summary>
+            <h2 class="visually-hidden">Fighting</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/fighting.svg" class="icon" alt="Fighting">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship flying">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate flying">
                 <span class="visually-hidden">flying</span>
               </li>
-              <li class="relationship psychic">
+              <li class="relationship animate psychic">
                 <span class="visually-hidden">psychic</span>
               </li>
-              <li class="relationship fairy">
+              <li class="relationship animate fairy">
                 <span class="visually-hidden">fairy</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship rock">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate rock">
                 <span class="visually-hidden">rock</span>
               </li>
-              <li class="relationship bug">
+              <li class="relationship animate bug">
                 <span class="visually-hidden">bug</span>
               </li>
-              <li class="relationship dark">
+              <li class="relationship animate dark">
                 <span class="visually-hidden">dark</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -423,48 +361,39 @@
       <!-- Flying -->
 
       <li class="listed-type">
-        <a href="#flying" class="type-link" aria-label="Flying"></a>
-        <article id="flying" class="type flying">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="flying" class="type flying">
+          <summary>
+            <h2 class="visually-hidden">Flying</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/flying.svg" class="icon" alt="Flying">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship rock">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate rock">
                 <span class="visually-hidden">rock</span>
               </li>
-              <li class="relationship electric">
+              <li class="relationship animate electric">
                 <span class="visually-hidden">electric</span>
               </li>
-              <li class="relationship ice">
+              <li class="relationship animate ice">
                 <span class="visually-hidden">ice</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship extra ground">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate extra ground">
                 <span class="visually-hidden">ground</span>
               </li>
-              <li class="relationship fighting">
+              <li class="relationship animate fighting">
                 <span class="visually-hidden">fighting</span>
               </li>
-              <li class="relationship bug">
+              <li class="relationship animate bug">
                 <span class="visually-hidden">bug</span>
               </li>
-              <li class="relationship grass">
+              <li class="relationship animate grass">
                 <span class="visually-hidden">grass</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -472,45 +401,36 @@
       <!-- Poison -->
 
       <li class="listed-type">
-        <a href="#poison" class="type-link" aria-label="Poison"></a>
-        <article id="poison" class="type poison">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="poison" class="type poison">
+          <summary>
+            <h2 class="visually-hidden">Poison</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/poison.svg" class="icon" alt="Poison">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship ground">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate ground">
                 <span class="visually-hidden">ground</span>
               </li>
-              <li class="relationship psychic">
+              <li class="relationship animate psychic">
                 <span class="visually-hidden">psychic</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship fighting">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate fighting">
                 <span class="visually-hidden">fighting</span>
               </li>
-              <li class="relationship poison">
+              <li class="relationship animate poison">
                 <span class="visually-hidden">poison</span>
               </li>
-              <li class="relationship grass">
+              <li class="relationship animate grass">
                 <span class="visually-hidden">grass</span>
               </li>
-              <li class="relationship fairy">
+              <li class="relationship animate fairy">
                 <span class="visually-hidden">fairy</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -518,45 +438,36 @@
       <!-- Ground -->
 
       <li class="listed-type">
-        <a href="#ground" class="type-link" aria-label="Ground"></a>
-        <article id="ground" class="type ground">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="ground" class="type ground">
+          <summary>
+            <h2 class="visually-hidden">Ground</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/ground.svg" class="icon" alt="Ground">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship water">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate water">
                 <span class="visually-hidden">water</span>
               </li>
-              <li class="relationship grass">
+              <li class="relationship animate grass">
                 <span class="visually-hidden">grass</span>
               </li>
-              <li class="relationship ice">
+              <li class="relationship animate ice">
                 <span class="visually-hidden">ice</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship extra electric">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate extra electric">
                 <span class="visually-hidden">electric</span>
               </li>
-              <li class="relationship poison">
+              <li class="relationship animate poison">
                 <span class="visually-hidden">poison</span>
               </li>
-              <li class="relationship rock">
+              <li class="relationship animate rock">
                 <span class="visually-hidden">rock</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -564,54 +475,45 @@
       <!-- Rock -->
 
       <li class="listed-type">
-        <a href="#rock" class="type-link" aria-label="Rock"></a>
-        <article id="rock" class="type rock">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="rock" class="type rock">
+          <summary>
+            <h2 class="visually-hidden">Rock</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/rock.svg" class="icon" alt="Rock">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship fighting">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate fighting">
                 <span class="visually-hidden">fighting</span>
               </li>
-              <li class="relationship ground">
+              <li class="relationship animate ground">
                 <span class="visually-hidden">ground</span>
               </li>
-              <li class="relationship steel">
+              <li class="relationship animate steel">
                 <span class="visually-hidden">steel</span>
               </li>
-              <li class="relationship water">
+              <li class="relationship animate water">
                 <span class="visually-hidden">water</span>
               </li>
-              <li class="relationship grass">
+              <li class="relationship animate grass">
                 <span class="visually-hidden">grass</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship normal">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate normal">
                 <span class="visually-hidden">normal</span>
               </li>
-              <li class="relationship flying">
+              <li class="relationship animate flying">
                 <span class="visually-hidden">flying</span>
               </li>
-              <li class="relationship poison">
+              <li class="relationship animate poison">
                 <span class="visually-hidden">poison</span>
               </li>
-              <li class="relationship fire">
+              <li class="relationship animate fire">
                 <span class="visually-hidden">fire</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -619,45 +521,36 @@
       <!-- Bug -->
 
       <li class="listed-type">
-        <a href="#bug" class="type-link" aria-label="Bug"></a>
-        <article id="bug" class="type bug">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="bug" class="type bug">
+          <summary>
+            <h2 class="visually-hidden">Bug</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/bug.svg" class="icon" alt="Bug">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship flying">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate flying">
                 <span class="visually-hidden">flying</span>
               </li>
-              <li class="relationship rock">
+              <li class="relationship animate rock">
                 <span class="visually-hidden">rock</span>
               </li>
-              <li class="relationship fire">
+              <li class="relationship animate fire">
                 <span class="visually-hidden">fire</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship fighting">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate fighting">
                 <span class="visually-hidden">fighting</span>
               </li>
-              <li class="relationship ground">
+              <li class="relationship animate ground">
                 <span class="visually-hidden">ground</span>
               </li>
-              <li class="relationship grass">
+              <li class="relationship animate grass">
                 <span class="visually-hidden">grass</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -665,45 +558,36 @@
       <!-- Ghost -->
 
       <li class="listed-type">
-        <a href="#ghost" class="type-link" aria-label="Ghost"></a>
-        <article id="ghost" class="type ghost">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="ghost" class="type ghost">
+          <summary>
+            <h2 class="visually-hidden">Ghost</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/ghost.svg" class="icon" alt="Ghost">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship ghost">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate ghost">
                 <span class="visually-hidden">ghost</span>
               </li>
-              <li class="relationship dark">
+              <li class="relationship animate dark">
                 <span class="visually-hidden">dark</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship extra normal">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate extra normal">
                 <span class="visually-hidden">normal</span>
               </li>
-              <li class="relationship extra fighting">
+              <li class="relationship animate extra fighting">
                 <span class="visually-hidden">fighting</span>
               </li>
-              <li class="relationship poison">
+              <li class="relationship animate poison">
                 <span class="visually-hidden">poison</span>
               </li>
-              <li class="relationship bug">
+              <li class="relationship animate bug">
                 <span class="visually-hidden">bug</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -711,69 +595,60 @@
       <!-- Steel -->
 
       <li class="listed-type">
-        <a href="#steel" class="type-link" aria-label="Steel"></a>
-        <article id="steel" class="type steel">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="steel" class="type steel">
+          <summary>
+            <h2 class="visually-hidden">Steel</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/steel.svg" class="icon" alt="Steel">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship fighting">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate fighting">
                 <span class="visually-hidden">fighting</span>
               </li>
-              <li class="relationship ground">
+              <li class="relationship animate ground">
                 <span class="visually-hidden">ground</span>
               </li>
-              <li class="relationship fire">
+              <li class="relationship animate fire">
                 <span class="visually-hidden">fire</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship extra poison">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate extra poison">
                 <span class="visually-hidden">poison</span>
               </li>
-              <li class="relationship normal">
+              <li class="relationship animate normal">
                 <span class="visually-hidden">normal</span>
               </li>
-              <li class="relationship flying">
+              <li class="relationship animate flying">
                 <span class="visually-hidden">flying</span>
               </li>
-              <li class="relationship rock">
+              <li class="relationship animate rock">
                 <span class="visually-hidden">rock</span>
               </li>
-              <li class="relationship bug">
+              <li class="relationship animate bug">
                 <span class="visually-hidden">bug</span>
               </li>
-              <li class="relationship steel">
+              <li class="relationship animate steel">
                 <span class="visually-hidden">steel</span>
               </li>
-              <li class="relationship grass">
+              <li class="relationship animate grass">
                 <span class="visually-hidden">grass</span>
               </li>
-              <li class="relationship psychic">
+              <li class="relationship animate psychic">
                 <span class="visually-hidden">psychic</span>
               </li>
-              <li class="relationship ice">
+              <li class="relationship animate ice">
                 <span class="visually-hidden">ice</span>
               </li>
-              <li class="relationship dragon">
+              <li class="relationship animate dragon">
                 <span class="visually-hidden">dragon</span>
               </li>
-              <li class="relationship fairy">
+              <li class="relationship animate fairy">
                 <span class="visually-hidden">fairy</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -781,54 +656,45 @@
       <!-- Fire -->
 
       <li class="listed-type">
-        <a href="#fire" class="type-link" aria-label="Fire"></a>
-        <article id="fire" class="type fire">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="fire" class="type fire">
+          <summary>
+            <h2 class="visually-hidden">Fire</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/fire.svg" class="icon" alt="Fire">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship ground">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate ground">
                 <span class="visually-hidden">ground</span>
               </li>
-              <li class="relationship rock">
+              <li class="relationship animate rock">
                 <span class="visually-hidden">rock</span>
               </li>
-              <li class="relationship water">
+              <li class="relationship animate water">
                 <span class="visually-hidden">water</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship bug">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate bug">
                 <span class="visually-hidden">bug</span>
               </li>
-              <li class="relationship steel">
+              <li class="relationship animate steel">
                 <span class="visually-hidden">steel</span>
               </li>
-              <li class="relationship fire">
+              <li class="relationship animate fire">
                 <span class="visually-hidden">fire</span>
               </li>
-              <li class="relationship grass">
+              <li class="relationship animate grass">
                 <span class="visually-hidden">grass</span>
               </li>
-              <li class="relationship ice">
+              <li class="relationship animate ice">
                 <span class="visually-hidden">ice</span>
               </li>
-              <li class="relationship fairy">
+              <li class="relationship animate fairy">
                 <span class="visually-hidden">fairy</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -836,45 +702,36 @@
       <!-- Water -->
 
       <li class="listed-type">
-        <a href="#water" class="type-link" aria-label="Water"></a>
-        <article id="water" class="type water">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="water" class="type water">
+          <summary>
+            <h2 class="visually-hidden">Water</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/water.svg" class="icon" alt="Water">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship grass">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate grass">
                 <span class="visually-hidden">grass</span>
               </li>
-              <li class="relationship electric">
+              <li class="relationship animate electric">
                 <span class="visually-hidden">electric</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship steel">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate steel">
                 <span class="visually-hidden">steel</span>
               </li>
-              <li class="relationship fire">
+              <li class="relationship animate fire">
                 <span class="visually-hidden">fire</span>
               </li>
-              <li class="relationship water">
+              <li class="relationship animate water">
                 <span class="visually-hidden">water</span>
               </li>
-              <li class="relationship ice">
+              <li class="relationship animate ice">
                 <span class="visually-hidden">ice</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -882,54 +739,45 @@
       <!-- Grass -->
 
       <li class="listed-type">
-        <a href="#grass" class="type-link" aria-label="Grass"></a>
-        <article id="grass" class="type grass">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="grass" class="type grass">
+          <summary>
+            <h2 class="visually-hidden">Grass</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/grass.svg" class="icon" alt="Grass">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship flying">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate flying">
                 <span class="visually-hidden">flying</span>
               </li>
-              <li class="relationship poison">
+              <li class="relationship animate poison">
                 <span class="visually-hidden">poison</span>
               </li>
-              <li class="relationship bug">
+              <li class="relationship animate bug">
                 <span class="visually-hidden">bug</span>
               </li>
-              <li class="relationship fire">
+              <li class="relationship animate fire">
                 <span class="visually-hidden">fire</span>
               </li>
-              <li class="relationship ice">
+              <li class="relationship animate ice">
                 <span class="visually-hidden">ice</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship ground">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate ground">
                 <span class="visually-hidden">ground</span>
               </li>
-              <li class="relationship water">
+              <li class="relationship animate water">
                 <span class="visually-hidden">water</span>
               </li>
-              <li class="relationship grass">
+              <li class="relationship animate grass">
                 <span class="visually-hidden">grass</span>
               </li>
-              <li class="relationship electric">
+              <li class="relationship animate electric">
                 <span class="visually-hidden">electric</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -937,39 +785,30 @@
       <!-- Electric -->
 
       <li class="listed-type">
-        <a href="#electric" class="type-link" aria-label="Electric"></a>
-        <article id="electric" class="type electric">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="electric" class="type electric">
+          <summary>
+            <h2 class="visually-hidden">Electric</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/electric.svg" class="icon" alt="Electric">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship ground">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate ground">
                 <span class="visually-hidden">ground</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship flying">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate flying">
                 <span class="visually-hidden">flying</span>
               </li>
-              <li class="relationship steel">
+              <li class="relationship animate steel">
                 <span class="visually-hidden">steel</span>
               </li>
-              <li class="relationship electric">
+              <li class="relationship animate electric">
                 <span class="visually-hidden">electric</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -977,42 +816,33 @@
       <!-- Psychic -->
 
       <li class="listed-type">
-        <a href="#psychic" class="type-link" aria-label="Psychic"></a>
-        <article id="psychic" class="type psychic">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="psychic" class="type psychic">
+          <summary>
+            <h2 class="visually-hidden">Psychic</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/psychic.svg" class="icon" alt="Psychic">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship bug">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate bug">
                 <span class="visually-hidden">bug</span>
               </li>
-              <li class="relationship ghost">
+              <li class="relationship animate ghost">
                 <span class="visually-hidden">ghost</span>
               </li>
-              <li class="relationship dark">
+              <li class="relationship animate dark">
                 <span class="visually-hidden">dark</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship fighting">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate fighting">
                 <span class="visually-hidden">fighting</span>
               </li>
-              <li class="relationship psychic">
+              <li class="relationship animate psychic">
                 <span class="visually-hidden">psychic</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -1020,42 +850,33 @@
       <!-- Ice -->
 
       <li class="listed-type">
-        <a href="#ice" class="type-link" aria-label="Ice"></a>
-        <article id="ice" class="type ice">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="ice" class="type ice">
+          <summary>
+            <h2 class="visually-hidden">Ice</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/ice.svg" class="icon" alt="Ice">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship fighting">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate fighting">
                 <span class="visually-hidden">fighting</span>
               </li>
-              <li class="relationship rock">
+              <li class="relationship animate rock">
                 <span class="visually-hidden">rock</span>
               </li>
-              <li class="relationship steel">
+              <li class="relationship animate steel">
                 <span class="visually-hidden">steel</span>
               </li>
-              <li class="relationship fire">
+              <li class="relationship animate fire">
                 <span class="visually-hidden">fire</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship ice">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate ice">
                 <span class="visually-hidden">ice</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -1063,48 +884,39 @@
       <!-- Dragon -->
 
       <li class="listed-type">
-        <a href="#dragon" class="type-link" aria-label="Dragon"></a>
-        <article id="dragon" class="type dragon">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="dragon" class="type dragon">
+          <summary>
+            <h2 class="visually-hidden">Dragon</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/dragon.svg" class="icon" alt="Dragon">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship ice">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate ice">
                 <span class="visually-hidden">ice</span>
               </li>
-              <li class="relationship dragon">
+              <li class="relationship animate dragon">
                 <span class="visually-hidden">dragon</span>
               </li>
-              <li class="relationship fairy">
+              <li class="relationship animate fairy">
                 <span class="visually-hidden">fairy</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship fire">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate fire">
                 <span class="visually-hidden">fire</span>
               </li>
-              <li class="relationship water">
+              <li class="relationship animate water">
                 <span class="visually-hidden">water</span>
               </li>
-              <li class="relationship grass">
+              <li class="relationship animate grass">
                 <span class="visually-hidden">grass</span>
               </li>
-              <li class="relationship electric">
+              <li class="relationship animate electric">
                 <span class="visually-hidden">electric</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -1112,45 +924,36 @@
       <!-- Fairy -->
 
       <li class="listed-type">
-        <a href="#fairy" class="type-link" aria-label="Fairy"></a>
-        <article id="fairy" class="type fairy">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="fairy" class="type fairy">
+          <summary>
+            <h2 class="visually-hidden">Fairy</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/fairy.svg" class="icon" alt="Fairy">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship poison">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate poison">
                 <span class="visually-hidden">poison</span>
               </li>
-              <li class="relationship steel">
+              <li class="relationship animate steel">
                 <span class="visually-hidden">steel</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship extra dragon">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate extra dragon">
                 <span class="visually-hidden">dragon</span>
               </li>
-              <li class="relationship fighting">
+              <li class="relationship animate fighting">
                 <span class="visually-hidden">fighting</span>
               </li>
-              <li class="relationship bug">
+              <li class="relationship animate bug">
                 <span class="visually-hidden">bug</span>
               </li>
-              <li class="relationship dark">
+              <li class="relationship animate dark">
                 <span class="visually-hidden">dark</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
 
@@ -1158,48 +961,71 @@
       <!-- Dark -->
 
       <li class="listed-type">
-        <a href="#dark" class="type-link" aria-label="Dark"></a>
-        <article id="dark" class="type dark">
-          <a href="#" aria-hidden="true" class="shield" aria-label="Home"></a>
+        <details id="dark" class="type dark">
+          <summary>
+            <h2 class="visually-hidden">Dark</h2>
+          </summary>
 
-          <header>
-            <h1 class="type-label">
-              <img src="images/types/dark.svg" class="icon" alt="Dark">
-            </h1>
-          </header>
-
-          <section class="relationship-section counters">
-            <h2 class="relationship-header visually-hidden">Good counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship fighting">
+          <h3 class="visually-hidden">Good counters</h3>
+            <ul class="relationship-list counters">
+              <li class="relationship animate fighting">
                 <span class="visually-hidden">fighting</span>
               </li>
-              <li class="relationship bug">
+              <li class="relationship animate bug">
                 <span class="visually-hidden">bug</span>
               </li>
-              <li class="relationship fairy">
+              <li class="relationship animate fairy">
                 <span class="visually-hidden">fairy</span>
               </li>
             </ul>
-          </section>
 
-          <section class="relationship-section resistant">
-            <h2 class="relationship-header visually-hidden">Bad counters</h2>
-            <ul class="relationship-list">
-              <li class="relationship extra psychic">
+            <h3 class="visually-hidden">Bad counters</h3>
+            <ul class="relationship-list resistant">
+              <li class="relationship animate extra psychic">
                 <span class="visually-hidden">psychic</span>
               </li>
-              <li class="relationship ghost">
+              <li class="relationship animate ghost">
                 <span class="visually-hidden">ghost</span>
               </li>
-              <li class="relationship dark">
+              <li class="relationship animate dark">
                 <span class="visually-hidden">dark</span>
               </li>
             </ul>
-          </section>
         </article>
       </li>
     </ul>
   </main>
+
+  <script>
+    const details = document.querySelectorAll('details');
+
+    details.forEach(function (detail) {
+      const relationships = detail.querySelectorAll('.relationship');
+      detail.addEventListener('toggle', function () {
+        const reanimate = function () {
+          relationships.forEach(function (relationship) {
+            if (detail.hasAttribute('open')) {
+              relationship.classList.remove('animate');
+            } else {
+              relationship.classList.add('animate');
+            }
+          });
+        };
+        detail.addEventListener('mousedown', reanimate);
+        detail.addEventListener('keydown', function (evt) {
+          console.log(evt);
+          if (evt.code !== 'Space' && evt.code !== 'Enter') { return; }
+          reanimate();
+        });
+      }, { once: true });
+    });
+
+    document.addEventListener('click', function (evt) {
+      details.forEach(function (detail) {
+        if (evt.target.parentNode === detail) { return; }
+        detail.removeAttribute('open');
+      });
+    });
+  </script>
 </body>
 </html>
